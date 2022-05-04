@@ -16,7 +16,7 @@ const IndividualHabit = (props) => {
           width="100%"
         >
           <Text pl="3">{props.goal}</Text>
-          <Checkbox pr="3" colorScheme="green" defaultUnchecked />
+          <Checkbox pr="3" colorScheme="green" defaultunchecked="true" />
         </Box>
         <Button
           colorScheme="red"
