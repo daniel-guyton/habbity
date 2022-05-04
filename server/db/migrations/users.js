@@ -4,9 +4,11 @@
  */
 exports.up = function (knex) {
   return knex.schema.createTable('users', (table) => {
-    table.string('auth0_id').primary()
-    table.string('days completed')
-    table.string('goal')
+    table.increments('id')
+    table.string('username')
+    table.string('email')
+    table.string('auth0')
+    table.integer('points')
   })
 }
 

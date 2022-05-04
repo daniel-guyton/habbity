@@ -5,6 +5,7 @@ const db = require('../db/db')
 const router = express.Router()
 
 router.get('/', (req, res) => {
+  console.log(`router.get for getHabits was called`)
   db.getHabits()
     .then((habits) => {
       return res.json(habits)
