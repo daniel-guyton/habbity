@@ -1,15 +1,21 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
+import { render } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
+import { ChakraProvider } from '@chakra-ui/provider'
 // import { Provider } from 'react-redux'
 
 // import store from './store'
 import App from './components/App'
 
-ReactDOM.createRoot(document.getElementById('app')).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
-)
+document.addEventListener('DOMContentLoaded', () => {
+  render(
+    <React.StrictMode>
+      <ChakraProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ChakraProvider>
+    </React.StrictMode>,
+    document.getElementById('app')
+  )
+})
