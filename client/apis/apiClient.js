@@ -1,6 +1,6 @@
 import request from 'superagent'
 
-const rootUrl = '/api/v1'
+const rootUrl = '/api/v1/habits'
 
 export function getHabits() {
   return request.get(rootUrl + '/habits').then((res) => {
@@ -8,7 +8,7 @@ export function getHabits() {
   })
 }
 
-export function addNewHabits(newhabits) {
+export function addHabits(newhabits) {
   return request
     .post(rootUrl + '/habits')
     .send({ newhabits })
