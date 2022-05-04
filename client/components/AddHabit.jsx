@@ -52,7 +52,7 @@ const AddHabit = (props) =>  {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="green" onClick={() => handleAddItem() }>
+            <Button colorScheme="green" onClick={handleAddItem}>
               Add
             </Button>
           </ModalFooter>
