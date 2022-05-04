@@ -5,12 +5,13 @@ import {
   Text,
   useColorModeValue
 } from '@chakra-ui/react'
-import {AddIcon } from '@chakra-ui/icons'
 import IndividualHabit from './IndividualHabit'
+import AddHabit from './AddHabit'
 // import AchievedHabits from './AchievedHabits'
 const Habits = () => {  
   const primaryBgColor = useColorModeValue('gray.100', 'gray.800')
   const primaryFontColor = useColorModeValue('#333', 'white')
+  
   const goals = [{
     goal: 'Go to sleep'
   }, {
@@ -41,21 +42,7 @@ const Habits = () => {
         {goals.map(({ goal }, idx) => {
           return <IndividualHabit key={idx} goal={goal} />
         })}
-        <Box
-          fontSize={14}
-          display="flex"
-          alignItems="center"
-          position="absolute"
-          bottom={0}
-          right={0}
-          p="6"
-          cursor="pointer"
-        >
-          <Text as="span" pr={2}>
-            Add Item
-          </Text>
-          <AddIcon />
-        </Box>
+        <AddHabit />
       </Box>
       <Box
         flexGrow={1}
