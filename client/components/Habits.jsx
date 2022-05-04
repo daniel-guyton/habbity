@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {
   Box,
   Flex,
@@ -11,7 +11,7 @@ import AddHabit from './AddHabit'
 const Habits = () => {  
   const primaryBgColor = useColorModeValue('gray.100', 'gray.800')
   const primaryFontColor = useColorModeValue('#333', 'white')
-  const [goals, setGoals] = React.useState([{goal: 'Go to sleep'}, {goal: 'Brush teeth'}])
+  const [goals, setGoals] = useState([{goal: 'Go to sleep'}, {goal: 'Brush teeth'}])
 
 
   return (
