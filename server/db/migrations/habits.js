@@ -7,7 +7,7 @@ exports.up = async function (knex) {
   return knex.schema.createTable('habits', (table) => {
     table.increments()
     table.string('name')
-    table.string('points')
+    table.integer('points')
   })
 }
 
