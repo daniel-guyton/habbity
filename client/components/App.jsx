@@ -2,7 +2,9 @@ import React, { useEffect } from 'react'
 // import AddTodo from './AddTodo'
 import SidebarWithHeader from './SidebarWithHeader'
 import Habits from './Habits'
-import { ChakraProvider } from '@chakra-ui/react'
+import {ChakraProvider} from '@chakra-ui/react'
+
+
 function App() {
   useEffect(() => {}, [])
 
@@ -15,11 +17,11 @@ function App() {
     //   <section className="main"></section>
     //   <footer className="footer"></footer>
     // </>
-    <ChakraProvider>
-      <SidebarWithHeader>
-        <Habits />
-      </SidebarWithHeader>
-    </ChakraProvider>
+      <ChakraProvider>
+        <SidebarWithHeader>
+          <Habits />
+        </SidebarWithHeader>
+      </ChakraProvider>
   )
 }
 
