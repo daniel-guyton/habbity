@@ -4,6 +4,27 @@ const path = require('path')
 const server = express()
 
 server.use(express.json())
-server.use(express.static(path.join(__dirname, 'public')))
+server.use(express.static(path.join(__dirname, '../dist')))
+
+server.get('/api', (req, res) => {
+  res.json({ message: 'Hello World!' })
+})
+
+server.get('*', (req, res) => {
+  try {
+    const html = fs.readFileSync(
+      path.resolve(__dirname, '../dist/index.html'),
+      'utf8'
+    )
+    res.send(html)
+  } catch (err) {
+    if (err.message.includes('no such file or directory')) {
+      return res
+        .status(404)
+        .send('dist folder not found, try running `npm run build`')
+    }
+    return res.status(500).send('something went wrong')
+  }
+})
 
 module.exports = server
