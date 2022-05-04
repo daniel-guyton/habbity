@@ -23,7 +23,6 @@ import {
 import {
   FiHome,
   FiTrendingUp,
-  FiCompass,
   FiSettings,
   FiMenu,
   FiChevronDown,
