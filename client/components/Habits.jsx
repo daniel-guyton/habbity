@@ -11,12 +11,8 @@ import AddHabit from './AddHabit'
 const Habits = () => {  
   const primaryBgColor = useColorModeValue('gray.100', 'gray.800')
   const primaryFontColor = useColorModeValue('#333', 'white')
-  
-  const goals = [{
-    goal: 'Go to sleep'
-  }, {
-    goal: 'Brush teeth'
-  }]
+  const [goals, setGoals] = React.useState([{goal: 'Go to sleep'}, {goal: 'Brush teeth'}])
+
 
   return (
     <Flex width="100%" flexWrap="wrap" color={primaryFontColor}>
@@ -33,16 +29,21 @@ const Habits = () => {
         position="relative"
         borderTop="4px"
         borderTopColor="green.300"
-        
       >
-        <Text pb="1" as="span" borderColor="green.200" fontWeight={500} fontSize="18px">
+        <Text
+          pb="1"
+          as="span"
+          borderColor="green.200"
+          fontWeight={500}
+          fontSize="18px"
+        >
           In Progress
         </Text>
 
         {goals.map(({ goal }, idx) => {
           return <IndividualHabit key={idx} goal={goal} />
         })}
-        <AddHabit />
+        <AddHabit setGoals={setGoals} />
       </Box>
       <Box
         flexGrow={1}
