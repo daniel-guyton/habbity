@@ -41,7 +41,6 @@ describe('GET /api/v1/habits', () => {
       return request(server)
       .get('/api/v1/habits')
       .then((res) => {
-        console.log(res.body)
         expect(res.status).toBe(500)
         
         expect(res.text).toContain('Failed to fetch habits TT_TT')

@@ -28,10 +28,19 @@ router.post('/', (req, res) => {
   })
 })
 
-// router.patch('/:id', (req, res) => {
-  
-//   const id = req.params.id
-//   const updatedHabit = req
+router.get('/:id', (req, res) => {  
+  const id = req.params.id
+  db.getOneHabit(id)
+  .then((habit) => {
+    return res.json({habits: habit})
+  })   
+  .catch((err) => {
+    console.log(err)
+    res.status(500).send({ message: 'Failed to get one habit DX' })
+  })
 
-// })
+})
 module.exports = router
+
+
+

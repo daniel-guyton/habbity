@@ -15,12 +15,13 @@ function getHabits(db = connection) {
 }
 
 function getOneHabit(id, db = connection) {
+  console.log('db reached')
   return db('habits').select().where('id', id).first()
 }
 
 function addHabits(newHabit, db = connection) {
   const { daysCompleted, goal } = newHabit
-  return db(`habits`)
+  return db('habits')
     .insert({ daysCompleted, goal })
     .then(([id]) => {
       return { id, daysCompleted, goal }
