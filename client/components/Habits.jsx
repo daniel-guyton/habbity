@@ -16,7 +16,7 @@ const Habits = () => {
   const [goals, setGoals] = useState([
     { goal: 'Go to sleep', status: 'progress', timestamp: 1651942639000, days: 2 },
     {
-      goal: 'Brush teeth',
+      goal: 'Wake up earlier',
       status: 'failed',
       timestamp: 1651371062000,
       days: 6,
@@ -53,14 +53,14 @@ const Habits = () => {
   function checkFailedHabit(goal, index) {
     const lastUpdated = goal.timestamp
     const currentDate = Date.now()
-    console.log(goal)
+    // console.log(goal)
     const daysPast = (currentDate - lastUpdated) / ( 60 * 60 * 24 * 1000 )
-    console.log(daysPast)
+    // console.log(daysPast)
     
     
     if(daysPast > 2 && goal.status == 'progress') {
     
-      console.log(goal)
+      // console.log(goal)
       const updatedArray = goals.map((goal, i) => {
         if (i === index) {
             return {
@@ -86,19 +86,24 @@ const Habits = () => {
         setGoals={setGoals}
       >
         {progressArray.map(({ goal }, idx) => {
-          return <IndividualHabit key={idx} goal={goal} />
+          return <IndividualHabit key={idx} goal={goal} status="progress" />
         })}
       </HabitBox>
       <HabitBox
         name="Completed"
         length={completedArray.length}
         setGoals={setGoals}
+        
       >
         {completedArray.map(({ goal }, idx) => {
           return <IndividualHabit key={idx} goal={goal} />
         })}
       </HabitBox>
-      <HabitBox name="Failed" length={failedArray.length} setGoals={setGoals}>
+      <HabitBox
+        name="Failed"
+        length={failedArray.length}
+        setGoals={setGoals}
+      >
         {failedArray.map(({ goal }, idx) => {
           return <IndividualHabit key={idx} goal={goal} />
         })}

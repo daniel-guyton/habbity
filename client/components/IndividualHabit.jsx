@@ -22,6 +22,8 @@ const IndividualHabit = (props) => {
     }
   }
 
+  console.log(props)
+
   return (
       <Flex alignItems="center" mt="4" mb="4" bg={primaryBgColor} borderRadius="2">
       <Box
@@ -33,7 +35,7 @@ const IndividualHabit = (props) => {
         p='3'
         fontSize='16'
       >
-        <Checkbox pr="3" colorScheme="green" border='gray' defaultunchecked='true' onChange={handleCheckBoxClick} isDisabled={false}/>
+      {props.status == 'progress' ? <Checkbox pr="3" colorScheme="green" border='gray' defaultunchecked='true' onChange={handleCheckBoxClick} isDisabled={false}/> : null}
 
         <Text pl="3">{props.goal}</Text>
       </Box>
