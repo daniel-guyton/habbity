@@ -48,9 +48,11 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.12.13",
     "@babel/preset-env": "^7.12.16",
     "@babel/preset-react": "^7.12.13",
+    "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^11.1.5",
     "@testing-library/user-event": "^14.1.1",
+    "@vitejs/plugin-react": "^1.3.1",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.0.2",
     "eslint": "^8.9.0",
@@ -73,21 +75,20 @@
     "sass-loader": "^11.0.1",
     "style-loader": "^2.0.0",
     "supertest": "^6.1.3",
-    "webpack": "^5.21.2",
-    "@vitejs/plugin-react": "^1.3.1",
-    "vite": "^2.9.5"
+    "vite": "^2.9.5",
+    "webpack": "^5.21.2"
   },
   "dependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-router-dom": "^6.3.0",
     "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "^1.8.8",
     "@vscode/sqlite3": "^5.0.7",
     "express": "^4.17.1",
     "knex": "^1.0.1",
     "pg": "^8.5.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
+    "react-router-dom": "^6.3.0",
     "superagent": "^6.1.0"
   },
   "prettier": {

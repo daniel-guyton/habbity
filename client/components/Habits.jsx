@@ -8,32 +8,14 @@ import {
 import IndividualHabit from './IndividualHabit'
 import AddHabit from './AddHabit'
 import HabitBox from './HabitBox'
+import { useDispatch, useSelector } from 'react-redux'
+import { statement_timeout } from 'pg/lib/defaults'
+import { updateStatus } from '../actions'
 // import AchievedHabits from './AchievedHabits'
 const Habits = () => {  
-
-  
+  const dispatch = useDispatch()
+  const goals = useSelector(state => state.goals)
   const primaryFontColor = useColorModeValue('#333', 'white')
-  const [goals, setGoals] = useState([
-    { goal: 'Go to sleep', status: 'progress', timestamp: 1651942639000, days: 2 },
-    {
-      goal: 'Wake up earlier',
-      status: 'failed',
-      timestamp: 1651371062000,
-      days: 6,
-    },
-    {
-      goal: 'Walk dogs',
-      status: 'progress',
-      timestamp: 1651198262000,
-      days: 3,
-    },
-    {
-      goal: 'Workout',
-      status: 'completed',
-      timestamp: 1651198262000,
-      days: 28,
-    },
-  ])
   
   // console.log(goals)
   
@@ -42,7 +24,6 @@ const Habits = () => {
     goals.forEach((goal, index) => {
       return checkFailedHabit(goal, index)
     })
-    
   }, [])
   
   const failedArray = goals.filter(goal => goal.status == 'failed')
@@ -59,31 +40,21 @@ const Habits = () => {
     
     
     if(daysPast > 2 && goal.status == 'progress') {
-    
+      dispatch(updateStatus(goal.goal, 'failed'))
       // console.log(goal)
-      const updatedArray = goals.map((goal, i) => {
-        if (i === index) {
-            return {
-                ...goal,
-                status: 'failed'
-            }
-        } else return goal
-    })
-      setGoals(updatedArray)
         // Object.assign([...goals], {[index]: {...goal, status: 'failed'}})
       return null
     } else {
       return goal
     }
   }
-
+  console.log(goals)
   return (
     <Flex width="100%" flexWrap="wrap" color={primaryFontColor}>
       <HabitBox
         name="In Progress"
         length={progressArray.length}
         status="progress"
-        setGoals={setGoals}
       >
         {progressArray.map(({ goal }, idx) => {
           return <IndividualHabit key={idx} goal={goal} status="progress" />
@@ -92,7 +63,6 @@ const Habits = () => {
       <HabitBox
         name="Completed"
         length={completedArray.length}
-        setGoals={setGoals}
         
       >
         {completedArray.map(({ goal }, idx) => {
@@ -102,7 +72,6 @@ const Habits = () => {
       <HabitBox
         name="Failed"
         length={failedArray.length}
-        setGoals={setGoals}
       >
         {failedArray.map(({ goal }, idx) => {
           return <IndividualHabit key={idx} goal={goal} />

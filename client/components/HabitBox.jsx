@@ -4,7 +4,7 @@ import AddHabit from './AddHabit'
 
 const HabitBox = (props) => {
   const primaryBgColor = useColorModeValue('gray.100', 'gray.800')
-  const {name, length, status, setGoals, children} = props
+  const {name, length, status, children} = props
   return (
     <Box
       flexGrow={1}
@@ -30,7 +30,7 @@ const HabitBox = (props) => {
         >
           {name} | {length}
         </Text>
-        {status ? <AddHabit setGoals={setGoals} /> : null}
+        {status ? <AddHabit /> : null}
       </Flex>
       <Box
         overflowY={'scroll'}
