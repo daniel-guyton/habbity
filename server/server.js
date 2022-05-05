@@ -16,9 +16,9 @@ const userRoute = require('./routes/users')
 server.use(express.json())
 server.use(express.static(path.join(__dirname, '../dist')))
 
-server.get('/api', (req, res) => {
-  res.json({ message: 'Hello World!' })
-})
+// server.get('/api', (req, res) => {
+//   res.json({ message: 'Hello World!' })
+// })
 
 server.use('/api/v1/habits', habitRoute)
 server.use('/api/v1/users', userRoute)

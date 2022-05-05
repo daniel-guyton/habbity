@@ -8,11 +8,11 @@ router.get('/', (req, res) => {
   console.log(`router.get for getHabits was called`)
   db.getHabits()
     .then((habits) => {
-      return res.json(habits)
+      return res.json({habits: habits})
     })
     .catch((err) => {
       console.log(err)
-      res.status(500).send({ message: 'Failed to fetch habits (⋑ ཀ ʖ̯ ཀ)⋑'})
+      res.status(500).send({ message: 'Failed to fetch habits TT_TT'})
     })
 })
 
@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
   })   
   .catch((err) => {
     console.log(err)
-    res.status(500).send({ message: 'Failed to add habit (ↄ˚ ˃̣̣̥⌓˂̣̣̥ )ↄ' })
+    res.status(500).send({ message: 'Failed to add habit DX' })
   })
 })
 
