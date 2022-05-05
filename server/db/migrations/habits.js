@@ -9,6 +9,8 @@ exports.up = function (knex) {
     table.integer('userID') //.references('users.id') <- this can force habits to have an existing owner so new owners don't inherit misplaced habits. Commented out for development
     table.integer('daysCompleted')
     table.string('goal')
+    table.integer('timestamp')
+    table.string('status')
   })
 }
 

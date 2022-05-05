@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {
   Box,
   Flex,
@@ -7,79 +7,76 @@ import {
 } from '@chakra-ui/react'
 import IndividualHabit from './IndividualHabit'
 import AddHabit from './AddHabit'
+import HabitBox from './HabitBox'
+import { useDispatch, useSelector } from 'react-redux'
+import { statement_timeout } from 'pg/lib/defaults'
+import { updateStatus } from '../actions'
 // import AchievedHabits from './AchievedHabits'
 const Habits = () => {  
-  const primaryBgColor = useColorModeValue('gray.100', 'gray.800')
+  const dispatch = useDispatch()
+  const goals = useSelector(state => state.goals)
   const primaryFontColor = useColorModeValue('#333', 'white')
-  const [goals, setGoals] = useState([{goal: 'Go to sleep'}, {goal: 'Brush teeth'}])
+  
+  // console.log(goals)
+  
+  
+  useEffect(() => {
+    goals.forEach((goal, index) => {
+      return checkFailedHabit(goal, index)
+    })
+  }, [])
+  
+  const failedArray = goals.filter(goal => goal.status == 'failed')
+  const completedArray = goals.filter(goal => goal.status == 'completed')
+  
+  const progressArray = goals.filter((goal) => goal.status == 'progress')
 
-
+  function checkFailedHabit(goal, index) {
+    const lastUpdated = goal.timestamp
+    const currentDate = Date.now()
+    // console.log(goal)
+    const daysPast = (currentDate - lastUpdated) / ( 60 * 60 * 24 * 1000 )
+    // console.log(daysPast)
+    
+    
+    if(daysPast > 2 && goal.status == 'progress') {
+      dispatch(updateStatus(goal.goal, 'failed'))
+      // console.log(goal)
+        // Object.assign([...goals], {[index]: {...goal, status: 'failed'}})
+      return null
+    } else {
+      return goal
+    }
+  }
+  console.log(goals)
   return (
     <Flex width="100%" flexWrap="wrap" color={primaryFontColor}>
-      <Box
-        flexGrow={1}
-        maxW="420"
-        minW="420"
-        height="600"
-        borderColor="gray.500"
-        boxShadow="md"
-        bg={primaryBgColor}
-        p="6"
-        m="3"
-        position="relative"
-        borderTop="4px"
-        borderTopColor="green.300"
+      <HabitBox
+        name="In Progress"
+        length={progressArray.length}
+        status="progress"
       >
-        <Text
-          pb="1"
-          as="span"
-          borderColor="green.200"
-          fontWeight={500}
-          fontSize="18px"
-        >
-          In Progress
-        </Text>
-
-        {goals.map(({ goal }, idx) => {
+        {progressArray.map(({ goal }, idx) => {
+          return <IndividualHabit key={idx} goal={goal} status="progress" />
+        })}
+      </HabitBox>
+      <HabitBox
+        name="Completed"
+        length={completedArray.length}
+        
+      >
+        {completedArray.map(({ goal }, idx) => {
           return <IndividualHabit key={idx} goal={goal} />
         })}
-        <AddHabit setGoals={setGoals} />
-      </Box>
-      <Box
-        flexGrow={1}
-        maxW="420"
-        minW="420"
-        height="600"
-        borderColor="gray.500"
-        boxShadow="md"
-        bg={primaryBgColor}
-        p="6"
-        m="3"
-        borderTop="4px"
-        borderTopColor="green.300"
+      </HabitBox>
+      <HabitBox
+        name="Failed"
+        length={failedArray.length}
       >
-        <Text pb="1" as="span" fontWeight={500} fontSize="18px">
-          Completed
-        </Text>
-      </Box>
-      <Box
-        flexGrow={1}
-        maxW="420"
-        minW="420"
-        height="600"
-        borderColor="gray.500"
-        boxShadow="md"
-        bg={primaryBgColor}
-        p="6"
-        m="3"
-        borderTop="4px"
-        borderTopColor="green.300"
-        fontSize="18px"
-      >
-        <Text pb="1" as="span" fontWeight={500}>
-          To Continue
-        </Text>
-      </Box>
+        {failedArray.map(({ goal }, idx) => {
+          return <IndividualHabit key={idx} goal={goal} />
+        })}
+      </HabitBox>
     </Flex>
   )
 }
