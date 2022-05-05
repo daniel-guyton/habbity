@@ -7,9 +7,20 @@ const IndividualHabit = (props) => {
   const handleCheckBoxClick = (e) => {
     setDayCount(dayCount += 1)
     e.target.disabled = true
+    compareDates(1651371062000)  
   }
   
+  const compareDates = (oldTimestamp) => {
+    // const oneDay = 86400 // 1 day in timestamp format
+    const newTimestamp = Date.now()
+    const timePlus36hrs = oldTimestamp + 60 * 60 * (24 * 2.5) * 1000 // add 2.5 days to the timestamp from db
 
+    if (timePlus36hrs < newTimestamp) { // if user hasn't checked the habit within 36 hours
+      console.log('to continue')
+    } else if (timePlus24hrs >= newTimestamp) {  // if user has checked the habit within 36 hours
+      console.log('in progress')
+    }
+  }
 
   return (
       <Flex alignItems="center" mt="4" mb="4" bg={primaryBgColor} borderRadius="2">

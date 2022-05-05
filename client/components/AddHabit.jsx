@@ -8,7 +8,13 @@ const AddHabit = (props) =>  {
   const [newHabit, setNewHabit] = useState('')
 
   const handleAddItem = () => {
-    props.setGoals(prevGoals => [...prevGoals, {goal: newHabit}])
+    
+    const currentDate = Date.now()
+    props.setGoals((prevGoals) => [
+      ...prevGoals,
+      { goal: newHabit, timestamp: currentDate, day: 0, status: 'progress' },
+    ])
+
     onClose()
   }
 
