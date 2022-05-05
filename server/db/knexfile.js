@@ -1,21 +1,5 @@
 const path = require('path')
 
-require('dotenv').config()
-const pg = require('pg');
-
-
-if (process.env.DATABASE_URL) {
-  pg.defaults.ssl = { rejectUnauthorized: false }
-}
-
-
-const sharedConfig = {
-  client: 'pg',
-  migrations: {directory: './migrations'},
-  seeds: {directory: './seeds'},
-}
-
-
 module.exports = {
   development: {
     client: 'better-sqlite3',
@@ -38,7 +22,7 @@ module.exports = {
     },
   },
   production: {
-   ...sharedConfig,
+    client: 'postgresql',
     connection: {
       connectionString: process.env.DATABASE_URL,
       ssl: { rejectUnauthorized: false },
