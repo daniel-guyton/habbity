@@ -21,7 +21,7 @@ describe('getHabits', () => {
     return db.getHabits(testDb)
     .then((habits) => {
       expect(habits).toHaveLength(4)
-      expect(habits[0].username).toBe('bob')
+      expect(habits[0].id).toEqual(1)
       return null
     })
   })

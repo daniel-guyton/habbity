@@ -17,10 +17,10 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const habit = req.body.habit
+  const habit = req.body
     db.addHabits(habit)
   .then((habit) => {
-    return res.json(habit)
+    return res.json({habits: habit})
   })   
   .catch((err) => {
     console.log(err)
