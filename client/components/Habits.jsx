@@ -11,7 +11,10 @@ import AddHabit from './AddHabit'
 const Habits = () => {  
   const primaryBgColor = useColorModeValue('gray.100', 'gray.800')
   const primaryFontColor = useColorModeValue('#333', 'white')
-  const [goals, setGoals] = React.useState([{goal: 'Go to sleep'}, {goal: 'Brush teeth'}])
+  const [goals, setGoals] = React.useState([
+    { goal: 'Go to sleep' },
+    { goal: 'Brush teeth' },
+  ])
 
 
   return (
@@ -20,7 +23,7 @@ const Habits = () => {
         flexGrow={1}
         maxW="420"
         minW="420"
-        height="600"
+        maxH="600"
         borderColor="gray.500"
         boxShadow="md"
         bg={primaryBgColor}
@@ -30,20 +33,34 @@ const Habits = () => {
         borderTop="4px"
         borderTopColor="green.300"
       >
-        <Text
-          pb="1"
-          as="span"
-          borderColor="green.200"
-          fontWeight={500}
-          fontSize="18px"
+        <Flex>
+          <Text
+            pb="1"
+            as="span"
+            borderColor="green.200"
+            fontWeight={500}
+            fontSize="18px"
+          >
+            In Progress | {goals.length} goals
+          </Text>
+          <AddHabit setGoals={setGoals} />
+        </Flex>
+        <Box
+        
+          overflowY={'scroll'}
+          css={{
+            '-ms-overflow-style': 'none',
+            'scrollbar-width': 'none',
+            '&::-webkit-scrollbar': {
+              display: 'none'
+            },
+          }}
+          height="calc(100% - var(--chakra-space-6))"
         >
-          In Progress
-        </Text>
-
-        {goals.map(({ goal }, idx) => {
-          return <IndividualHabit key={idx} goal={goal} />
-        })}
-        <AddHabit setGoals={setGoals} />
+          {goals.map(({ goal }, idx) => {
+            return <IndividualHabit key={idx} goal={goal} />
+          })}
+        </Box>
       </Box>
       <Box
         flexGrow={1}

@@ -5,12 +5,10 @@ const IndividualHabit = (props) => {
   const primaryBgColor = useColorModeValue('gray.200', 'gray.700')
   let [dayCount, setDayCount] = useState(0)
   const handleCheckBoxClick = (e) => {
-    console.log(e.target)
     setDayCount(dayCount += 1)
     e.target.disabled = true
   }
   
-  console.log(dayCount)
 
 
   return (

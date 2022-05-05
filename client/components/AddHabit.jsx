@@ -21,10 +21,7 @@ const AddHabit = (props) =>  {
         fontSize={14}
         display="flex"
         alignItems="center"
-        position="absolute"
-        bottom={0}
-        right={0}
-        p="6"
+        ml={'auto'}
         cursor="pointer"
         onClick={onOpen}
       >
