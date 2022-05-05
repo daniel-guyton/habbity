@@ -1,14 +1,27 @@
 import React, {useRef, useState} from "react"
 import { useDisclosure, Button, Modal, Text, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Box, Input, FormLabel, FormControl} from "@chakra-ui/react"
 import { AddIcon } from "@chakra-ui/icons"
+import { useDispatch } from "react-redux"
+import { addGoal } from "../actions"
 const AddHabit = (props) =>  {
+  const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const initialRef = useRef()
   const finalRef = useRef()
   const [newHabit, setNewHabit] = useState('')
 
   const handleAddItem = () => {
-    props.setGoals(prevGoals => [...prevGoals, {goal: newHabit}])
+    
+    const currentDate = Date.now()
+    dispatch(
+      addGoal({
+        goal: newHabit,
+        timestamp: currentDate,
+        day: 0,
+        status: 'progress',
+      })
+    )
+
     onClose()
   }
 
@@ -21,10 +34,7 @@ const AddHabit = (props) =>  {
         fontSize={14}
         display="flex"
         alignItems="center"
-        position="absolute"
-        bottom={0}
-        right={0}
-        p="6"
+        ml={'auto'}
         cursor="pointer"
         onClick={onOpen}
       >
