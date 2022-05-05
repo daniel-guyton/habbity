@@ -12,10 +12,6 @@ exports.seed = function (knex) {
     },
     { userID: 3, daysCompleted: 3, goal: 'walk' },
     { userID: 2, daysCompleted: 1, goal: 'go to sleep' },
-    {
-      userID: 2,
-      daysCompleted: 2,
-      goal: 'practice something else',
-    },
+    { userID: 2, daysCompleted: 2, goal: 'practice something else' },
   ])
 }

@@ -14,14 +14,12 @@ describe('GET /api/v1/habits', () => {
           'userID': 3,
           'daysCompleted': 4,
           'goal': 'create a billion dollar company'
-
         },
         {
           'id': 4,
           'userID': 2,
           'daysCompleted': 0,
           'goal': 'raise a fish to be a lawyer'
-
         }
       ])
     )
@@ -42,7 +40,6 @@ describe('GET /api/v1/habits', () => {
       .get('/api/v1/habits')
       .then((res) => {
         expect(res.status).toBe(500)
-        
         expect(res.text).toContain('Failed to fetch habits TT_TT')
       })
     })
