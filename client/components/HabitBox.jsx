@@ -3,7 +3,7 @@ import React from 'react'
 import AddHabit from './AddHabit'
 
 const HabitBox = (props) => {
-  const primaryBgColor = useColorModeValue('gray.100', 'gray.800')
+  const primaryBgColor = useColorModeValue('gray.100', 'gray.800') // Chakra css
   const {name, length, status, children} = props
   return (
     <Box
@@ -21,6 +21,7 @@ const HabitBox = (props) => {
       borderTopColor="green.300"
     >
       <Flex>
+        {/* title for the box */}
         <Text
           pb="1"
           as="span"
@@ -30,19 +31,22 @@ const HabitBox = (props) => {
         >
           {name} | {length}
         </Text>
+        {/* if props include status => show add habit button */}
         {status ? <AddHabit /> : null}
       </Flex>
+      {/* listing all habits */}
       <Box
         overflowY={'scroll'}
         css={{
-          '-ms-overflow-style': 'none',
-          'scrollbar-width': 'none',
+          'msOverflowStyle': 'none',
+          'scrollbarWidth': 'none',
           '&::-webkit-scrollbar': {
             display: 'none',
           },
         }}
         height="calc(100% - var(--chakra-space-6))"
       >
+        {/* calling the children wrapped by <HabitBox> in <Habits> */}
         {children}
       </Box>
     </Box>
