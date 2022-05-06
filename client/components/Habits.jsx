@@ -1,24 +1,27 @@
 import React, {useState, useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { statement_timeout } from 'pg/lib/defaults'
 import {
   Box,
   Flex,
   Text,
   useColorModeValue
 } from '@chakra-ui/react'
+
+
+import { updateStatus } from '../actions'
 import IndividualHabit from './IndividualHabit'
 import AddHabit from './AddHabit'
 import HabitBox from './HabitBox'
-import { useDispatch, useSelector } from 'react-redux'
-import { statement_timeout } from 'pg/lib/defaults'
-import { updateStatus } from '../actions'
 // import AchievedHabits from './AchievedHabits'
+
+
 const Habits = () => {  
   const dispatch = useDispatch()
+
   const goals = useSelector(state => state.goals)
   const primaryFontColor = useColorModeValue('#333', 'white')
-  
   // console.log(goals)
-  
   
   useEffect(() => {
     goals.forEach((goal, index) => {

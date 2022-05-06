@@ -1,4 +1,4 @@
-import { ADD_GOAL, UPDATE_STATUS } from '../actions'
+import { ADD_GOAL, FETCH_ALL, UPDATE_STATUS } from '../actions'
 
 const initialState = [
   {
@@ -26,17 +26,23 @@ const initialState = [
     days: 28,
   },
 ]
+
+//*   REDUCER
+//* ===========
+
 const goals = (state = initialState, action) => {
   switch (action.type) {
+    case FETCH_ALL:
+      return action.payload
     case UPDATE_STATUS: {
       const goals = [...state]
-      const updatedArray = goals.map((goal, i) => {
-        if (goal.goal === action.payload.goal) {
+      const updatedArray = goals.map((habit, i) => {
+        if (habit.goal === action.payload.goal) {
           return {
-            ...goal,
+            ...habit,
             status: action.payload.status,
           }
-        } else return goal
+        } else return habit
       })
       return updatedArray
     }
