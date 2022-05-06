@@ -46,13 +46,15 @@ const goals = (state = initialState, action) => {
     }
     case UPDATE_GOAL: {
       const goals = [...state]
+
       const goalIndex = goals.findIndex(
-        (habit) => habit.goal === action.payload.updatedGoal.goal
+        (habit) => habit?.goal === action.payload?.updatedGoal?.goal
       )
 
       if (goalIndex < 0) {
         return goals
       }
+
       goals.splice(goalIndex, 1, {
         ...goals[goalIndex],
         ...action.payload.updatedGoal,

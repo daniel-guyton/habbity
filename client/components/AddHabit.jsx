@@ -17,7 +17,7 @@ const AddHabit = (props) =>  {
       addGoal({
         goal: newHabit,
         timestamp: currentDate,
-        day: 0,
+        days: 0,
         status: 'progress',
       })
     )

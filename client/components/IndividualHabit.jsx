@@ -1,17 +1,21 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import {Box, Flex, Text, Checkbox, useColorModeValue, Button, } from '@chakra-ui/react'
 import { updateGoal } from '../actions'
 import { useDispatch } from 'react-redux'
 
 const IndividualHabit = (props) => {
   const dispatch = useDispatch()
+  const checkbox = useRef(null)
   const primaryBgColor = useColorModeValue('gray.200', 'gray.700')
   let [dayCount, setDayCount] = useState(0)
   const [isDisabled, setIsDisabled] = useState(false)
+  const [isChecked, setIsChecked] = useState(false)
 
   const handleCheckBoxClick = (e) => {
+    setIsChecked(true)
     setDayCount(dayCount += 1)
     e.target.disabled = true
+
     compareDates(1651371062000)  
     if(e.target.checked) {
       dispatch(updateGoal({ goalCompletedAt: Date.now() * 1000, goal: props.goal}))
@@ -19,13 +23,17 @@ const IndividualHabit = (props) => {
   }
   useEffect(() => {isMoreThan24Hours(props.goalCompletedAt)}, [])
   useEffect(() => {
-    console.log(props.goalCompletedAt)
     const checker = setInterval(() => {
-      setIsDisabled(isMoreThan24Hours(props.goalCompletedAt))
+      const isCompleted = isMoreThan24Hours(props.goalCompletedAt)
+      if (isCompleted) {
+        setIsChecked(false)
+        checkbox.current.disabled = false
+      }
+      setIsDisabled(isCompleted)
     }, 10000)
 
     return () => clearInterval(checker)
-  }, [props.goalCompletedAt])
+  }, [props.goalCompletedAt, checkbox])
   const compareDates = (oldTimestamp) => {
     // const oneDay = 86400 // 1 day in timestamp format
     const newTimestamp = Date.now()
@@ -39,10 +47,8 @@ const IndividualHabit = (props) => {
   }
 
   function isMoreThan24Hours(dateTimeStamp) {
-    // 👇️ hour  min  sec  milliseconds
     // current time stamps
     const add60Seconds = dateTimeStamp + 60 * 1000
-    const twentyFourHrInMs = 24 * 60 * 60 * 1000
     // 24 hours in mins
     let date = new Date(dateTimeStamp * 1000)
     // const newDate = date + twentyFourHrInMs
@@ -75,10 +81,11 @@ const IndividualHabit = (props) => {
             pr="3"
             colorScheme="green"
             border="gray"
-            checked={isDisabled}
+            ref={checkbox}
+            isChecked={isChecked}
             // defaultunchecked='true'
             onChange={handleCheckBoxClick}
-            isDisabled={isDisabled}
+            isFocusable={isDisabled}
           />
         ) : null}
 
