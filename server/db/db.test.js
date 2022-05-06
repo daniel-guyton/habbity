@@ -53,3 +53,12 @@ describe('getUsers', () => {
     })
   })
 })
+
+describe('addHabits', () => {
+  it('adds a habit', () => {
+    return db.addHabits({ daysCompleted: 3, goal: 'drink water' }, testDb)
+      .then(result => {
+        expect(result.goal).toEqual('drink water')
+      })
+  })
+})
