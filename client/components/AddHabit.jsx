@@ -2,34 +2,41 @@ import React, {useRef, useState} from "react"
 import { useDisclosure, Button, Modal, Text, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Box, Input, FormLabel, FormControl} from "@chakra-ui/react"
 import { AddIcon } from "@chakra-ui/icons"
 import { useDispatch } from "react-redux"
+
 import { addGoal } from "../actions"
+
 const AddHabit = (props) =>  {
-  const dispatch = useDispatch()
+  
+  // Chakra settings
   const { isOpen, onOpen, onClose } = useDisclosure()
   const initialRef = useRef()
   const finalRef = useRef()
-  const [newHabit, setNewHabit] = useState('')
+  
+  const [newHabit, setNewHabit] = useState('') // can change to action for dispatch
+  const dispatch = useDispatch()
 
   const handleAddItem = () => {
-    
-    const currentDate = Date.now()
+    const currentDate = Date.now() // current timestamp
     dispatch(
       addGoal({
         goal: newHabit,
         timestamp: currentDate,
-        day: 0,
+        days: 0,
         status: 'progress',
+        goalCompletedAt: Date.now(),
       })
-    )
-
+    ) // need to check if this is sending back to db
     onClose()
+    return null // this is so the browser stops 'listening' for a response it doesn't need
   }
 
   const handleChange = (e) => {
     setNewHabit(e.target.value)
   }
+
   return (
     <>
+    {/* showing as a button in HabitBox */}
       <Box
         fontSize={14}
         display="flex"
@@ -44,6 +51,7 @@ const AddHabit = (props) =>  {
         <AddIcon />
       </Box>
 
+    {/* showing as a modal for user input when above button clicked */}
       <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
