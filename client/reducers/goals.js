@@ -9,9 +9,9 @@ const initialState = [
   {
     goal: 'Go to sleep',
     status: 'progress',
-    timestamp: 1651942639000,
+    timestamp: 1651812639000,
     days: 2,
-    goalCompletedAt: 1651942639000,
+    goalCompletedAt: 1651812639000,
   },
   {
     goal: 'Wake up earlier',

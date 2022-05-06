@@ -9,32 +9,45 @@ const IndividualHabit = (props) => {
   const checkbox = useRef(null)
   const primaryBgColor = useColorModeValue('gray.200', 'gray.700')
   const [dayCount, setDayCount] = useState(0)
-  const [isDisabled, setIsDisabled] = useState(false)
+  const [isEnabled, setIsEnabled] = useState(false)
   const [isChecked, setIsChecked] = useState(false)
+
+
+
+  useEffect(() => {
+    isMoreThan24Hours(props.goalCompletedAt)
+  }, [])
+
+  useEffect(() => {
+    const checker = setInterval(() => {
+      // check if current date is greater than last check date plus (interval)
+      const isReset = isMoreThan24Hours(props.goalCompletedAt)
+      if (isReset && checkbox.current != null) {
+        setIsChecked(false)
+        checkbox.current.disabled = false
+      }
+      // If the day has no reset, this will keep the checkbox from being focusable
+      setIsEnabled(isReset)
+    }, 10000)
+
+    return () => clearInterval(checker)
+  }, [props.goalCompletedAt, checkbox])
+
+
 
   const handleCheckBoxClick = (e) => {
     setIsChecked(true)
     setDayCount(dayCount + 1)
     e.target.disabled = true
-
-    compareDates(1651371062000)  
+    // compareDates(1651371062000)  // TODO compare with a real date later for column sorting
     if(e.target.checked) {
       dispatch(updateGoal({ goalCompletedAt: Date.now() * 1000, goal: props.goal}))
     }
   }
-  useEffect(() => {isMoreThan24Hours(props.goalCompletedAt)}, [])
-  useEffect(() => {
-    const checker = setInterval(() => {
-      const isCompleted = isMoreThan24Hours(props.goalCompletedAt)
-      if (isCompleted) {
-        setIsChecked(false)
-        checkbox.current.disabled = false
-      }
-      setIsDisabled(isCompleted)
-    }, 10000)
 
-    return () => clearInterval(checker)
-  }, [props.goalCompletedAt, checkbox])
+
+
+  // TODO see line 38; for column sorting
   const compareDates = (oldTimestamp) => {
     // const oneDay = 86400 // 1 day in timestamp format
     const newTimestamp = Date.now()
@@ -47,16 +60,28 @@ const IndividualHabit = (props) => {
     }
   }
 
+
+
   function isMoreThan24Hours(dateTimeStamp) {
+    // exit on initial render
+    // TODO seeds hardcode data may be to times that don't exist yet
+    if (typeof dateTimeStamp == 'undefined') {
+      return false
+    }
     // current time stamps
-    const add60Seconds = dateTimeStamp + 60 * 1000
+    const add60Seconds = dateTimeStamp + (60 * 1000) // TODO check maths on this?
     // 24 hours in mins
-    let date = new Date(dateTimeStamp * 1000)
+    //let date = new Date(dateTimeStamp * 1000)
+    const date = Date.now() * 1000
     // const newDate = date + twentyFourHrInMs
     // const twentyFourHoursAgo = Date.now() - twentyFourHrInMs
+
     return date > add60Seconds
   }
   
+
+  
+  //* render
 
   return (
     <Flex
@@ -76,18 +101,18 @@ const IndividualHabit = (props) => {
         fontSize="16"
       >
         {/* showing checkbox for the habit only if it is in progress */}
-        {props.status == 'progress' ? (
+        {props.status == 'progress' && (
           <Checkbox
             pr="3"
             colorScheme="green"
             border="gray"
             ref={checkbox}
             isChecked={isChecked}
-            // defaultunchecked='true'
+            // defaultUnchecked='true'
             onChange={handleCheckBoxClick}
-            isFocusable={isDisabled}
+            isFocusable={isEnabled}
           />
-        ) : null}
+        )}
         {/* replace the {dayCount} with the useSelector called from the top */}
         <Text pl="3">{props.goal}</Text>
       </Box>
