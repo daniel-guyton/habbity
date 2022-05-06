@@ -28,6 +28,9 @@ import {
   FiChevronDown,
 } from 'react-icons/fi'
 import { GiPartyPopper } from 'react-icons/gi'
+import { useAuth0 } from '@auth0/auth0-react'
+
+import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 
 const LinkItems = [
   { name: 'Habits', icon: FiHome },
@@ -36,10 +39,9 @@ const LinkItems = [
   { name: 'Settings', icon: FiSettings },
 ]
 
-export default function SidebarWithHeader({
-  children,
-}) {
+export default function SidebarWithHeader({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
+
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent
@@ -133,6 +135,22 @@ const NavItem = ({ icon, children, ...rest }) => {
 }
 
 const MobileNav = ({ onOpen, ...rest }) => {
+  const { logout, loginWithRedirect } = useAuth0()
+  
+  const logoutHandler = (e) => {
+    e.preventDefault()
+    logout()
+  }
+
+  const signInHandler = (e) => {
+    e.preventDefault()
+    loginWithRedirect()
+  }
+
+  const signUpHandler = (e) => {
+    loginWithRedirect()
+  }
+
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -165,43 +183,55 @@ const MobileNav = ({ onOpen, ...rest }) => {
       <HStack spacing={{ base: '0', md: '6' }}>
         <Flex alignItems={'center'}>
           <Menu>
+            <IfNotAuthenticated>
+              <MenuButton 
+                onClick={signInHandler}
+                mr="5"
+              >Sign in</MenuButton>
+              <MenuButton
+                onClick={signUpHandler}
+                mr="5"
+              >Sign up</MenuButton>
+            </IfNotAuthenticated>
+            <IfAuthenticated>
             <MenuButton
               py={2}
               transition="all 0.3s"
               _focus={{ boxShadow: 'none' }}
             >
               <HStack>
-                <Avatar
-                  size={'sm'}
-                  src={
-                    'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-                  }
-                />
-                <VStack
-                  display={{ base: 'none', md: 'flex' }}
-                  alignItems="flex-start"
-                  spacing="1px"
-                  ml="2"
-                >
-                  <Text fontSize="sm">Justina Clark</Text>
-                  <Text fontSize="xs" color="gray.600">
-                    Admin
-                  </Text>
-                </VStack>
-                <Box display={{ base: 'none', md: 'flex' }}>
-                  <FiChevronDown />
-                </Box>
-              </HStack>
+                  <Avatar
+                    size={'sm'}
+                    src={
+                      'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
+                    }
+                  />
+                  <VStack
+                    display={{ base: 'none', md: 'flex' }}
+                    alignItems="flex-start"
+                    spacing="1px"
+                    ml="2"
+                  >
+                    <Text fontSize="sm">Justina Clark</Text>
+                    <Text fontSize="xs" color="gray.600">
+                      Admin
+                    </Text>
+                  </VStack>
+                  <Box display={{ base: 'none', md: 'flex' }}>
+                    <FiChevronDown />
+                  </Box>
+                </HStack>
             </MenuButton>
             <MenuList
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}
-            >
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              >
+                <MenuItem>Profile</MenuItem>
+                <MenuItem>Settings</MenuItem>
+                <MenuDivider />
+                <MenuItem onClick={logoutHandler}>Sign out</MenuItem>
             </MenuList>
+            </IfAuthenticated>
           </Menu>
         </Flex>
       </HStack>

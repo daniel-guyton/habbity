@@ -11,6 +11,7 @@ module.exports = {
 }
 
 function getHabits(db = connection) {
+  
   return db('habits').select()
 }
 
@@ -43,4 +44,15 @@ function getUsers(db = connection){
 
 function getOneUser(id, db = connection){
   return db('users').select().where('id', id).first()
+}
+
+
+function authorizeUser(habit, auth0Id) {
+  if(habit.UserID !== auth0Id){
+    console.log('errrorroroor with auth')
+
+  }
+}
+function addUsers(user, db =connection) {
+
 }
