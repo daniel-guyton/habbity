@@ -7,7 +7,8 @@ const rootUrl = '/api/v1'
 
 export function getHabits() {
   return request.get(rootUrl + '/habits').then((res) => {
-    return res.body
+    // console.log('api', res.body.habits)
+    return res.body.habits
   })
 }
 

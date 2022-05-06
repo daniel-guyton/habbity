@@ -8,7 +8,7 @@ import {
 import HabitBox from './HabitBox'
 import IndividualHabit from './IndividualHabit'
 
-import { updateStatus } from '../actions'
+import { updateStatus, createState } from '../actions'
 
 const Habits = () => {  
   const dispatch = useDispatch()
@@ -17,6 +17,8 @@ const Habits = () => {
   const primaryFontColor = useColorModeValue('#333', 'white') // Chakra css setting
   
   useEffect(() => {
+    // getting goals array from db
+    dispatch(createState())
     // going through each habit from db
     goals.forEach((goal, index) => {
       return checkFailedHabit(goal, index)
