@@ -46,33 +46,32 @@ const Habits = () => {
 
   return (
     <Flex width="100%" flexWrap="wrap" color={primaryFontColor}>
-      {/* In Progress component */}
+      {/* Each HabitBox maps a status array with IndivHabit and renders as children */}
       <HabitBox
         name="In Progress"
         length={progressArray.length}
         status="progress"
       >
-        {progressArray.map(({ goal }, idx) => {
-          return <IndividualHabit key={idx} goal={goal} status="progress" />
+        {progressArray.map(({ goal, timestamp, goalCompletedAt }, idx) => {
+          return (
+            <IndividualHabit
+              key={idx}
+              goal={goal}
+              timestamp={timestamp}
+              goalCompletedAt={goalCompletedAt}
+              status="progress"
+            />
+          )
         })}
       </HabitBox>
-      {/* Completed component */}
-      <HabitBox
-        name="Completed"
-        length={completedArray.length}
-        
-      >
-        {completedArray.map(({ goal }, idx) => {
-          return <IndividualHabit key={idx} goal={goal} />
+      <HabitBox name="Completed" length={completedArray.length}>
+        {completedArray.map(({ goal, timestamp }, idx) => {
+          return <IndividualHabit key={idx} timestamp={timestamp} goal={goal} />
         })}
       </HabitBox>
-      {/* To Continue component */}
-      <HabitBox
-        name="Failed"
-        length={failedArray.length}
-      >
-        {failedArray.map(({ goal }, idx) => {
-          return <IndividualHabit key={idx} goal={goal} />
+      <HabitBox name="Failed" length={failedArray.length}>
+        {failedArray.map(({ goal, timestamp }, idx) => {
+          return <IndividualHabit key={idx} timestamp={timestamp} goal={goal} />
         })}
       </HabitBox>
     </Flex>

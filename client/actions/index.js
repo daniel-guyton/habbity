@@ -1,10 +1,17 @@
 
 import * as api from '../apis/apiClient'
 
-export const FETCH_ALL = 'status/fetch'
-export const UPDATE_STATUS = 'status/update'
-export const ADD_GOAL = 'status/add'
+export const FETCH_ALL = 'habits/fetch/all'
+
+export const UPDATE_HABIT_STATUS = 'habit/status/update'
+export const UPDATE_TIMESTAMP = 'habit/time/update'
+export const ADD_GOAL = 'habit/add/new'
+
 export const SET_ERROR = 'status/error'
+
+
+//* HABITS
+// ========
 
 export const createState = () => {
   // fancy action that returns a function
@@ -27,21 +34,33 @@ export const createFetchPayload = (input) => {
   }
 }
 
-export const updateStatus = (goal, status) => ({
-  type: UPDATE_STATUS,
-  payload: { status, goal },
+export const updateStatus = (habitObj, statusStr) => ({
+  type: UPDATE_HABIT_STATUS,
+  payload: { statusStr, habitObj },
 })
 
-export const addGoal = (goal) => ({
+export const addGoal = (habitObj) => ({
   type: ADD_GOAL,
-  payload: { goal },
+  payload: { habitObj },
 })
+
+
+export const updateGoal = (inputObj) => ({
+  type: UPDATE_TIMESTAMP,
+  payload: { inputObj },
+})
+
+//* USERS
+// =======
+
+
+
 
 //* error handler
 
-export const setError = (errMsg) => {
+export const setError = (errMessage) => {
   return {
     type: SET_ERROR,
-    errMsg,
+    errMessage,
   }
 }

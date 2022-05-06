@@ -23,8 +23,9 @@ const AddHabit = (props) =>  {
       addGoal({
         goal: newHabit,
         timestamp: currentDate,
-        day: 0,
+        days: 0,
         status: 'progress',
+        goalCompletedAt: Date.now(),
       })
     ) // need to check if this is sending back to db
 
