@@ -1,59 +1,52 @@
-import React, {useState, useEffect} from 'react'
+import React, { useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { statement_timeout } from 'pg/lib/defaults'
 import {
-  Box,
   Flex,
-  Text,
   useColorModeValue
 } from '@chakra-ui/react'
 
+import HabitBox from './HabitBox'
+import IndividualHabit from './IndividualHabit'
 
 import { updateStatus } from '../actions'
-import IndividualHabit from './IndividualHabit'
-import AddHabit from './AddHabit'
-import HabitBox from './HabitBox'
-// import AchievedHabits from './AchievedHabits'
-
 
 const Habits = () => {  
   const dispatch = useDispatch()
-
-  const goals = useSelector(state => state.goals)
-  const primaryFontColor = useColorModeValue('#333', 'white')
-  // console.log(goals)
+ 
+  const goals = useSelector(state => state.goals) // habits array from db
+  const primaryFontColor = useColorModeValue('#333', 'white') // Chakra css setting
   
   useEffect(() => {
+    // going through each habit from db
     goals.forEach((goal, index) => {
       return checkFailedHabit(goal, index)
     })
   }, [])
   
-  const failedArray = goals.filter(goal => goal.status == 'failed')
-  const completedArray = goals.filter(goal => goal.status == 'completed')
-  
-  const progressArray = goals.filter((goal) => goal.status == 'progress')
-
   function checkFailedHabit(goal, index) {
     const lastUpdated = goal.timestamp
     const currentDate = Date.now()
-    // console.log(goal)
     const daysPast = (currentDate - lastUpdated) / ( 60 * 60 * 24 * 1000 )
-    // console.log(daysPast)
-    
     
     if(daysPast > 2 && goal.status == 'progress') {
-      dispatch(updateStatus(goal.goal, 'failed'))
-      // console.log(goal)
-        // Object.assign([...goals], {[index]: {...goal, status: 'failed'}})
-      return null
+      dispatch(updateStatus(goal.goal, 'failed')) // dispatch the updated status back to db
+      return null // ignore
     } else {
-      return goal
+      return goal // ignore
     }
   }
-  console.log(goals)
+
+  //* Status arrays
+  const failedArray = goals.filter(goal => goal.status == 'failed')
+  const completedArray = goals.filter(goal => goal.status == 'completed')
+  const progressArray = goals.filter(goal => goal.status == 'progress')
+
+
+  //* Rendering
+
   return (
     <Flex width="100%" flexWrap="wrap" color={primaryFontColor}>
+      {/* In Progress component */}
       <HabitBox
         name="In Progress"
         length={progressArray.length}
@@ -63,6 +56,7 @@ const Habits = () => {
           return <IndividualHabit key={idx} goal={goal} status="progress" />
         })}
       </HabitBox>
+      {/* Completed component */}
       <HabitBox
         name="Completed"
         length={completedArray.length}
@@ -72,6 +66,7 @@ const Habits = () => {
           return <IndividualHabit key={idx} goal={goal} />
         })}
       </HabitBox>
+      {/* To Continue component */}
       <HabitBox
         name="Failed"
         length={failedArray.length}
