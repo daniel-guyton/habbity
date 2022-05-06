@@ -2,9 +2,13 @@ import request from 'superagent'
 
 const rootUrl = '/api/v1'
 
+//*   HABITS
+//* ==========
+
 export function getHabits() {
   return request.get(rootUrl + '/habits').then((res) => {
-    return res.body
+    // console.log('api', res.body.habits)
+    return res.body.habits
   })
 }
 
@@ -16,3 +20,8 @@ export function addHabits(newhabits) {
       return res.body
     })
 }
+
+//*   USERS
+//* ==========
+
+// export function
