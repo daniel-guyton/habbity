@@ -7,8 +7,11 @@ module.exports = {
   addHabits,
   getUsers,
   getOneUser,
-  getOneHabit
+  getOneHabit,
 }
+
+//*   HABITS
+//* ==========
 
 function getHabits(db = connection) {
   
@@ -16,7 +19,6 @@ function getHabits(db = connection) {
 }
 
 function getOneHabit(id, db = connection) {
-  console.log('db reached')
   return db('habits').select().where('id', id).first()
 }
 
@@ -29,30 +31,21 @@ function addHabits(newHabit, db = connection) {
     })
 }
 
-// function furture deleteteeee (༼⊚﹏⊚)༽
+// function deleteHabit(){}
 
 // function updateHabit(id, updatedHabit, db = connection){
 //   return db('habits')
 //   .where('id', id)
 //   .update(updatedHabit)
-
 // }
-function getUsers(db = connection){
+
+//*   USERS
+//* =========
+
+function getUsers(db = connection) {
   return db('users').select()
 }
 
-
-function getOneUser(id, db = connection){
+function getOneUser(id, db = connection) {
   return db('users').select().where('id', id).first()
-}
-
-
-function authorizeUser(habit, auth0Id) {
-  if(habit.UserID !== auth0Id){
-    console.log('errrorroroor with auth')
-
-  }
-}
-function addUsers(user, db =connection) {
-
 }
