@@ -42,9 +42,11 @@ const goals = (state = initialState, action) => {
       return updatedArray
     }
     case ADD_GOAL: {
+      console.log([...state, action.payload.goal])
       return [...state, action.payload.goal]
     }
     case UPDATE_GOAL: {
+      console.log('hello')
       const goals = [...state]
 
       const goalIndex = goals.findIndex(

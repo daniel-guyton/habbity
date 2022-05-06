@@ -12,7 +12,7 @@ export const addGoal = (goal) => ({
   payload: { goal },
 })
 
-export const updateGoal = (updatedGoal) => ({
-  type: UPDATE_GOAL,
-  payload: { updatedGoal },
-})
+export const updateGoal = (updatedGoal) => {
+  console.log(updatedGoal)
+  return { type: UPDATE_GOAL, payload: { updatedGoal } }
+}
