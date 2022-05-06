@@ -56,25 +56,26 @@ const Habits = () => {
         length={progressArray.length}
         status="progress"
       >
-        {progressArray.map(({ goal }, idx) => {
-          return <IndividualHabit key={idx} goal={goal} status="progress" />
+        {progressArray.map(({ goal, timestamp, goalCompletedAt }, idx) => {
+          return (
+            <IndividualHabit
+              key={idx}
+              goal={goal}
+              timestamp={timestamp}
+              goalCompletedAt={goalCompletedAt}
+              status="progress"
+            />
+          )
         })}
       </HabitBox>
-      <HabitBox
-        name="Completed"
-        length={completedArray.length}
-        
-      >
-        {completedArray.map(({ goal }, idx) => {
-          return <IndividualHabit key={idx} goal={goal} />
+      <HabitBox name="Completed" length={completedArray.length}>
+        {completedArray.map(({ goal, timestamp }, idx) => {
+          return <IndividualHabit key={idx} timestamp={timestamp} goal={goal} />
         })}
       </HabitBox>
-      <HabitBox
-        name="Failed"
-        length={failedArray.length}
-      >
-        {failedArray.map(({ goal }, idx) => {
-          return <IndividualHabit key={idx} goal={goal} />
+      <HabitBox name="Failed" length={failedArray.length}>
+        {failedArray.map(({ goal, timestamp }, idx) => {
+          return <IndividualHabit key={idx} timestamp={timestamp} goal={goal} />
         })}
       </HabitBox>
     </Flex>

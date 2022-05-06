@@ -1,15 +1,31 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Box, Flex, Text, Checkbox, useColorModeValue, Button, } from '@chakra-ui/react'
+import { updateGoal } from '../actions'
+import { useDispatch } from 'react-redux'
 
 const IndividualHabit = (props) => {
+  const dispatch = useDispatch()
   const primaryBgColor = useColorModeValue('gray.200', 'gray.700')
   let [dayCount, setDayCount] = useState(0)
+  const [isDisabled, setIsDisabled] = useState(false)
+
   const handleCheckBoxClick = (e) => {
     setDayCount(dayCount += 1)
     e.target.disabled = true
     compareDates(1651371062000)  
+    if(e.target.checked) {
+      dispatch(updateGoal({ goalCompletedAt: Date.now() * 1000, goal: props.goal}))
+    }
   }
-  
+  useEffect(() => {isMoreThan24Hours(props.goalCompletedAt)}, [])
+  useEffect(() => {
+    console.log(props.goalCompletedAt)
+    const checker = setInterval(() => {
+      setIsDisabled(isMoreThan24Hours(props.goalCompletedAt))
+    }, 10000)
+
+    return () => clearInterval(checker)
+  }, [props.goalCompletedAt])
   const compareDates = (oldTimestamp) => {
     // const oneDay = 86400 // 1 day in timestamp format
     const newTimestamp = Date.now()
@@ -22,25 +38,56 @@ const IndividualHabit = (props) => {
     }
   }
 
-  console.log(props)
+  function isMoreThan24Hours(dateTimeStamp) {
+    // 👇️ hour  min  sec  milliseconds
+    // current time stamps
+    const add60Seconds = dateTimeStamp + 60 * 1000
+    const twentyFourHrInMs = 24 * 60 * 60 * 1000
+    // 24 hours in mins
+    let date = new Date(dateTimeStamp * 1000)
+    // const newDate = date + twentyFourHrInMs
+    // dispatch(updateGoal(newDate))
+    // const twentyFourHoursAgo = Date.now() - twentyFourHrInMs
+    // console.log(date, add60Seconds)
+    return date > add60Seconds
+  }
+  
 
   return (
-      <Flex alignItems="center" mt="4" mb="4" bg={primaryBgColor} borderRadius="2">
+    <Flex
+      alignItems="center"
+      mt="4"
+      mb="4"
+      bg={primaryBgColor}
+      borderRadius="2"
+    >
       <Box
         height="var(--chakra-sizes-10)"
         display="flex"
         alignItems="center"
         justifyContent="flex-start"
         width="100%"
-        p='3'
-        fontSize='16'
+        p="3"
+        fontSize="16"
       >
-      {props.status == 'progress' ? <Checkbox pr="3" colorScheme="green" border='gray' defaultunchecked='true' onChange={handleCheckBoxClick} isDisabled={false}/> : null}
+        {props.status == 'progress' ? (
+          <Checkbox
+            pr="3"
+            colorScheme="green"
+            border="gray"
+            checked={isDisabled}
+            // defaultunchecked='true'
+            onChange={handleCheckBoxClick}
+            isDisabled={isDisabled}
+          />
+        ) : null}
 
         <Text pl="3">{props.goal}</Text>
       </Box>
-      <Text p="3" whiteSpace="nowrap">{dayCount}/28 Days</Text>
-      </Flex>
+      <Text p="3" whiteSpace="nowrap">
+        {dayCount}/28 Days
+      </Text>
+    </Flex>
   )
 }
 

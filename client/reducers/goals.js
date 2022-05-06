@@ -1,4 +1,4 @@
-import { ADD_GOAL, UPDATE_STATUS } from '../actions'
+import { ADD_GOAL, UPDATE_STATUS, UPDATE_GOAL } from '../actions'
 
 const initialState = [
   {
@@ -6,6 +6,7 @@ const initialState = [
     status: 'progress',
     timestamp: 1651942639000,
     days: 2,
+    goalCompletedAt: 1651942639000,
   },
   {
     goal: 'Wake up earlier',
@@ -42,6 +43,21 @@ const goals = (state = initialState, action) => {
     }
     case ADD_GOAL: {
       return [...state, action.payload.goal]
+    }
+    case UPDATE_GOAL: {
+      const goals = [...state]
+      const goalIndex = goals.findIndex(
+        (habit) => habit.goal === action.payload.updatedGoal.goal
+      )
+
+      if (goalIndex < 0) {
+        return goals
+      }
+      goals.splice(goalIndex, 1, {
+        ...goals[goalIndex],
+        ...action.payload.updatedGoal,
+      })
+      return goals
     }
     default:
       return state
