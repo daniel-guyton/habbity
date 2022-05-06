@@ -83,8 +83,10 @@
     "webpack": "^5.21.2"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^1.10.1",
     "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "^1.8.8",
+<<<<<<< HEAD
 
     "react-icons": "^4.3.1",
     "@vscode/sqlite3": "^5.0.8",
@@ -97,6 +99,17 @@
     
    
    
+||||||| cad2292
+    "@vscode/sqlite3": "^5.0.7",
+    "express": "^4.17.1",
+    "knex": "^1.0.1",
+=======
+    "@vscode/sqlite3": "^5.0.7",
+    "express": "^4.17.1",
+    "express-jwt": "^7.6.2",
+    "jwks-rsa": "^2.1.0",
+    "knex": "^1.0.1",
+>>>>>>> dev
     "nock": "^13.2.4",
     
     "react": "^17.0.2",

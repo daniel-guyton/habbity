@@ -1,11 +1,17 @@
-import { ADD_GOAL, UPDATE_STATUS } from '../actions'
+import {
+  FETCH_ALL,
+  UPDATE_HABIT_STATUS,
+  UPDATE_TIMESTAMP,
+  ADD_GOAL,
+} from '../actions'
 
 const initialState = [
   {
     goal: 'Go to sleep',
     status: 'progress',
-    timestamp: 1651942639000,
+    timestamp: 1651812639000,
     days: 2,
+    goalCompletedAt: 1651812639000,
   },
   {
     goal: 'Wake up earlier',
@@ -26,26 +32,49 @@ const initialState = [
     days: 28,
   },
 ]
-const goals = (state = initialState, action) => {
+
+//*   REDUCER
+//* ===========
+
+const goalsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_STATUS: {
+    case FETCH_ALL:
+      return action.payload
+    case UPDATE_HABIT_STATUS: {
       const goals = [...state]
-      const updatedArray = goals.map((goal, i) => {
-        if (goal.goal === action.payload.goal) {
+      const updatedArray = goals.map((element) => {
+        if (element.goal === action.payload.goal) {
           return {
-            ...goal,
+            ...element,
             status: action.payload.status,
           }
-        } else return goal
+        } else return element
       })
       return updatedArray
     }
     case ADD_GOAL: {
       return [...state, action.payload.goal]
     }
+    case UPDATE_TIMESTAMP: {
+      const goals = [...state]
+
+      const goalIndex = goals.findIndex(
+        (habit) => habit.goal === action.payload.updatedGoal.goal
+      )
+
+      if (goalIndex < 0) {
+        return goals
+      }
+
+      goals.splice(goalIndex, 1, {
+        ...goals[goalIndex],
+        ...action.payload.updatedGoal,
+      })
+      return goals
+    }
     default:
       return state
   }
 }
 
-export default goals
+export default goalsReducer

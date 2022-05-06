@@ -34,7 +34,6 @@ describe('getOneHabit', () => {
   it('returns a single habit', () => {
     return db.getOneHabit(2, testDb)
     .then((habit) => {
-      console.log(habit)
       expect(typeof habit).toBe('object')
       expect(habit.id).toEqual(2)
       return null
