@@ -8,13 +8,13 @@ const IndividualHabit = (props) => {
   const dispatch = useDispatch()
   const checkbox = useRef(null)
   const primaryBgColor = useColorModeValue('gray.200', 'gray.700')
-  let [dayCount, setDayCount] = useState(0)
+  const [dayCount, setDayCount] = useState(0)
   const [isDisabled, setIsDisabled] = useState(false)
   const [isChecked, setIsChecked] = useState(false)
 
   const handleCheckBoxClick = (e) => {
     setIsChecked(true)
-    setDayCount(dayCount += 1)
+    setDayCount(dayCount + 1)
     e.target.disabled = true
 
     compareDates(1651371062000)  
@@ -41,9 +41,9 @@ const IndividualHabit = (props) => {
     const timePlus36hrs = oldTimestamp + 60 * 60 * (24 * 2.5) * 1000 // add 2.5 days to the timestamp from db
 
     if (timePlus36hrs < newTimestamp) { // if user hasn't checked the habit within 36 hours
-      console.log('to continue')
+      console.log('compareDates if WIP')
     } else if (timePlus24hrs >= newTimestamp) {  // if user has checked the habit within 36 hours
-      console.log('in progress')
+      console.log('compareDates else WIP')
     }
   }
 
@@ -53,9 +53,7 @@ const IndividualHabit = (props) => {
     // 24 hours in mins
     let date = new Date(dateTimeStamp * 1000)
     // const newDate = date + twentyFourHrInMs
-    // dispatch(updateGoal(newDate))
     // const twentyFourHoursAgo = Date.now() - twentyFourHrInMs
-    // console.log(date, add60Seconds)
     return date > add60Seconds
   }
   

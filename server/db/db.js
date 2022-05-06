@@ -18,7 +18,6 @@ function getHabits(db = connection) {
 }
 
 function getOneHabit(id, db = connection) {
-  console.log('db reached')
   return db('habits').select().where('id', id).first()
 }
 

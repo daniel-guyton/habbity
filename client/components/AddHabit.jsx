@@ -16,9 +16,7 @@ const AddHabit = (props) =>  {
   const dispatch = useDispatch()
 
   const handleAddItem = () => {
-    
     const currentDate = Date.now() // current timestamp
-
     dispatch(
       addGoal({
         goal: newHabit,
@@ -28,8 +26,8 @@ const AddHabit = (props) =>  {
         goalCompletedAt: Date.now(),
       })
     ) // need to check if this is sending back to db
-
     onClose()
+    return null // this is so the browser stops 'listening' for a response it doesn't need
   }
 
   const handleChange = (e) => {
