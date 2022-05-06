@@ -1,4 +1,4 @@
-import { setUser } from '.actions/user'
+import { setUser } from '.actions'
 import store from './store'
 
 export async function cacheUser(useAuth0, state) {
