@@ -1,7 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import reducers from './reducers'
+import goals from './reducers/goals'
+import user from './reducers/user'
 
-const store = configureStore({ reducer: reducers })
+const reducers = {
+  goals,
+  user
+}
+
+const store = configureStore( {reducer: reducers} )
 
 export default store
