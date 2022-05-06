@@ -38,8 +38,8 @@ const HabitBox = (props) => {
       <Box
         overflowY={'scroll'}
         css={{
-          '-ms-overflow-style': 'none',
-          'scrollbar-width': 'none',
+          'msOverflowStyle': 'none',
+          'scrollbarWidth': 'none',
           '&::-webkit-scrollbar': {
             display: 'none',
           },

@@ -18,7 +18,7 @@ export const createState = () => {
   return (dispatch) => {
     return api.getHabits()
       .then((result) => {
-        dispatch(createFetchPayload(res)) // builds payload if successful
+        dispatch(createFetchPayload(result)) // builds payload if successful
       })
       .catch(err => {
         dispatch(setError(err.message))
@@ -41,13 +41,12 @@ export const updateStatus = (habitObj, statusStr) => ({
 
 export const addGoal = (habitObj) => ({
   type: ADD_GOAL,
-  payload: { habitObj },
+  payload: { goal: habitObj },
 })
-
 
 export const updateGoal = (inputObj) => ({
   type: UPDATE_TIMESTAMP,
-  payload: { inputObj },
+  payload: { updatedGoal: inputObj },
 })
 
 //* USERS

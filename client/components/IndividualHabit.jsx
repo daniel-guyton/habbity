@@ -1,7 +1,8 @@
 import React, {useEffect, useState, useRef} from 'react'
 import {Box, Flex, Text, Checkbox, useColorModeValue, Button, } from '@chakra-ui/react'
-import { updateGoal } from '../actions'
 import { useDispatch } from 'react-redux'
+
+import { updateGoal } from '../actions'
 
 const IndividualHabit = (props) => {
   const dispatch = useDispatch()

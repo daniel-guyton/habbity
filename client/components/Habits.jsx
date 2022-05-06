@@ -46,7 +46,7 @@ const Habits = () => {
 
   return (
     <Flex width="100%" flexWrap="wrap" color={primaryFontColor}>
-      {/* Each HabitBox maps a status array with IndivHabit and renders as children */}
+      {/* Each HabitBox maps a status array with IndividualHabit and renders as children */}
       <HabitBox
         name="In Progress"
         length={progressArray.length}

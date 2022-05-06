@@ -1,4 +1,9 @@
-import { FETCH_ALL, UPDATE_HABIT_STATUS, UPDATE_TIMESTAMP, ADD_GOAL } from '../actions'
+import {
+  FETCH_ALL,
+  UPDATE_HABIT_STATUS,
+  UPDATE_TIMESTAMP,
+  ADD_GOAL,
+} from '../actions'
 
 const initialState = [
   {
@@ -37,13 +42,13 @@ const goalsReducer = (state = initialState, action) => {
       return action.payload
     case UPDATE_HABIT_STATUS: {
       const goals = [...state]
-      const updatedArray = goals.map((habit, i) => {
-        if (habit.goal === action.payload.goal) {
+      const updatedArray = goals.map((element) => {
+        if (element.goal === action.payload.goal) {
           return {
-            ...habit,
+            ...element,
             status: action.payload.status,
           }
-        } else return habit
+        } else return element
       })
       return updatedArray
     }
