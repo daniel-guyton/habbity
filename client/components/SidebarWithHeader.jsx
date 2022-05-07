@@ -1,7 +1,7 @@
 import React from 'react'
 import {
   IconButton,
-  Avatar,
+  Image,
   Box,
   CloseButton,
   Flex,
@@ -16,7 +16,6 @@ import {
   useDisclosure,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
 } from '@chakra-ui/react'
@@ -30,8 +29,6 @@ import {
 import { GiPartyPopper } from 'react-icons/gi'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useSelector } from 'react-redux'
-
-import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 
 const LinkItems = [
   { name: 'Habits', icon: FiHome },
@@ -76,29 +73,29 @@ export default function SidebarWithHeader({ children }) {
 // NAV sidebar child => for page links
 const SidebarContent = ({ onClose, ...rest }) => {
   return (
-    <Box
-      transition="3s ease"
-      bg={useColorModeValue('white', 'gray.900')}
-      borderRight="1px"
-      borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-      w={{ base: 'full', md: 60 }}
-      pos="fixed"
-      h="full"
-      {...rest}
-    >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        {/* <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Habbit
-        </Text> */}
-        <img src='../server/public/designs/Habbity.png' alt='Habbit' />
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
-      </Flex>
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
-          {link.name}
-        </NavItem>
-      ))}
-    </Box>
+      <Box
+        transition="3s ease"
+        bg={useColorModeValue('white', 'gray.900')}
+        borderRight="1px"
+        borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+        w={{ base: 'full', md: 60 }}
+        pos="fixed"
+        h="full"
+        {...rest}
+      >
+        <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+          {/* <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+            Habbit
+          </Text> */}
+          <Image src='../server/public/designs/Habbity.png' alt='Habbit' />
+          <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+        </Flex>
+        {LinkItems.map((link) => (
+          <NavItem key={link.name} icon={link.icon}>
+            {link.name}
+          </NavItem>
+        ))}
+      </Box>
   )
 }
 
@@ -141,21 +138,12 @@ const NavItem = ({ icon, children, ...rest }) => {
 
 // NAV dropdown menus for user activity =>
 const MobileNav = ({ onOpen, ...rest }) => {
-  const { logout, loginWithRedirect } = useAuth0()
+  const { logout } = useAuth0()
   const currentUser = useSelector(state => state.user)
   
   const logoutHandler = (e) => {
     e.preventDefault()
     logout()
-  }
-
-  const signInHandler = (e) => {
-    e.preventDefault()
-    loginWithRedirect()
-  }
-
-  const signUpHandler = (e) => {
-    loginWithRedirect()
   }
 
   return (
@@ -178,29 +166,17 @@ const MobileNav = ({ onOpen, ...rest }) => {
         icon={<FiMenu />}
       />
 
-      <Text
-        display={{ base: 'flex', md: 'none' }}
+      {/* <Text
         fontSize="2xl"
         fontFamily="monospace"
         fontWeight="bold"
-      >
+        >
         Logo
-      </Text>
-
+      </Text> */}
+      <Image width="90px" src='../server/public/designs/Habbity.png' alt="Habbity" display={{ md: 'none' }} />
       <HStack spacing={{ base: '0', md: '6' }}>
         <Flex alignItems={'center'}>
           <Menu>
-            <IfNotAuthenticated>
-              <MenuButton 
-                onClick={signInHandler}
-                mr="5"
-              >Sign in</MenuButton>
-              <MenuButton
-                onClick={signUpHandler}
-                mr="5"
-              >Sign up</MenuButton>
-            </IfNotAuthenticated>
-            <IfAuthenticated>
             <MenuButton
               py={2}
               transition="all 0.3s"
@@ -238,7 +214,6 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 <MenuDivider /> */}
                 <MenuItem onClick={logoutHandler}>Sign out</MenuItem>
             </MenuList>
-            </IfAuthenticated>
           </Menu>
         </Flex>
       </HStack>

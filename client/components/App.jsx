@@ -3,8 +3,9 @@ import {ChakraProvider} from '@chakra-ui/react'
 // import AddTodo from './AddTodo'
 import SidebarWithHeader from './SidebarWithHeader'
 import Habits from './Habits'
+import Home from './Home'
 
-import { IfAuthenticated } from './Authenticated'
+import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 import { useAuth0 } from '@auth0/auth0-react'
 import { cacheUser } from '../auth0-utils'
 
@@ -14,11 +15,14 @@ function App() {
 
   return (
       <ChakraProvider>
-        <SidebarWithHeader>
-          <IfAuthenticated>
-            <Habits />
-          </IfAuthenticated>
-        </SidebarWithHeader>
+        <IfAuthenticated>
+          <SidebarWithHeader>
+          <Habits />
+          </SidebarWithHeader>
+        </IfAuthenticated>
+        <IfNotAuthenticated>
+          <Home />
+        </IfNotAuthenticated>
       </ChakraProvider>
   )
 }
