@@ -24,20 +24,17 @@ const Habits = () => {
     }
     // going through each habit from db
     goals.forEach((goal, index) => {
-      return checkFailedHabit(goal, index)
+      return checkStatusHabit(goal, index)
     })
   }, [user])
   
-  function checkFailedHabit(goal, index) {
+  function checkStatusHabit(goal) {
     const lastUpdated = goal.timestamp
     const currentDate = Date.now()
     const daysPast = (currentDate - lastUpdated) / ( 60 * 60 * 24 * 1000 )
     
     if(daysPast > 2 && goal.status == 'progress') {
       dispatch(updateStatus(goal.goal, 'failed')) // dispatch the updated status back to db
-      return null // ignore
-    } else {
-      return goal // ignore
     }
   }
 

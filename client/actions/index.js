@@ -9,18 +9,18 @@ export const SET_USER = 'SET_USER'
 
 export const SET_ERROR = 'status/error'
 
-
 //* HABITS
 // ========
 
 export const createState = (token) => {
   // fancy action that returns a function
   return (dispatch) => {
-    return api.getHabits(token)
+    return api
+      .getHabits(token)
       .then((result) => {
         dispatch(createFetchPayload(result)) // builds payload if successful
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(setError(err.message))
         console.log(err)
       })
@@ -34,9 +34,9 @@ export const createFetchPayload = (input) => {
   }
 }
 
-export const updateStatus = (habitObj, statusStr) => ({
+export const updateStatus = (goalStr, statusStr) => ({
   type: UPDATE_HABIT_STATUS,
-  payload: { statusStr, habitObj },
+  payload: { goal: goalStr, status: statusStr },
 })
 
 export const addGoal = (habitObj) => ({
