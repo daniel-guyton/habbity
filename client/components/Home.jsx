@@ -22,9 +22,14 @@ const Home = () => {
 }
 
 const WithSubnavigation = () => {
-  const { loginWithRedirect, loginWithPopup } = useAuth0()
+  const { loginWithRedirect } = useAuth0()
 
   const signInHandler = (e) => {
+    e.preventDefault()
+    loginWithRedirect()
+  }
+
+  const signUpHandler = (e) => {
     e.preventDefault()
     loginWithRedirect()
   }
@@ -58,7 +63,7 @@ const WithSubnavigation = () => {
             Sign In
           </Button>
           <Button
-            onClick={signInHandler}
+            onClick={signUpHandler}
             display={{ base: 'none', md: 'inline-flex' }}
             fontSize={'sm'}
             fontWeight={600}

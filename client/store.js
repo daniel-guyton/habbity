@@ -5,8 +5,8 @@ import user from './reducers/user'
 
 const reducers = {
   goals,
-  user
-}
+  user,
+ }
 
 const store = configureStore( {reducer: reducers} )
 

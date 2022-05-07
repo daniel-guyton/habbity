@@ -13,10 +13,10 @@ export const SET_ERROR = 'status/error'
 //* HABITS
 // ========
 
-export const createState = () => {
+export const createState = (userId) => {
   // fancy action that returns a function
   return (dispatch) => {
-    return api.getHabits()
+    return api.getHabits(userId)
       .then((result) => {
         dispatch(createFetchPayload(result)) // builds payload if successful
       })
@@ -58,9 +58,6 @@ export function setUser(user) {
     user,
   }
 }
-
-
-
 
 //* error handler
 

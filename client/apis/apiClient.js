@@ -5,9 +5,9 @@ const rootUrl = '/api/v1'
 //*   HABITS
 //* ==========
 
-export function getHabits() {
-  return request.get(rootUrl + '/habits').then((res) => {
-    return res.body
+export function getHabits(userId) {
+  return request.get(rootUrl + '/habits/' + userId).then((res) => {
+    return res.body.habits
   })
 }
 
@@ -24,3 +24,5 @@ export function addHabits(newhabits) {
 //* ==========
 
 // export function
+
+// Note: don't need user table, only auth0Id is recorded with every habit saved in the database

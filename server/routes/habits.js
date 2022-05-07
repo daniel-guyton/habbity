@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
 
 router.get('/:id', (req, res) => {  
   const id = req.params.id
-  db.getOneHabit(id)
+  db.getHabits(id)
   .then((habit) => {
     return res.json({habits: habit})
   })   
