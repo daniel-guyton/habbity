@@ -13,8 +13,8 @@ module.exports = {
 //*   HABITS
 //* ==========
 
-function getHabits(db = connection) {
-  return db('habits').select()
+function getHabits(userId, db = connection) {
+  return db('habits').select().where('userID', userId)
 }
 
 function getOneHabit(id, db = connection) {

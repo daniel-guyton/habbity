@@ -11,20 +11,20 @@ import App from './components/App'
 document.addEventListener('DOMContentLoaded', () => {
   render(
     <React.StrictMode>
-      <Auth0Provider
-        domain='whai-2022-chen.au.auth0.com'
-        clientId='BlsLtFv0v5kfiVayzuSaE0Jru4zBkePc'
-        redirectUri='window.location.origin'
-        audience='https://habbity/api'
-      >
         <Provider store={store}>
           <ChakraProvider>
             <BrowserRouter>
+          <Auth0Provider
+            domain={'whai-2022-chen.au.auth0.com'}
+            clientId={'BlsLtFv0v5kfiVayzuSaE0Jru4zBkePc'}
+            redirectUri={window.location.origin}
+            audience='https://habbity/api'
+          >
               <App />
+    </Auth0Provider>
             </BrowserRouter>
           </ChakraProvider>
         </Provider>
-      </Auth0Provider>
     </React.StrictMode>,
     document.getElementById('app')
   )

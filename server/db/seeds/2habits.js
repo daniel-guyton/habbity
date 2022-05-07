@@ -33,6 +33,13 @@ exports.seed = function (knex) {
       timestamp: 1651492799081,
       status: 'failed',
     },
+    {
+      userID: '62750d593401c3006704d09c',
+      daysCompleted: 2,
+      goal: 'practice something else',
+      timestamp: 1651492799081,
+      status: 'failed', 
+    }
   ])
 }
 

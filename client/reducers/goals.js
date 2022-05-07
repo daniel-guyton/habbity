@@ -6,31 +6,6 @@ import {
 } from '../actions'
 
 const initialState = [
-  {
-    goal: 'Go to sleep',
-    status: 'progress',
-    timestamp: 1651812639000,
-    days: 2,
-    goalCompletedAt: 1651812639000,
-  },
-  {
-    goal: 'Wake up earlier',
-    status: 'failed',
-    timestamp: 1651371062000,
-    days: 6,
-  },
-  {
-    goal: 'Walk dogs',
-    status: 'progress',
-    timestamp: 1651198262000,
-    days: 3,
-  },
-  {
-    goal: 'Workout',
-    status: 'completed',
-    timestamp: 1651198262000,
-    days: 28,
-  },
 ]
 
 //*   REDUCER

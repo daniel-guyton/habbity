@@ -8,20 +8,25 @@ import {
 import HabitBox from './HabitBox'
 import IndividualHabit from './IndividualHabit'
 
-import { updateStatus } from '../actions'
+import { createState, updateStatus } from '../actions'
 
 const Habits = () => {  
   const dispatch = useDispatch()
  
-  const goals = useSelector(state => state.goals) // habits array from db
+  const user = useSelector(state => state.user) // signed in user info
   const primaryFontColor = useColorModeValue('#333', 'white') // Chakra css setting
-  
+  const goals = useSelector(state => state.goals) // habits array from db
+
   useEffect(() => {
+    // dispatch user information when exist in state
+    if(user.token !== '') {
+      dispatch(createState(user))
+    }
     // going through each habit from db
     goals.forEach((goal, index) => {
       return checkFailedHabit(goal, index)
     })
-  }, [])
+  }, [user])
   
   function checkFailedHabit(goal, index) {
     const lastUpdated = goal.timestamp

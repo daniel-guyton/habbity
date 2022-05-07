@@ -5,15 +5,19 @@ const rootUrl = '/api/v1'
 //*   HABITS
 //* ==========
 
-export function getHabits() {
-  return request.get(rootUrl + '/habits').then((res) => {
-    return res.body
-  })
+export function getHabits(user) {
+  return request
+    .get(rootUrl + '/habits')
+    .set('authorization', `Bearer ${user.token}`)
+    .then((res) => {
+      return res.body.habits
+    })
 }
 
-export function addHabits(newhabits) {
+export function addHabits(newhabits, token) {
   return request
     .post(rootUrl + '/habits')
+    .set('authorization:', `Bearer ${token}`)
     .send({ newhabits })
     .then((res) => {
       return res.body
@@ -24,3 +28,5 @@ export function addHabits(newhabits) {
 //* ==========
 
 // export function
+
+// Note: don't need user table, only auth0Id is recorded with every habit saved in the database
