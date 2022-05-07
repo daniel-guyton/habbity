@@ -1,4 +1,3 @@
-
 import * as api from '../apis/apiClient'
 
 export const FETCH_ALL = 'habits/fetch/all'
@@ -9,18 +8,18 @@ export const ADD_GOAL = 'habit/add/new'
 
 export const SET_ERROR = 'status/error'
 
-
 //* HABITS
 // ========
 
 export const createState = () => {
   // fancy action that returns a function
   return (dispatch) => {
-    return api.getHabits()
+    return api
+      .getHabits()
       .then((result) => {
         dispatch(createFetchPayload(result)) // builds payload if successful
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(setError(err.message))
         console.log(err)
       })
@@ -34,9 +33,9 @@ export const createFetchPayload = (input) => {
   }
 }
 
-export const updateStatus = (habitObj, statusStr) => ({
+export const updateStatus = (goalStr, statusStr) => ({
   type: UPDATE_HABIT_STATUS,
-  payload: { statusStr, habitObj },
+  payload: { goal: goalStr, status: statusStr },
 })
 
 export const addGoal = (habitObj) => ({
@@ -51,9 +50,6 @@ export const updateGoal = (inputObj) => ({
 
 //* USERS
 // =======
-
-
-
 
 //* error handler
 

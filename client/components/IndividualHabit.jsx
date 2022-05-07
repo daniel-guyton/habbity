@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react'
 import {Box, Flex, Text, Checkbox, useColorModeValue, Button, } from '@chakra-ui/react'
 import { useDispatch } from 'react-redux'
 
-import { updateGoal } from '../actions'
+import { updateGoal , updateStatus} from '../actions'
 
 const IndividualHabit = (props) => {
   const dispatch = useDispatch()
@@ -14,6 +14,8 @@ const IndividualHabit = (props) => {
 
 
 
+
+  console.log(props)
   useEffect(() => {
     isMoreThan24Hours(props.goalCompletedAt)
   }, [])
@@ -33,11 +35,13 @@ const IndividualHabit = (props) => {
     return () => clearInterval(checker)
   }, [props.goalCompletedAt, checkbox])
 
-
-
   const handleCheckBoxClick = (e) => {
+    const newDayCount = dayCount + 1
     setIsChecked(true)
-    setDayCount(dayCount + 1)
+    setDayCount(newDayCount)
+    if(newDayCount > 27) {
+      dispatch(updateStatus(props.goal, 'completed'))
+    }
     e.target.disabled = true
     // compareDates(1651371062000)  // TODO compare with a real date later for column sorting
     if(e.target.checked) {
