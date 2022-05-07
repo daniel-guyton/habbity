@@ -5,17 +5,18 @@ export const FETCH_ALL = 'habits/fetch/all'
 export const UPDATE_HABIT_STATUS = 'habit/status/update'
 export const UPDATE_TIMESTAMP = 'habit/time/update'
 export const ADD_GOAL = 'habit/add/new'
+export const SET_USER = 'SET_USER'
 
 export const SET_ERROR = 'status/error'
 
 //* HABITS
 // ========
 
-export const createState = () => {
+export const createState = (token) => {
   // fancy action that returns a function
   return (dispatch) => {
     return api
-      .getHabits()
+      .getHabits(token)
       .then((result) => {
         dispatch(createFetchPayload(result)) // builds payload if successful
       })
@@ -50,6 +51,13 @@ export const updateGoal = (inputObj) => ({
 
 //* USERS
 // =======
+
+export function setUser(user) {
+  return {
+    type: SET_USER,
+    user,
+  }
+}
 
 //* error handler
 
