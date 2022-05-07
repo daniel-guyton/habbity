@@ -14,17 +14,19 @@ const Habits = () => {
   const dispatch = useDispatch()
  
   const user = useSelector(state => state.user) // signed in user info
-  const userId = user.auth0Id.split('|')[1]
   const primaryFontColor = useColorModeValue('#333', 'white') // Chakra css setting
   const goals = useSelector(state => state.goals) // habits array from db
-  
+
   useEffect(() => {
-    dispatch(createState(userId))
+    // dispatch user information when exist in state
+    if(user.token !== '') {
+      dispatch(createState(user))
+    }
     // going through each habit from db
     goals.forEach((goal, index) => {
       return checkFailedHabit(goal, index)
     })
-  }, [userId])
+  }, [user])
   
   function checkFailedHabit(goal, index) {
     const lastUpdated = goal.timestamp

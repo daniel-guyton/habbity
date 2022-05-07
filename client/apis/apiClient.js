@@ -5,15 +5,20 @@ const rootUrl = '/api/v1'
 //*   HABITS
 //* ==========
 
-export function getHabits(userId) {
-  return request.get(rootUrl + '/habits/' + userId).then((res) => {
-    return res.body.habits
-  })
+export function getHabits(user) {
+  return request
+    .get(rootUrl + '/habits')
+    .set('authorization', `Bearer ${user.token}`)
+    .send({ user })
+    .then((res) => {
+      return res.body.habits
+    })
 }
 
-export function addHabits(newhabits) {
+export function addHabits(newhabits, token) {
   return request
     .post(rootUrl + '/habits')
+    .set('authorization:', `Bearer ${token}`)
     .send({ newhabits })
     .then((res) => {
       return res.body
