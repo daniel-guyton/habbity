@@ -36,11 +36,3 @@ module.exports = {
     },
   },
 }
-
-// PORT=5432
-// NODE_ENV=development
-// DB_HOST=localhost
-// DB_USER=postgres
-// DB_PASS=1cecreaM
-// DB_NAME=postgres
-// DATABASE_URL=
