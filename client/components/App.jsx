@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import {ChakraProvider} from '@chakra-ui/react'
 // import AddTodo from './AddTodo'
 import SidebarWithHeader from './SidebarWithHeader'
 import Habits from './Habits'
 import Home from './Home'
+import Badges from './Badges'
 
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -17,7 +19,10 @@ function App() {
       <ChakraProvider>
         <IfAuthenticated>
           <SidebarWithHeader>
-          <Habits />
+            <Routes>
+              <Route path='/' element={<Habits />} />
+              <Route path='/badges' element={<Badges />} />
+            </Routes>
           </SidebarWithHeader>
         </IfAuthenticated>
         <IfNotAuthenticated>
