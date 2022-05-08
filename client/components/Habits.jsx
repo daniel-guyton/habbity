@@ -8,7 +8,8 @@ import {
 import HabitBox from './HabitBox'
 import IndividualHabit from './IndividualHabit'
 
-import { createState, updateStatus } from '../actions'
+import { createState, updateGoal } from '../actions'
+import { getHabits } from '../apis/apiClient'
 
 const Habits = () => {  
   const dispatch = useDispatch()
@@ -27,6 +28,8 @@ const Habits = () => {
       return checkStatusHabit(goal, index)
     })
   }, [user])
+
+  
   
   function checkStatusHabit(goal) {
     const lastUpdated = goal.timestamp
@@ -34,7 +37,7 @@ const Habits = () => {
     const daysPast = (currentDate - lastUpdated) / ( 60 * 60 * 24 * 1000 )
     
     if(daysPast > 2 && goal.status == 'progress') {
-      dispatch(updateStatus(goal.goal, 'failed')) // dispatch the updated status back to db
+      dispatch(updateGoal({id: goal.id, status: 'failed'})) // dispatch the updated status back to db
     }
   }
 
@@ -54,7 +57,7 @@ const Habits = () => {
         length={progressArray.length}
         status="progress"
       >
-        {progressArray.map(({ goal, timestamp, goalCompletedAt }, idx) => {
+        {progressArray.map(({ goal, timestamp, goalCompletedAt, id, daysCompleted }, idx) => {
           return (
             <IndividualHabit
               key={idx}
@@ -62,13 +65,15 @@ const Habits = () => {
               timestamp={timestamp}
               goalCompletedAt={goalCompletedAt}
               status="progress"
+              id={id}
+              daysCompleted={daysCompleted}
             />
           )
         })}
       </HabitBox>
       <HabitBox name="Completed" length={completedArray.length}>
         {completedArray.map(({ goal, timestamp }, idx) => {
-          return <IndividualHabit key={idx} timestamp={timestamp} goal={goal} />
+          return <IndividualHabit key={idx} timestamp={timestamp} goal={goal}  />
         })}
       </HabitBox>
       <HabitBox name="Failed" length={failedArray.length}>

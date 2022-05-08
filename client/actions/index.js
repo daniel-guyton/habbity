@@ -3,7 +3,7 @@ import * as api from '../apis/apiClient'
 export const FETCH_ALL = 'habits/fetch/all'
 
 export const UPDATE_HABIT_STATUS = 'habit/status/update'
-export const UPDATE_TIMESTAMP = 'habit/time/update'
+export const UPDATE_GOAL = 'habit/update'
 export const ADD_GOAL = 'habit/add/new'
 export const SET_USER = 'SET_USER'
 
@@ -44,9 +44,9 @@ export const addGoal = (habitObj) => ({
   payload: { goal: habitObj },
 })
 
-export const updateGoal = (inputObj) => ({
-  type: UPDATE_TIMESTAMP,
-  payload: { updatedGoal: inputObj },
+export const updateGoal = (updatedGoal) => ({
+  type: UPDATE_GOAL,
+  payload: { updatedGoal },
 })
 
 //* USERS

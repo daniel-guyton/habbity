@@ -1,31 +1,55 @@
-import React, {useRef, useState} from "react"
-import { useDisclosure, Button, Modal, Text, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Box, Input, FormLabel, FormControl} from "@chakra-ui/react"
-import { AddIcon } from "@chakra-ui/icons"
-import { useDispatch } from "react-redux"
+import React, { useRef, useState } from 'react'
+import {
+  useDisclosure,
+  Button,
+  Modal,
+  Text,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Box,
+  Input,
+  FormLabel,
+  FormControl,
+} from '@chakra-ui/react'
+import { AddIcon } from '@chakra-ui/icons'
+import { useDispatch, useSelector} from 'react-redux'
+import { addHabits } from '../apis/apiClient'
+import { addGoal } from '../actions'
 
-import { addGoal } from "../actions"
-
-const AddHabit = (props) =>  {
-  
+const AddHabit = (props) => {
   // Chakra settings
   const { isOpen, onOpen, onClose } = useDisclosure()
   const initialRef = useRef()
   const finalRef = useRef()
-  
+
   const [newHabit, setNewHabit] = useState('') // can change to action for dispatch
   const dispatch = useDispatch()
 
+  // user token for api call
+  const user = useSelector((state) => state.user) // signed in user info
+
   const handleAddItem = () => {
-    const currentDate = Date.now() // current timestamp
-    dispatch(
-      addGoal({
-        goal: newHabit,
-        timestamp: currentDate,
-        days: 0,
-        status: 'progress',
-        goalCompletedAt: Date.now(),
+    const currentDate = Date.now()
+    const habitToAdd = {
+      goal: newHabit,
+      timestamp: currentDate,
+      daysCompleted: 0,
+      status: 'progress',
+      goalCompletedAt: 0,
+    }
+
+    addHabits(habitToAdd, user.token)
+      .then((addedHabit) => {
+        dispatch(addGoal(addedHabit)) // need to check if this is sending back to db
       })
-    ) // need to check if this is sending back to db
+      .catch((err) => {
+        console.log(err)
+      })
+
     onClose()
     return null // this is so the browser stops 'listening' for a response it doesn't need
   }
@@ -36,7 +60,7 @@ const AddHabit = (props) =>  {
 
   return (
     <>
-    {/* showing as a button in HabitBox */}
+      {/* showing as a button in HabitBox */}
       <Box
         fontSize={14}
         display="flex"
@@ -51,7 +75,7 @@ const AddHabit = (props) =>  {
         <AddIcon />
       </Box>
 
-    {/* showing as a modal for user input when above button clicked */}
+      {/* showing as a modal for user input when above button clicked */}
       <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
@@ -65,7 +89,12 @@ const AddHabit = (props) =>  {
           <ModalBody pb={6}>
             <FormControl>
               <FormLabel htmlFor="habit-task">Habit Task</FormLabel>
-              <Input id="habit-task" onChange={handleChange} ref={initialRef} placeholder="Enter text here..." />
+              <Input
+                id="habit-task"
+                onChange={handleChange}
+                ref={initialRef}
+                placeholder="Enter text here..."
+              />
             </FormControl>
           </ModalBody>
 

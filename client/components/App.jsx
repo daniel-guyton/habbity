@@ -11,7 +11,7 @@ import { cacheUser } from '../auth0-utils'
 
 function App() {
   useEffect(() => {}, [])
-  {cacheUser(useAuth0)}
+  cacheUser(useAuth0)
 
   return (
       <ChakraProvider>
