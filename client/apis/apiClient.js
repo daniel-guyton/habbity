@@ -14,11 +14,23 @@ export function getHabits(user) {
     })
 }
 
-export function addHabits(newhabits, token) {
+export function addHabits(newHabit, token) {
   return request
     .post(rootUrl + '/habits')
-    .set('authorization:', `Bearer ${token}`)
-    .send({ newhabits })
+    .send({ newHabit })
+    .set('Accept', 'application/json')
+    .auth(token, { type: 'bearer' })
+    .then((res) => {
+      return res.body
+    })
+}
+
+export function patchHabit(habitToUpdate, token) {
+  return request
+    .patch(rootUrl + '/habits')
+    .send({ ...habitToUpdate })
+    .set('Accept', 'application/json')
+    .auth(token, { type: 'bearer' })
     .then((res) => {
       return res.body
     })

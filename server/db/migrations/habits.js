@@ -11,6 +11,7 @@ exports.up = function (knex) {
     table.string('goal')
     table.integer('timestamp')
     table.string('status')
+    table.integer('goalCompletedAt')
   })
 }
 
