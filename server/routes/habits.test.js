@@ -1,10 +1,23 @@
 const request = require('supertest')
 const server = require('../server')
 const { getHabits, getOneHabit, addHabit } = require('../db/db')
+const { authCheck } = require('../authCheck')
 
 jest.mock('../db/db')
+jest.mock('../authCheck')
 
-describe('GET /api/v1/habits', () => {
+beforeAll(() => {
+  authCheck.mockImplementation((req, res, next) => {
+    req.auth = {
+      sub: 'test|62750d593401c3006704d09c',
+    }
+    next()
+  })
+  afterAll(() => {
+    jest.restoreAllMocks()
+  })
+
+  describe('GET /api/v1/habits', () => {})
   it('returns all habits', () => {
     // expect.assertions(3)
     getHabits.mockReturnValue(
@@ -49,7 +62,6 @@ describe('GET /api/v1/habits', () => {
 describe('POST /api/v1/habits', () => {
   it('saves habit to database and returns new habit', () => {
     const newHabit = {
-      userID: 1,
       daysCompleted: 0,
       goal: 'raise a fish to be a lawyer',
     }
@@ -58,12 +70,11 @@ describe('POST /api/v1/habits', () => {
     // expect.assertions(4)
     return request(server)
       .post('/api/v1/habits')
-      .send(newHabit)
+      .send({ newHabit })
       .then((res) => {
         expect(res.status).toBe(200)
-        expect(addHabits).toHaveBeenCalledWith(newHabit)
-        expect(res.body.habits).toEqual(newHabit)
-        expect(res.body.habits.daysCompleted).toEqual(0)
+        expect(res.body.goal).toEqual(newHabit.goal)
+        expect(res.body.daysCompleted).toEqual(newHabit.daysCompleted)
         // expect(getHabits).toHaveBeenCalledWith(23)
         // expect(res.body).toEqual({ id: 23, ...newHabit })
       })

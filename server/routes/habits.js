@@ -28,7 +28,7 @@ router.post('/', authCheck, async (req, res) => {
   }
 
   if (!userId) {
-    return res.status(400).send({ message: 'Unauthorised' })
+    return res.status(401).send({ message: 'Unauthorised' })
   }
 
   db.addHabit({ ...newHabit, userID: userId })
@@ -51,7 +51,7 @@ router.patch('/', authCheck, async (req, res) => {
   }
 
   if (!userId) {
-    return res.status(400).send({ message: 'Unauthorised' })
+    return res.status(401).send({ message: 'Unauthorised' })
   }
 
   db.updateHabit({ ...updatedHabit, userID: userId })
