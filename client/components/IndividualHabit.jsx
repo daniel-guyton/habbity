@@ -1,8 +1,15 @@
-import React, {useEffect, useState, useRef} from 'react'
-import {Box, Flex, Text, Checkbox, useColorModeValue, Button, } from '@chakra-ui/react'
+import React, { useEffect, useState, useRef } from 'react'
+import {
+  Box,
+  Flex,
+  Text,
+  Checkbox,
+  useColorModeValue,
+  Button,
+} from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { updateGoal , updateStatus} from '../actions'
+import { updateGoal, updateStatus } from '../actions'
 import { patchHabit } from '../apis/apiClient'
 
 const IndividualHabit = (props) => {
@@ -24,6 +31,32 @@ const IndividualHabit = (props) => {
   useEffect(() => {
     const checker = setInterval(() => {
       handleCheckboxState(props.goalCompletedAt)
+
+
+      // getting current date & time as unix timestamp
+      // converting it back to a date object for easier
+      const current_date_object = new Date()
+
+      // adds seconds to the completed date
+      // convert it to date object for easier comparisons
+      const initial_unix_with_seconds = props.timestamp + 20
+      const initial_date_object = new Date(initial_unix_with_seconds * 1000)
+
+      // adds seconds to the completed date
+      // convert it to date object for easier comparisons
+      const completed_unix_with_seconds = props.goalCompletedAt + 40
+      const completed_date_object = new Date(completed_unix_with_seconds * 1000)
+
+      const isFirstDay = props.goalCompletedAt === 0
+      const isNotFirstDay = props.goalCompletedAt !== 0
+      const initialTimeCheck = isFirstDay && initial_date_object < current_date_object
+      const timeAfterCheck = isNotFirstDay && completed_date_object < current_date_object
+      if (initialTimeCheck || timeAfterCheck) {
+        patchHabit({id: props.id, status: 'failed'}, user.token).then(() => {
+          dispatch(updateGoal({id: props.id, status: 'failed'}))
+        })
+        console.log(props.id, props.goal, 'dispatched failure')
+      }
     }, 10000)
 
     return () => clearInterval(checker)
@@ -35,7 +68,7 @@ const IndividualHabit = (props) => {
     if (isReset && checkbox.current != null) {
       setIsChecked(false)
       checkbox.current.disabled = false
-    } 
+    }
     // If the day has no reset, this will keep the checkbox from being focusable
     setIsEnabled(isReset)
   }
@@ -49,7 +82,7 @@ const IndividualHabit = (props) => {
     setIsChecked(true)
     //if goal is completed change status property
     if (newDayCount > 27) {
-      changes.status= 'completed'
+      changes.status = 'completed'
     }
 
     e.target.disabled = true
@@ -59,25 +92,10 @@ const IndividualHabit = (props) => {
       changes.goalCompletedAt = Math.floor(new Date().getTime() / 1000)
     }
 
-    //updating all the changes 
+    //updating all the changes
     patchHabit(changes, user.token).then(() => {
       dispatch(updateGoal(changes))
     })
-}
-
-  // TODO see line 38; for column sorting
-  const compareDates = (oldTimestamp) => {
-    // const oneDay = 86400 // 1 day in timestamp format
-    const newTimestamp = Date.now()
-    const timePlus36hrs = oldTimestamp + 60 * 60 * (24 * 2.5) * 1000 // add 2.5 days to the timestamp from db
-
-    if (timePlus36hrs < newTimestamp) {
-      // if user hasn't checked the habit within 36 hours
-      console.log('compareDates if WIP')
-    } else if (timePlus24hrs >= newTimestamp) {
-      // if user has checked the habit within 36 hours
-      console.log('compareDates else WIP')
-    }
   }
 
   function isMoreThan24Hours(dateTimeStamp) {
@@ -88,7 +106,7 @@ const IndividualHabit = (props) => {
     }
 
     // getting current date & time as unix timestamp
-    // converting it back to a date object for easier 
+    // converting it back to a date object for easier
     const current_date_unix = Math.floor(new Date().getTime() / 1000)
     const current_date_object = new Date(current_date_unix * 1000)
 
