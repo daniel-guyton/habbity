@@ -7,9 +7,9 @@ exports.up = function (knex) {
   return knex.schema.createTable('habits', (table) => {
     table.increments('id')
    //.references('users.id') <- this can force habits to have an existing owner so new owners don't inherit misplaced habits. Commented out for development
-    table.dateTime('daysCompleted')
+    table.integer('daysCompleted')
     table.string('goal')
-    table.dateTime('timestamp')
+    table.bigInteger('timestamp')
     table.string('status')
   })
 }
