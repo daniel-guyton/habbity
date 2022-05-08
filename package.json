@@ -9,7 +9,7 @@
     "build": "run-p build:client build:server",
     "build:client": "vite build",
     "build:server": "npm run knex -- migrate:latest",
-    "start": "node Server.js",
+    "start": "node server",
     "test": "jest",
     "test:watch": "jest --noStackTrace --watchAll",
     "dev": "run-p dev:client dev:server",
