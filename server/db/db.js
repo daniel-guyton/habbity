@@ -4,34 +4,39 @@ const connection = require('knex')(config)
 
 module.exports = {
   getHabits,
-  addHabits,
+  addHabit,
   getUsers,
   getOneUser,
   getOneHabit,
+  updateHabit,
 }
 
 //*   HABITS
 //* ==========
 
-function getHabits(db = connection) {
-  return db('habits').select()
+function getHabits(userId, db = connection) {
+  return db('habits').select().where('userID', userId)
 }
 
 function getOneHabit(id, db = connection) {
   return db('habits').select().where('id', id).first()
 }
 
-function addHabits(newHabit, db = connection) {
-  const { daysCompleted, goal } = newHabit
+function addHabit(newHabit, db = connection) {
+  const { userID, daysCompleted, goal, status, timestamp, goalCompletedAt } =
+    newHabit
   return db('habits')
-    .insert({ daysCompleted, goal })
+    .insert({ userID, daysCompleted, goal, status, timestamp, goalCompletedAt })
     .returning('id')
     .then(([{ id }]) => {
-      return db('habits')
-        .select()
-        .where('id', id)
-        .first()
+      return db('habits').select().where('id', id).first()
     })
+}
+
+function updateHabit(habit, db = connection) {
+  return db('habits')
+    .update(habit)
+    .where({ userID: habit.userID, id: habit.id })
 }
 
 // function deleteHabit(){}

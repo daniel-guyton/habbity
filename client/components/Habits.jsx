@@ -8,33 +8,36 @@ import {
 import HabitBox from './HabitBox'
 import IndividualHabit from './IndividualHabit'
 
-import { updateStatus, createState } from '../actions'
+import { createState, updateGoal } from '../actions'
+import { getHabits } from '../apis/apiClient'
 
 const Habits = () => {  
   const dispatch = useDispatch()
  
-  const goals = useSelector(state => state.goals) // habits array from db
+  const user = useSelector(state => state.user) // signed in user info
   const primaryFontColor = useColorModeValue('#333', 'white') // Chakra css setting
-  
+  const goals = useSelector(state => state.goals) // habits array from db
+
   useEffect(() => {
-    // getting goals array from db
-    dispatch(createState())
+    // dispatch user information when exist in state
+    if(user.token !== '') {
+      dispatch(createState(user))
+    }
     // going through each habit from db
     goals.forEach((goal, index) => {
-      return checkFailedHabit(goal, index)
+      return checkStatusHabit(goal, index)
     })
-  }, [])
+  }, [user])
+
   
-  function checkFailedHabit(goal, index) {
+  
+  function checkStatusHabit(goal) {
     const lastUpdated = goal.timestamp
     const currentDate = Date.now()
     const daysPast = (currentDate - lastUpdated) / ( 60 * 60 * 24 * 1000 )
     
     if(daysPast > 2 && goal.status == 'progress') {
-      dispatch(updateStatus(goal.goal, 'failed')) // dispatch the updated status back to db
-      return null // ignore
-    } else {
-      return goal // ignore
+      dispatch(updateGoal({id: goal.id, status: 'failed'})) // dispatch the updated status back to db
     }
   }
 
@@ -54,7 +57,7 @@ const Habits = () => {
         length={progressArray.length}
         status="progress"
       >
-        {progressArray.map(({ goal, timestamp, goalCompletedAt }, idx) => {
+        {progressArray.map(({ goal, timestamp, goalCompletedAt, id, daysCompleted }, idx) => {
           return (
             <IndividualHabit
               key={idx}
@@ -62,13 +65,15 @@ const Habits = () => {
               timestamp={timestamp}
               goalCompletedAt={goalCompletedAt}
               status="progress"
+              id={id}
+              daysCompleted={daysCompleted}
             />
           )
         })}
       </HabitBox>
       <HabitBox name="Completed" length={completedArray.length}>
         {completedArray.map(({ goal, timestamp }, idx) => {
-          return <IndividualHabit key={idx} timestamp={timestamp} goal={goal} />
+          return <IndividualHabit key={idx} timestamp={timestamp} goal={goal}  />
         })}
       </HabitBox>
       <HabitBox name="Failed" length={failedArray.length}>
