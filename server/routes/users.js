@@ -15,16 +15,16 @@ router.get('/', (req, res) => {
     })
 })
 
-// router.post('/', (req, res) => {
-//   const user = req.body.user
-//     db.addUsers(user)
-//   .then((user) => {
-//     return res.json(user)
-//   })   
-//   .catch((err) => {
-//     console.log(err)
-//     res.status(500).send({ message: 'Failed to add users ╰(•́ ꞈ •̀)╯' })
-//   })
-// })
+router.post('/', (req, res) => {
+  const user = req.body.user
+    db.addUsers(user)
+  .then((user) => {
+    return res.json(user)
+  })   
+  .catch((err) => {
+    console.log(err)
+    res.status(500).send({ message: 'Failed to add users ╰(•́ ꞈ •̀)╯' })
+  })
+})
 
 module.exports = router

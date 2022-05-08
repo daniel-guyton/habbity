@@ -1,7 +1,7 @@
 import {
   FETCH_ALL,
   UPDATE_HABIT_STATUS,
-  UPDATE_TIMESTAMP,
+  UPDATE_GOAL,
   ADD_GOAL,
 } from '../actions'
 
@@ -29,11 +29,11 @@ const goalsReducer = (state = initialState, action) => {
     case ADD_GOAL: {
       return [...state, action.payload.goal]
     }
-    case UPDATE_TIMESTAMP: {
+    case UPDATE_GOAL: {
       const goals = [...state]
 
       const goalIndex = goals.findIndex(
-        (habit) => habit.goal === action.payload.updatedGoal.goal
+        (habit) => habit.id === action.payload.updatedGoal.id
       )
 
       if (goalIndex < 0) {
