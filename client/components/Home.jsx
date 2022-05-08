@@ -7,12 +7,13 @@ import {
   useColorModeValue
 } from '@chakra-ui/react'
 import { useAuth0 } from '@auth0/auth0-react'
+import habbityImage from '../public/designs/Habbity.png'
 
 const Home = () => {
   return (  
     <Box>
       <WithSubnavigation />
-      <img src="../server/public/designs/Habbity.png" alt="Habbity"
+      <img src={habbityImage} alt="Habbity"
         style={{
           margin: '20vh auto 0 auto'
         }}

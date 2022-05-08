@@ -87,7 +87,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
           {/* <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
             Habbit
           </Text> */}
-          <Image src='../server/public/designs/Habbity.png' alt='Habbit' />
+          <Image src='/client/public/designs/Habbity.png' alt='Habbit' />
           <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
         </Flex>
         {LinkItems.map((link) => (
@@ -144,7 +144,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
   
   const logoutHandler = (e) => {
     e.preventDefault()
-    logout()
+    logout({returnTo: window.location.origin})
   }
 
   return (
