@@ -47,7 +47,7 @@ const IndividualHabit = (props) => {
     let changes = { id: props.id, daysCompleted: newDayCount }
 
     setIsChecked(true)
-    //if goal is completed add status property
+    //if goal is completed change status property
     if (newDayCount > 27) {
       changes.status= 'completed'
     }
