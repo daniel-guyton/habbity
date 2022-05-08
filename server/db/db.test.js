@@ -1,5 +1,4 @@
 const knex = require('knex')
-const { getHabits } = require('../../client/apis/apiClient')
 const config = require('./knexfile').test
 const testDb = knex(config)
 
@@ -17,9 +16,9 @@ afterAll(() => {
 
 describe('getHabits', () => {
   it('returns the correct habbit', () => {
-    return db.getHabits(testDb).then((habits) => {
-      expect(habits).toHaveLength(4)
-      expect(habits[0].id).toEqual(1)
+    return db.getHabits(2, testDb).then((habits) => {
+      expect(habits).toHaveLength(3)
+      expect(habits[0].userID).toEqual(2)
       return null
     })
   })
