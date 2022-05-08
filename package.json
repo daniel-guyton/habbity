@@ -5,6 +5,7 @@
   "repository": "https://https://github.com/dev-academy-challenges/todo-full-stack",
   "main": "server/index.js",
   "scripts": {
+    "heroku-postbuild": "npm run build",
     "build": "run-p build:client build:server",
     "build:client": "vite build",
     "build:server": "npm run knex -- migrate:latest",
