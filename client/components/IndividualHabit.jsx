@@ -13,12 +13,12 @@ const IndividualHabit = (props) => {
   const [isEnabled, setIsEnabled] = useState(false)
   const [isChecked, setIsChecked] = useState(false)
 
+  //checks wether the checkbox should be ticked based no the timestamps / date.
   useEffect(() => {
-    const realised = isMoreThan24Hours(props.goalCompletedAt)
+    const shouldCheckboxBeTicked = isMoreThan24Hours(props.goalCompletedAt)
 
-    setIsEnabled(realised)
-    setIsChecked(!realised)
-    
+    setIsEnabled(shouldCheckboxBeTicked)
+    setIsChecked(!shouldCheckboxBeTicked)
   }, [])
 
   useEffect(() => {
@@ -86,7 +86,7 @@ const IndividualHabit = (props) => {
     if (typeof dateTimeStamp == 'undefined') {
       return false
     }
-    
+
     // getting current date & time as unix timestamp
     // converting it back to a date object for easier 
     const current_date_unix = Math.floor(new Date().getTime() / 1000)
