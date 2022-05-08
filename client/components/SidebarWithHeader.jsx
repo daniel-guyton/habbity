@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link as ReactLink } from 'react-router-dom'
 import {
   IconButton,
   Image,
@@ -22,7 +23,6 @@ import {
 import {
   FiHome,
   FiTrendingUp,
-  FiSettings,
   FiMenu,
   FiChevronDown,
 } from 'react-icons/fi'
@@ -31,10 +31,10 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { useSelector } from 'react-redux'
 
 const LinkItems = [
-  { name: 'Habits', icon: FiHome },
-  { name: 'Stats', icon: FiTrendingUp },
-  { name: 'Rewards', icon: GiPartyPopper },
-  { name: 'Settings', icon: FiSettings },
+  { name: 'Habits', icon: FiHome, path:'/' },
+  { name: 'Stats', icon: FiTrendingUp, path:'/stats' },
+  { name: 'Badges', icon: GiPartyPopper, path:'/badges' },
+  // { name: 'Settings', icon: FiSettings },
 ]
 
 // NAV parent ==>
@@ -91,7 +91,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
           <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
         </Flex>
         {LinkItems.map((link) => (
-          <NavItem key={link.name} icon={link.icon}>
+          <NavItem key={link.name} icon={link.icon} path={link.path}>
             {link.name}
           </NavItem>
         ))}
@@ -100,39 +100,40 @@ const SidebarContent = ({ onClose, ...rest }) => {
 }
 
 // NAV top bar child => for user sign in activities
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ icon, path, children, ...rest }) => {
   return (
     <Link
-      href="#"
-      style={{ textDecoration: 'none' }}
-      _focus={{ boxShadow: 'none' }}
+    as={ReactLink}
+    to={`${path}`}
+    style={{ textDecoration: 'none' }}
+    _focus={{ boxShadow: 'none' }}
     >
-      <Flex
-        align="center"
-        p="4"
-        mx="4"
-        borderRadius="lg"
-        role="group"
-        cursor="pointer"
-        _hover={{
-          bg: 'green.400',
-          color: 'white',
-        }}
-        {...rest}
-      >
-        {icon && (
-          <Icon
+        <Flex
+          align="center"
+          p="4"
+          mx="4"
+          borderRadius="lg"
+          role="group"
+          cursor="pointer"
+          _hover={{
+            bg: 'green.400',
+            color: 'white',
+          }}
+          {...rest}
+          >
+          {icon && (
+            <Icon
             mr="4"
             fontSize="16"
             _groupHover={{
               color: 'white',
             }}
             as={icon}
-          />
-        )}
-        {children}
-      </Flex>
-    </Link>
+            />
+            )}
+          {children}
+        </Flex>
+      </Link>
   )
 }
 
