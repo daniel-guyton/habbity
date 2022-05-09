@@ -12,7 +12,6 @@ But *we* didn't make those, so they're not quite good enough.
 
 [![Embed from https://xkcd.com/927/](https://imgs.xkcd.com/comics/standards.png "Fortunately, the charging one has been solved now that we've all standardized on mini-USB. Or is it micro-USB? Shit.")](https://imgs.xkcd.com/comics/standards.png)
 
-____
 ## Why should I use Habbity?
 
 Habbity is a habit-tracking app. Simple, unobtrusive.
@@ -29,7 +28,6 @@ Remember - a habit is about sustainability. It's a marathon, not a sprint. Start
 
 > *eg: not a runner? Don't jump straight to the 40min jog - start with making a habit of walking around the block in the morning (maybe without headphones, so you can hear the morning birdsong?). It's simple, relaxing, non-strenuous, and shouldn't cause too much discomfort - it's just about getting out there. Once that's a habit, you can swap it up to a jog or start walking further!*
 
-___
 ## How should I use Habbity?
 
 1.  **Let us get to know you.** We need you to log in before we can start ~~keeping tabs on you~~ saving your habits.
@@ -40,7 +38,7 @@ ___
     - **...It's official!** Once your habit has been done successfully every day for 28 days, we'll consider that done! It's up to you to maintain it, we're not going to nag you - but you can reactivate it if you ever want to start tracking it again.
       > *Never feel ashamed of giving in - only of giving up.*
     - **...It's a flop!** Brains are fickle! If you miss a day, that's a shame, but don't feel bad - being here already shows a desire to change. You haven't failed! Brains are like rubber-bands. Don't break yourself by stretching too far at once - it'll hurt whenever you snap back. Just focus on *stre-e-etching* bit by bit. Maybe your habit was too big, or real life called you away. It's all okay, there's no shame - failed habits can be reactivated whenever you're ready to give them another go.
-___
+
 ### Kia kaha, everybody - your future awaits, and we're excited to watch you build it.
 
 &nbsp;&nbsp;&nbsp;(\ &nbsp;/)  
