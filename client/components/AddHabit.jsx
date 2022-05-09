@@ -17,10 +17,10 @@ import {
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import { useDispatch, useSelector } from 'react-redux'
-import { addHabits } from '../apis/apiClient'
-import { addGoal } from '../actions'
+import { storeHabit } from '../apis/apiClient'
+import { addHabit } from '../actions'
 
-const AddHabit = (props) => {
+const AddHabit = () => {
   // Chakra settings
   const { isOpen, onOpen, onClose } = useDisclosure()
   const initialRef = useRef()
@@ -42,14 +42,12 @@ const AddHabit = (props) => {
       goalCompletedAt: 0,
     }
 
-    addHabits(habitToAdd, user.token)
+    storeHabit(habitToAdd, user.token)
       .then((addedHabit) => {
-        // TODO: are these goals or habits?
-        dispatch(addGoal(addedHabit)) // need to check if this is sending back to db
+        dispatch(addHabit(addedHabit)) // need to check if this is sending back to db
       })
       .catch((err) => {
-        // TODO: please do something with this error to help the user
-        console.log(err)
+        console.error('unable to add habit', err)
       })
 
     onClose()

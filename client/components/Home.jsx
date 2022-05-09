@@ -32,7 +32,7 @@ const WithSubnavigation = () => {
 
   const signUpHandler = (e) => {
     e.preventDefault()
-    loginWithRedirect()
+    loginWithRedirect({ redirectUri: `${window.location.origin}/register` })
   }
   
   return (

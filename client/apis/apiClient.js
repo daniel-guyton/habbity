@@ -10,13 +10,13 @@ const rootUrl = '/api/v1'
 export function getHabits(user) {
   return request
     .get(rootUrl + '/habits')
-    .set('authorization', `Bearer ${user.token}`)
+    .auth(user.token, { type: 'bearer' })
     .then((res) => {
       return res.body.habits
     })
 }
 
-export function addHabits(newHabit, token) {
+export function storeHabit(newHabit, token) {
   return request
     .post(rootUrl + '/habits')
     .send({ newHabit })
@@ -41,6 +41,14 @@ export function patchHabit(habitToUpdate, token) {
 //*   USERS
 //* ==========
 
-// export function
+export function addUser(user) {
+  return request
+    .post(rootUrl + '/users')
+    .send({ user })
+    .auth(user.token, { type: 'bearer' })
+    .then((res) => {
+      return res.body
+    })
+}
 
 // Note: don't need user table, only auth0Id is recorded with every habit saved in the database

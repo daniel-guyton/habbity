@@ -4,7 +4,7 @@ export const FETCH_ALL = 'habits/fetch/all'
 
 export const UPDATE_HABIT_STATUS = 'habit/status/update'
 export const UPDATE_GOAL = 'habit/update'
-export const ADD_GOAL = 'habit/add/new'
+export const ADD_HABIT = 'habit/add/new'
 export const SET_USER = 'SET_USER'
 
 export const SET_ERROR = 'status/error'
@@ -39,8 +39,8 @@ export const updateStatus = (goalStr, statusStr) => ({
   payload: { goal: goalStr, status: statusStr },
 })
 
-export const addGoal = (habitObj) => ({
-  type: ADD_GOAL,
+export const addHabit = (habitObj) => ({
+  type: ADD_HABIT,
   payload: { goal: habitObj },
 })
 

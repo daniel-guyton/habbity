@@ -6,8 +6,6 @@ import HabitBox from './HabitBox'
 import IndividualHabit from './IndividualHabit'
 
 import { createState, updateGoal } from '../actions'
-// TODO: this is unused
-import { getHabits } from '../apis/apiClient'
 
 const Habits = () => {
   const dispatch = useDispatch()

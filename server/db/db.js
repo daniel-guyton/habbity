@@ -9,6 +9,7 @@ module.exports = {
   getOneUser,
   getOneHabit,
   updateHabit,
+  addUser
 }
 
 //*   HABITS
@@ -58,4 +59,18 @@ function getUsers(db = connection) {
 
 function getOneUser(id, db = connection) {
   return db('users').select().where('id', id).first()
+}
+
+function addUser(user, db = connection) {
+  const { name, email, auth0Id } = user
+  const auth0 = auth0Id.split('|')[1]
+  return db('users')
+    .select()
+    .insert({
+      'username': name,
+      'email': email,
+      'auth0': auth0,
+      'points': 0
+    })
+    .returning('id')
 }
