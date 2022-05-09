@@ -7,7 +7,7 @@ import Badges from '../Badges'
 import { useDispatch, useSelector } from "react-redux";
 
 export default function MyResponsivePieCanvas () { 
-  console.log('pie graph is being called')
+ 
   
   const dispatch = useDispatch()
 
@@ -24,20 +24,20 @@ const data = [
   {
     "id": "In Progress",
     "label": "In Progress",
-    "value": progressHabits.length 
-    // "color": "hsl(139, 70%, 50%)"
+    "value": progressHabits.length,
+    "color": '#F3A712'
   },
   {
     "id": "To Continue",
     "label": "To Continue",
-    "value":  failedHabits.length
-    // "color": "hsl(350, 70%, 50%)"
+    "value":  failedHabits.length,
+    "color": "#BC4749"
   },
   {
     "id": "Achieved",
     "label": "Achieved",
-    "value": completedHabits.length
-    // "color": "hsl(6, 70%, 15%)"
+    "value": completedHabits.length,
+    "color": '#A7C957'
   }
 ]
 
@@ -46,16 +46,18 @@ const data = [
   // completed.color = "hsl(6, 70%, 65%)"
   
   return (
+    <>
+    
     <Box width="500px" height="500px">
-    <p> the pie thing renders something</p>
+    
     <ResponsivePie
-        data={data} // TODO replace with useSelector data
+        data={data} 
         margin={{ top: 40, right: 200, bottom: 40, left: 80 }}
         innerRadius={0.5}
         padAngle={0.7}
         cornerRadius={3}
         activeOuterRadiusOffset={8}
-        colors={{ scheme: 'paired' }}
+        colors={data.map((habit) => habit.color)}
         borderColor={{
             from: 'color',
             modifiers: [
@@ -65,52 +67,47 @@ const data = [
                 ]
             ]
         }}
+        defs={[
+          {
+              id: 'dots',
+              type: 'patternDots',
+              background: 'inherit',
+              color: 'rgba(255, 255, 255, 0.3)',
+              size: 3,
+              padding: 1,
+              stagger: true
+          },
+          {
+              id: 'lines',
+              type: 'patternLines',
+              background: 'inherit',
+              color: 'rgba(255, 255, 255, 0.3)',
+              rotation: -45,
+              lineWidth: 3,
+              spacing: 10
+          }
+      ]}
+      fill={[
+          {
+              match: {
+                  id: 'In Progress'
+              },
+              id: 'dots'
+          },
+          {
+              match: {
+                  id: 'To Continue'
+              },
+              id: 'lines'
+          },
+         
+      ]}
         arcLinkLabelsSkipAngle={10}
         arcLinkLabelsTextColor="#333333"
         arcLinkLabelsThickness={2}
         arcLinkLabelsColor={{ from: 'color' }}
         arcLabelsSkipAngle={10}
         arcLabelsTextColor="#333333"
-        defs={[
-            {
-                id: 'dots',
-                type: 'patternDots',
-                background: 'inherit',
-                color: 'rgba(255, 255, 255, 0.3)',
-                size: 4,
-                padding: 1,
-                stagger: true
-            },
-            {
-                id: 'lines',
-                type: 'patternLines',
-                background: 'inherit',
-                color: 'rgba(255, 255, 255, 0.3)',
-                rotation: -45,
-                lineWidth: 6,
-                spacing: 10
-            }
-        ]}
-        fill={[
-            {
-                match: {
-                    id: 'Achieved'
-                },
-                id: 'lines'
-            },
-            {
-                match: {
-                    id: 'In Progress'
-                },
-                id: 'dots'
-            },
-            {
-                match: {
-                    id: 'To Continue'
-                },
-                id: 'dots'
-            }
-        ]}
         legends={[
             {
                 anchor: 'right',
@@ -130,5 +127,6 @@ const data = [
         ]}
     />
     </Box>
+    </>
   )
 }

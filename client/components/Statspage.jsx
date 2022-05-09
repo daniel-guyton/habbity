@@ -3,14 +3,27 @@ import { useDispatch, useSelector } from "react-redux";
 import {createFetchPayload} from '../actions'
 import { ResponsivePieCanvas } from '@nivo/pie'
 import Piegraph from './Graphs/Status-PieGraph'
+import {Text} from "@chakra-ui/react"
+import Calender from './Graphs/Calender'
+ 
 
 function displayStats() {
-let dispatch = useDispatch()
-  
-  let habits = useSelector((state) => state.goals)
-  console.log(habits)
+useEffect(()=> {createFetchPayload()}, [])
 return (
-  <Piegraph id={habits.id} value ={habits.daysCompleted} label={habits.goal}/>
+
+  <>
+  <Text 
+     pb="1"
+     as="span"
+     fontWeight={500}
+     fontSize="30px">
+      Welcome to your Statistics!!!
+  </Text>
+ 
+  <Piegraph/>
+  <Calender/>
+
+  </>
 ) 
 }
 
