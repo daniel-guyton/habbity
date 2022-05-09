@@ -8,7 +8,7 @@ module.exports = {
   getUser,
   getOneHabit,
   updateHabit,
-  addUser
+  addUser,
 }
 
 //*   HABITS
@@ -52,10 +52,10 @@ function addUser(user, db = connection) {
   return db('users')
     .select()
     .insert({
-      'username': name,
-      'email': email,
-      'auth0': auth0,
-      'points': 0
+      username: name,
+      email: email,
+      auth0: auth0,
+      points: 0,
     })
     .returning('id')
 }

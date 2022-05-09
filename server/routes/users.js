@@ -14,7 +14,7 @@ router.get('/', authCheck, (req, res) => {
     })
     .catch((err) => {
       console.log(err)
-      res.status(500).send({ message: 'Failed to fetch users (ಠ︹ಠ)'})
+      res.status(500).send({ message: 'Failed to fetch users (ಠ︹ಠ)' })
     })
 })
 

@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react'
+
 import {
   Box,
   Flex,
   Text,
   Checkbox,
   useColorModeValue,
+  Button
 } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { updateGoal} from '../actions'
+import { updateGoal } from '../actions'
 import { patchHabit } from '../apis/apiClient'
 
 const IndividualHabit = (props) => {
@@ -31,7 +33,6 @@ const IndividualHabit = (props) => {
     const checker = setInterval(() => {
       handleCheckboxState(props.goalCompletedAt)
 
-
       // getting current date & time as unix timestamp
       // converting it back to a date object for easier
       const current_date_object = new Date()
@@ -48,15 +49,18 @@ const IndividualHabit = (props) => {
 
       const isFirstDay = props.goalCompletedAt === 0
       const isNotFirstDay = props.goalCompletedAt !== 0
-      const initialTimeCheck = isFirstDay && initial_date_object < current_date_object
-      const timeAfterCheck = isNotFirstDay && completed_date_object < current_date_object
+      const initialTimeCheck =
+        isFirstDay && initial_date_object < current_date_object
+      const timeAfterCheck =
+        isNotFirstDay && completed_date_object < current_date_object
       if (initialTimeCheck || timeAfterCheck) {
-        patchHabit({id: props.id, status: 'failed'}, user.token)
-        .then(() => {
-          dispatch(updateGoal({id: props.id, status: 'failed'}))
-        }).catch((err) => {
-          console.error('failed to update status failed', err)
-        })
+        patchHabit({ id: props.id, status: 'failed' }, user.token)
+          .then(() => {
+            dispatch(updateGoal({ id: props.id, status: 'failed' }))
+          })
+          .catch((err) => {
+            console.error('failed to update status failed', err)
+          })
       }
     }, 10000)
 
@@ -94,11 +98,13 @@ const IndividualHabit = (props) => {
     }
 
     //updating all the changes
-    patchHabit(changes, user.token).then(() => {
-      dispatch(updateGoal(changes))
-    }).catch((err) => {
-      console.error('unable to update changes', err)
-    })
+    patchHabit(changes, user.token)
+      .then(() => {
+        dispatch(updateGoal(changes))
+      })
+      .catch((err) => {
+        console.error('unable to update changes', err)
+      })
   }
 
   function isMoreThan24Hours(dateTimeStamp) {
@@ -121,6 +127,15 @@ const IndividualHabit = (props) => {
     return current_date_object > completed_date_object
   }
 
+  const handleButtonClick = () => {
+    patchHabit({ id: props.id, status: 'progress' }, user.token)
+      .then(() => {
+        dispatch(updateGoal({ id: props.id, status: 'progress' }))
+      })
+      .catch((err) => {
+        console.error('failed to update status progress', err)
+      })
+  }
   //* render
 
   return (
@@ -154,6 +169,7 @@ const IndividualHabit = (props) => {
           />
         )}
         {/* replace the {dayCount} with the useSelector called from the top */}
+        {props.status == 'failed' && (<Button onClick={handleButtonClick}>Reset</Button>)}
         <Text pl="3">{props.goal}</Text>
       </Box>
       <Text p="3" whiteSpace="nowrap">
