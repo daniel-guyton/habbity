@@ -33,7 +33,7 @@ const AddHabit = (props) => {
   const user = useSelector((state) => state.user) // signed in user info
 
   const handleAddItem = () => {
-    const currentDate = Date.now()
+    const currentDate = Math.floor(new Date().getTime() / 1000)
     const habitToAdd = {
       goal: newHabit,
       timestamp: currentDate,
