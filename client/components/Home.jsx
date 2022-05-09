@@ -1,21 +1,17 @@
 import React from 'react'
-import {
-  Box,
-  Flex,
-  Button,
-  Stack,
-  useColorModeValue
-} from '@chakra-ui/react'
+import { Box, Flex, Button, Stack, useColorModeValue } from '@chakra-ui/react'
 import { useAuth0 } from '@auth0/auth0-react'
 import habbityImage from '../public/designs/Habbity.png'
 
 const Home = () => {
-  return (  
+  return (
     <Box>
       <WithSubnavigation />
-      <img src={habbityImage} alt="Habbity"
+      <img
+        src={habbityImage}
+        alt="Habbity"
         style={{
-          margin: '20vh auto 0 auto'
+          margin: '20vh auto 0 auto',
         }}
       />
     </Box>
@@ -34,7 +30,7 @@ const WithSubnavigation = () => {
     e.preventDefault()
     loginWithRedirect({ redirectUri: `${window.location.origin}/register` })
   }
-  
+
   return (
     <Box>
       <Flex
@@ -46,21 +42,24 @@ const WithSubnavigation = () => {
         borderBottom={1}
         borderStyle={'solid'}
         borderColor={useColorModeValue('gray.200', 'gray.900')}
-        align={'center'}>
+        align={'center'}
+      >
         <Stack
-          style={{margin: "0 auto 0 auto"}}
+          style={{ margin: '0 auto 0 auto' }}
           flex={{ base: 1, md: 0 }}
           justify={'flex-end'}
           gap={'80px'}
           direction={'row'}
-          spacing={6}>
+          spacing={6}
+        >
           <Button
             onClick={signInHandler}
             as={'a'}
             fontSize={'sm'}
             fontWeight={400}
             variant={'link'}
-            href={'#'}>
+            href={'#'}
+          >
             Sign In
           </Button>
           <Button
@@ -73,14 +72,14 @@ const WithSubnavigation = () => {
             href={'#'}
             _hover={{
               bg: 'teal.400',
-            }}>
+            }}
+          >
             Sign Up
           </Button>
         </Stack>
       </Flex>
     </Box>
-  );
+  )
 }
-
 
 export default Home
