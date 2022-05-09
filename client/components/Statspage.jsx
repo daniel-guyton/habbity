@@ -1,30 +1,24 @@
-import React, {useEffect} from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {createFetchPayload} from '../actions'
+import React from 'react'
+import { createFetchPayload } from '../actions'
 import { ResponsivePieCanvas } from '@nivo/pie'
 import Piegraph from './Graphs/Status-PieGraph'
-import {Text} from "@chakra-ui/react"
+import { Text } from '@chakra-ui/react'
 import Calender from './Graphs/Calender'
- 
+import GeneralStats from './Graphs/GeneralStats'
 
 function displayStats() {
-useEffect(()=> {createFetchPayload()}, [])
-return (
+  
+  return (
+    <>
+      <Text pb="1" as="span" fontWeight={500} fontSize="30px" fontStyle={ "Georgia, serif"}>
+        Here's Your Journey so Far!
+      </Text>
+      <GeneralStats />
 
-  <>
-  <Text 
-     pb="1"
-     as="span"
-     fontWeight={500}
-     fontSize="30px">
-      Welcome to your Statistics!!!
-  </Text>
- 
-  <Piegraph/>
-  <Calender/>
-
-  </>
-) 
+      <Piegraph />
+      <Calender />
+    </>
+  )
 }
 
 export default displayStats

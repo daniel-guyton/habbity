@@ -18,21 +18,21 @@ function App() {
   cacheUser(useAuth0)
 
   return (
-      <ChakraProvider>
-        <IfAuthenticated>
-          <SidebarWithHeader>
-            <Routes>
-              <Route path='/' element={<Habits />} />
-              <Route path='/badges' element={<Badges />} />
-              <Route path='/stats' element={<Statspage/>}/>
-              <Route path='/register' element={<Register />} />
-            </Routes>
-          </SidebarWithHeader>
-        </IfAuthenticated>
-        <IfNotAuthenticated>
-          <Home />
-        </IfNotAuthenticated>
-      </ChakraProvider>
+    <ChakraProvider>
+      <IfAuthenticated>
+        <SidebarWithHeader>
+          <Routes>
+            <Route path="/" element={<Habits />} />
+            <Route path="/badges" element={<Badges />} />
+            <Route path="/stats" element={<Statspage />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </SidebarWithHeader>
+      </IfAuthenticated>
+      <IfNotAuthenticated>
+        <Home />
+      </IfNotAuthenticated>
+    </ChakraProvider>
   )
 }
 

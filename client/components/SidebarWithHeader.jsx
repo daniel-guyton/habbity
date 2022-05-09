@@ -25,6 +25,8 @@ import { GiPartyPopper } from 'react-icons/gi'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useSelector } from 'react-redux'
 
+import habbityImage from '../public/designs/Habbity.png'
+
 const LinkItems = [
   { name: 'Habits', icon: FiHome, path: '/' },
   { name: 'Stats', icon: FiTrendingUp, path: '/stats' },
@@ -82,15 +84,15 @@ const SidebarContent = ({ onClose, ...rest }) => {
         {/* <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
             Habbit
           </Text> */}
-          <Image src='../public/designs/Habbity.png' alt='Habbit' />
-          <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
-        </Flex>
-        {LinkItems.map((link) => (
-          <NavItem key={link.name} icon={link.icon} path={link.path}>
-            {link.name}
-          </NavItem>
-        ))}
-      </Box>
+        <Image src={habbityImage} alt="Habbit" />
+        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+      </Flex>
+      {LinkItems.map((link) => (
+        <NavItem key={link.name} icon={link.icon} path={link.path}>
+          {link.name}
+        </NavItem>
+      ))}
+    </Box>
   )
 }
 
@@ -171,7 +173,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
       </Text> */}
       <Image
         width="90px"
-        src="../server/public/designs/Habbity.png"
+        src={habbityImage}
         alt="Habbity"
         display={{ md: 'none' }}
       />

@@ -57,13 +57,13 @@ const data = [
         padAngle={0.7}
         cornerRadius={3}
         activeOuterRadiusOffset={8}
-        colors={data.map((habit) => habit.color)}
+        colors={data?.map((habit) => habit.color)}
         borderColor={{
             from: 'color',
             modifiers: [
                 [
-                    'darker',
-                    0.6
+                  'darker',
+                  0.6
                 ]
             ]
         }}
@@ -114,7 +114,7 @@ const data = [
                 direction: 'column',
                 justify: false,
                 translateX: 140,
-                translateY: 0,
+                translateY: 100,
                 itemsSpacing: 2,
                 itemWidth: 60,
                 itemHeight: 14,
