@@ -51,4 +51,23 @@ export function addUser(user) {
     })
 }
 
-// Note: don't need user table, only auth0Id is recorded with every habit saved in the database
+export function getUserByAuth0Id(user) {
+  return request
+    .get(rootUrl + '/users')
+    .auth(user.token, { type: 'bearer' })
+    .then((res) => {
+      return res.body
+    })
+}
+
+//*   BADGES
+//* ==========
+
+export function getBadge(user) {
+  return request
+    .get(rootUrl + '/badges')
+    .auth(user.token, { type: 'bearer' })
+    .then((res) => {
+      return res.body
+    })
+}

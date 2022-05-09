@@ -5,8 +5,7 @@ const connection = require('knex')(config)
 module.exports = {
   getHabits,
   addHabit,
-  getUsers,
-  getOneUser,
+  getUser,
   getOneHabit,
   updateHabit,
   addUser,
@@ -40,23 +39,11 @@ function updateHabit(habit, db = connection) {
     .where({ userID: habit.userID, id: habit.id })
 }
 
-// function deleteHabit(){}
-
-// function updateHabit(id, updatedHabit, db = connection){
-//   return db('habits')
-//   .where('id', id)
-//   .update(updatedHabit)
-// }
-
 //*   USERS
 //* =========
 
-function getUsers(db = connection) {
-  return db('users').select()
-}
-
-function getOneUser(id, db = connection) {
-  return db('users').select().where('id', id).first()
+function getUser(auth0, db = connection) {
+  return db('users').select().where('auth0', auth0).first()
 }
 
 function addUser(user, db = connection) {
