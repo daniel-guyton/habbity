@@ -37,7 +37,7 @@ Remember - a habit is about sustainability. It's a marathon, not a sprint. Start
 
     - **...It's official!** Once your habit has been done successfully every day for 28 days, we'll consider that done! It's up to you to maintain it, we're not going to nag you - but you can reactivate it if you ever want to start tracking it again.
       > *Never feel ashamed of giving in - only of giving up.*
-    - **...It's a flop!** Brains are fickle! If you miss a day, that's a shame, but don't feel bad - being here already shows a desire to change. You haven't failed! Brains are like rubber-bands. Don't break yourself by stretching too far at once - it'll hurt whenever you snap back. Just focus on *stre-e-etching* bit by bit. Maybe your habit was too big, or real life called you away. It's all okay, there's no shame - failed habits can be reactivated whenever you're ready to give them another go.
+    - **...It's a flop!** Brains are fickle! If you miss a day, you might feel disappointed, but don't feel guilty - being here already shows a desire to change. You haven't failed! Brains are like rubber-bands. Don't break yourself by stretching too far at once - it'll hurt whenever you snap back. Just focus on *stre-e-etching* bit by bit. Maybe your habit was too big, or real life called you away. It's all okay, there's no shame - failed habits can be reactivated whenever you're ready to give them another go.
 
 ### Kia kaha, everybody - your future awaits, and we're excited to watch you build it.
 
