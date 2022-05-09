@@ -1,4 +1,3 @@
-const { User } = require('@auth0/auth0-react')
 const { expressjwt: jwt } = require('express-jwt')
 const jwks = require('jwks-rsa')
 

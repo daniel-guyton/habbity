@@ -5,11 +5,10 @@ import {
   Text,
   Checkbox,
   useColorModeValue,
-  Button,
 } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { updateGoal, updateStatus } from '../actions'
+import { updateGoal} from '../actions'
 import { patchHabit } from '../apis/apiClient'
 
 const IndividualHabit = (props) => {
@@ -52,10 +51,12 @@ const IndividualHabit = (props) => {
       const initialTimeCheck = isFirstDay && initial_date_object < current_date_object
       const timeAfterCheck = isNotFirstDay && completed_date_object < current_date_object
       if (initialTimeCheck || timeAfterCheck) {
-        patchHabit({id: props.id, status: 'failed'}, user.token).then(() => {
+        patchHabit({id: props.id, status: 'failed'}, user.token)
+        .then(() => {
           dispatch(updateGoal({id: props.id, status: 'failed'}))
+        }).catch((err) => {
+          console.error('failed to update status failed', err)
         })
-        console.log(props.id, props.goal, 'dispatched failure')
       }
     }, 10000)
 
@@ -95,6 +96,8 @@ const IndividualHabit = (props) => {
     //updating all the changes
     patchHabit(changes, user.token).then(() => {
       dispatch(updateGoal(changes))
+    }).catch((err) => {
+      console.error('unable to update changes', err)
     })
   }
 

@@ -1,6 +1,6 @@
 const request = require('supertest')
 const server = require('../server')
-const { getHabits, getOneHabit, addHabit } = require('../db/db')
+const { getHabits, addHabit } = require('../db/db')
 const { authCheck } = require('../authCheck')
 
 jest.mock('../db/db')

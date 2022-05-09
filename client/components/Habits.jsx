@@ -9,7 +9,6 @@ import HabitBox from './HabitBox'
 import IndividualHabit from './IndividualHabit'
 
 import { createState, updateGoal } from '../actions'
-import { getHabits } from '../apis/apiClient'
 
 const Habits = () => {  
   const dispatch = useDispatch()
