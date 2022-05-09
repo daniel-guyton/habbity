@@ -25,7 +25,7 @@ describe('<SidebarWithHeader', () => {
     )
     const navItems = screen.getAllByRole('group')
 
-    expect(navItems[0].textContent).toBe("Habits")
+    expect(navItems[0].textContent).toBe('Habits')
     expect(navItems[1].textContent).toBe('Stats')
     expect(navItems[2].textContent).toBe('Badges')
   })
