@@ -16,7 +16,7 @@ import {
   FormControl,
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
-import { useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addHabits } from '../apis/apiClient'
 import { addGoal } from '../actions'
 
@@ -44,9 +44,11 @@ const AddHabit = (props) => {
 
     addHabits(habitToAdd, user.token)
       .then((addedHabit) => {
+        // TODO: are these goals or habits?
         dispatch(addGoal(addedHabit)) // need to check if this is sending back to db
       })
       .catch((err) => {
+        // TODO: please do something with this error to help the user
         console.log(err)
       })
 

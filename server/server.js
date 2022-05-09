@@ -1,3 +1,6 @@
+// TODO: please don't leave commented-out code in your code, it only becomes
+// more difficult with time to remember why it's there and if you can delete it
+
 // if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
 //   const envConfig = require('dotenv').config()
 //   if (envConfig.error) throw envConfig.error
@@ -6,7 +9,6 @@
 const express = require('express')
 const path = require('path')
 const fs = require('fs')
-
 
 const server = express()
 

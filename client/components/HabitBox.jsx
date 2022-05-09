@@ -1,10 +1,10 @@
-import {Box, Flex, Text, useColorModeValue} from '@chakra-ui/react'
+import { Box, Flex, Text, useColorModeValue } from '@chakra-ui/react'
 import React from 'react'
 import AddHabit from './AddHabit'
 
 const HabitBox = (props) => {
   const primaryBgColor = useColorModeValue('gray.100', 'gray.800') // Chakra css
-  const {name, length, status, children} = props
+  const { name, length, status, children } = props
   return (
     <Box
       flexGrow={1}
@@ -31,6 +31,7 @@ const HabitBox = (props) => {
         >
           {name} | {length}
         </Text>
+        {/* TODO: comments that repeat what the code says are rarely useful: https://blog.codinghorror.com/code-tells-you-how-comments-tell-you-why/ */}
         {/* if props include status => show add habit button */}
         {status ? <AddHabit /> : null}
       </Flex>
@@ -38,8 +39,8 @@ const HabitBox = (props) => {
       <Box
         overflowY={'scroll'}
         css={{
-          'msOverflowStyle': 'none',
-          'scrollbarWidth': 'none',
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
           '&::-webkit-scrollbar': {
             display: 'none',
           },

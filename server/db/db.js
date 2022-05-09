@@ -23,6 +23,8 @@ function getOneHabit(id, db = connection) {
 }
 
 function addHabit(newHabit, db = connection) {
+  // TODO: What's happening here. Is there a specific property we're excluding?
+  // this is something that it would be good to have a comment explaining
   const { userID, daysCompleted, goal, status, timestamp, goalCompletedAt } =
     newHabit
   return db('habits')

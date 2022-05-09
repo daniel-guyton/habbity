@@ -20,7 +20,7 @@ const IndividualHabit = (props) => {
   const [isEnabled, setIsEnabled] = useState(false)
   const [isChecked, setIsChecked] = useState(false)
 
-  //checks wether the checkbox should be ticked based no the timestamps / date.
+  // checks whether the checkbox should be ticked based no the timestamps / date.
   useEffect(() => {
     const shouldCheckboxBeTicked = isMoreThan24Hours(props.goalCompletedAt)
 
@@ -31,7 +31,6 @@ const IndividualHabit = (props) => {
   useEffect(() => {
     const checker = setInterval(() => {
       handleCheckboxState(props.goalCompletedAt)
-
 
       // getting current date & time as unix timestamp
       // converting it back to a date object for easier
@@ -44,16 +43,22 @@ const IndividualHabit = (props) => {
 
       // adds seconds to the completed date
       // convert it to date object for easier comparisons
+
+      // TODO: if we're only comparing with greater than and less than
+      // it seems just as easy to compare numbers
       const completed_unix_with_seconds = props.goalCompletedAt + 40
       const completed_date_object = new Date(completed_unix_with_seconds * 1000)
 
       const isFirstDay = props.goalCompletedAt === 0
       const isNotFirstDay = props.goalCompletedAt !== 0
-      const initialTimeCheck = isFirstDay && initial_date_object < current_date_object
-      const timeAfterCheck = isNotFirstDay && completed_date_object < current_date_object
+      const initialTimeCheck =
+        isFirstDay && initial_date_object < current_date_object
+      const timeAfterCheck =
+        isNotFirstDay && completed_date_object < current_date_object
+
       if (initialTimeCheck || timeAfterCheck) {
-        patchHabit({id: props.id, status: 'failed'}, user.token).then(() => {
-          dispatch(updateGoal({id: props.id, status: 'failed'}))
+        patchHabit({ id: props.id, status: 'failed' }, user.token).then(() => {
+          dispatch(updateGoal({ id: props.id, status: 'failed' }))
         })
         console.log(props.id, props.goal, 'dispatched failure')
       }

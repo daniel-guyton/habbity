@@ -1,5 +1,7 @@
 # TODO App
 
+TODO: It would be nice to read about Habbity here
+
 ```
 npm install
 git checkout -b <branchname>
@@ -11,6 +13,7 @@ See the breathtaking designs [here](http://localhost:3000/designs/)
 ## Notes
 
 A few notes to keep you out of trouble:
+
 - When running knex, run `npm run knex <command>`, e.g. `npm run knex migrate:latest` rather than using `npx`
 - When running webpack, run `npm run webpack <extra commands>`, e.g. `npm run webpack`, rather than using `npx`
 
