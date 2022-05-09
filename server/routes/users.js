@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   const user = req.body.user
-    db.addUsers(user)
+    db.addUser(user)
   .then((user) => {
     return res.json(user)
   })   
