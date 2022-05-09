@@ -71,9 +71,9 @@ const Habits = () => {
           return <IndividualHabit key={idx} timestamp={timestamp} goal={goal} />
         })}
       </HabitBox>
-      <HabitBox name="Failed" length={failedArray.length}>
-        {failedArray.map(({ goal, timestamp }, idx) => {
-          return <IndividualHabit key={idx} timestamp={timestamp} goal={goal} />
+      <HabitBox name="To Continue" length={failedArray.length}>
+        {failedArray.map(({ goal, timestamp, id }, idx) => {
+          return <IndividualHabit key={idx} timestamp={timestamp} goal={goal} status='failed' id={id} />
         })}
       </HabitBox>
     </Flex>
