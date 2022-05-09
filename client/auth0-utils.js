@@ -4,7 +4,7 @@ import store from './store'
 export async function cacheUser(useAuth0, state) {
   const { getAccessTokenSilently, isAuthenticated, user } = useAuth0()
   getAccessTokenSilently(user)
-    .then(token => {
+    .then((token) => {
       if (isAuthenticated && !state?.token) {
         try {
           const userToSave = {
@@ -19,5 +19,7 @@ export async function cacheUser(useAuth0, state) {
         }
       }
     })
-  .catch((err) => {console.log(err.message)})
+    .catch((err) => {
+      console.log(err.message)
+    })
 }

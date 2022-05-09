@@ -6,8 +6,8 @@ import user from './reducers/user'
 const reducers = {
   goals,
   user,
- }
+}
 
-const store = configureStore( {reducer: reducers} )
+const store = configureStore({ reducer: reducers })
 
 export default store

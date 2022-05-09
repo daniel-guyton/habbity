@@ -11,20 +11,20 @@ router.get('/', (req, res) => {
     })
     .catch((err) => {
       console.log(err)
-      res.status(500).send({ message: 'Failed to fetch users (ಠ︹ಠ)'})
+      res.status(500).send({ message: 'Failed to fetch users (ಠ︹ಠ)' })
     })
 })
 
 router.post('/', (req, res) => {
   const user = req.body.user
-    db.addUser(user)
-  .then((user) => {
-    return res.json(user)
-  })   
-  .catch((err) => {
-    console.log(err)
-    res.status(500).send({ message: 'Failed to add users ╰(•́ ꞈ •̀)╯' })
-  })
+  db.addUser(user)
+    .then((user) => {
+      return res.json(user)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.status(500).send({ message: 'Failed to add users ╰(•́ ꞈ •̀)╯' })
+    })
 })
 
 module.exports = router

@@ -10,7 +10,7 @@ const rootUrl = '/api/v1'
 export function getHabits(user) {
   return request
     .get(rootUrl + '/habits')
-    .auth(user.token, { type: 'bearer'})
+    .auth(user.token, { type: 'bearer' })
     .then((res) => {
       return res.body.habits
     })
@@ -44,7 +44,7 @@ export function patchHabit(habitToUpdate, token) {
 export function addUser(user) {
   return request
     .post(rootUrl + '/users')
-    .send({user})
+    .send({ user })
     .auth(user.token, { type: 'bearer' })
     .then((res) => {
       return res.body

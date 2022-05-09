@@ -6,24 +6,22 @@ import { Spinner } from '@chakra-ui/react'
 import { addUser } from '../apis/apiClient'
 
 const Register = () => {
-  const user = useSelector(state => state.user)
+  const user = useSelector((state) => state.user)
   const navigate = useNavigate()
   const [isRegistered, setIsRegistered] = useState(false)
-  
-  useEffect( () => {
+
+  useEffect(() => {
     if (isRegistered) {
       RegisterUser()
     }
     if (user.auth0Id !== '' && !isRegistered) {
       addUser(user)
-        .then(
-          setIsRegistered(true)
-        )
+        .then(setIsRegistered(true))
         .then(() => null)
-        .catch(err => console.error(err.message))
+        .catch((err) => console.error(err.message))
     }
   }, [isRegistered, user])
-  
+
   function RegisterUser() {
     if (isRegistered) {
       navigate('/', { replace: true })
@@ -34,11 +32,11 @@ const Register = () => {
     <div>
       <h3>creating Habbity profile for you...</h3>
       <Spinner
-        thickness='4px'
-        speed='0.65s'
-        emptyColor='gray.200'
-        color='blue.500'
-        size='xl'
+        thickness="4px"
+        speed="0.65s"
+        emptyColor="gray.200"
+        color="blue.500"
+        size="xl"
       />
     </div>
   )
