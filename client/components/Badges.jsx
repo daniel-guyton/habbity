@@ -24,26 +24,24 @@ const Badges = () => {
 
   useEffect(() => {
     userInfo !== null && setBadges(userInfo['badges'].split(','))
-    userInfo !== null && calculatePoints(userInfo.points)
   }, [userInfo])
+  
+  useEffect(() => {
+    userInfo !== null && calculatePoints(userInfo.points)
+  }, [badges])
 
   useEffect(() => {
-    if(newBadgeToGet > 0 && getBadgeSuccess === 0) {
-      let returnedArray = []
-      for (let i = 0; i < newBadgeToGet; i ++) {
-        if (getBadgeSuccess < newBadgeToGet) {
-          getBadge(user)
-            .then((res) => {
-              console.log(res.embed_url)
-              returnedArray.push(res.embed_url)
-            })
-            .then(setGetBadgeSuccess(getBadgeSuccess + 1))
-            .catch(err => console.log('getBadge', err.message))
-          }
-        }
-      setBadges([...badges, returnedArray])
+    if(newBadgeToGet > 0) {
+      if (getBadgeSuccess <= newBadgeToGet) {
+        getBadge(user)
+          .then((res) => {
+            setBadges([...badges, res.embed_url])
+            setGetBadgeSuccess(getBadgeSuccess + 1)
+          })
+          .catch(err => console.log('getBadge', err.message))
+      }
     }
-  }, [newBadgeToGet])
+  }, [newBadgeToGet, getBadgeSuccess])
 
   const calculatePoints = (num) => {
     const badgeToBeAwarded = Math.round(Math.floor(num/2))
