@@ -5,6 +5,7 @@ import {
   Text,
   Checkbox,
   useColorModeValue,
+  Button
 } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -121,6 +122,15 @@ const IndividualHabit = (props) => {
     return current_date_object > completed_date_object
   }
 
+  const handleButtonClick = () => {
+    patchHabit({ id: props.id, status: 'progress' }, user.token)
+      .then(() => {
+        dispatch(updateGoal({ id: props.id, status: 'progress' }))
+      })
+      .catch((err) => {
+        console.error('failed to update status progress', err)
+      })
+  }
   //* render
 
   return (
@@ -154,6 +164,7 @@ const IndividualHabit = (props) => {
           />
         )}
         {/* replace the {dayCount} with the useSelector called from the top */}
+        {props.status == 'failed' && (<Button onClick={handleButtonClick}>Reset</Button>)}
         <Text pl="3">{props.goal}</Text>
       </Box>
       <Text p="3" whiteSpace="nowrap">
