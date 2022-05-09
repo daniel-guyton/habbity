@@ -20,6 +20,7 @@ const Register = () => {
           setIsRegistered(true)
         )
         .then(() => null)
+        .catch(err => console.log(err.message))
     }
   }, [isRegistered, user])
   
