@@ -20,7 +20,7 @@ import { useDispatch, useSelector} from 'react-redux'
 import { addHabits } from '../apis/apiClient'
 import { addGoal } from '../actions'
 
-const AddHabit = (props) => {
+const AddHabit = () => {
   // Chakra settings
   const { isOpen, onOpen, onClose } = useDisclosure()
   const initialRef = useRef()
@@ -33,7 +33,7 @@ const AddHabit = (props) => {
   const user = useSelector((state) => state.user) // signed in user info
 
   const handleAddItem = () => {
-    const currentDate = Date.now()
+    const currentDate = Math.floor(new Date().getTime() / 1000)
     const habitToAdd = {
       goal: newHabit,
       timestamp: currentDate,
