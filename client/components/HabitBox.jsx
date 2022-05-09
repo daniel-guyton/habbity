@@ -25,6 +25,7 @@ const HabitBox = (props) => {
         <Text
           pb="1"
           as="span"
+          data-testid='column-titles'
           borderColor="green.200"
           fontWeight={500}
           fontSize="18px"
