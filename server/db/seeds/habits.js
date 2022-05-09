@@ -1,23 +1,20 @@
-
-
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
- exports.seed = function (knex) {
+exports.seed = function (knex) {
   // Deletes ALL existing entries
   return knex('habits').insert([
     {
-    userID: 2,
+      userID: 2,
       daysCompleted: 2,
       goal: 'practice something',
       timestamp: 1651715319081,
       status: 'progress',
       goalCompletedAt: 0,
-
     },
     {
-      userID: 3, 
+      userID: 3,
       daysCompleted: 3,
       goal: 'walk',
       timestamp: 1651715729020,
@@ -50,24 +47,3 @@
     },
   ])
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

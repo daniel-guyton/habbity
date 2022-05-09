@@ -16,7 +16,7 @@ import {
   FormControl,
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
-import { useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addHabits } from '../apis/apiClient'
 import { addGoal } from '../actions'
 
