@@ -6,6 +6,7 @@ import SidebarWithHeader from './SidebarWithHeader'
 import Habits from './Habits'
 import Home from './Home'
 import Badges from './Badges'
+import Statspage from './Statspage'
 
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -22,6 +23,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Habits />} />
               <Route path='/badges' element={<Badges />} />
+              <Route path='/stats' element={<Statspage/>}/>
             </Routes>
           </SidebarWithHeader>
         </IfAuthenticated>
