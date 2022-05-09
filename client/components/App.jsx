@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import {ChakraProvider} from '@chakra-ui/react'
-// import AddTodo from './AddTodo'
 import SidebarWithHeader from './SidebarWithHeader'
 import Habits from './Habits'
 import Home from './Home'

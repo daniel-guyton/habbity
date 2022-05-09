@@ -2,7 +2,7 @@ import {
   FETCH_ALL,
   UPDATE_HABIT_STATUS,
   UPDATE_GOAL,
-  ADD_GOAL,
+  ADD_HABIT,
 } from '../actions'
 
 const initialState = []
@@ -26,7 +26,7 @@ const goalsReducer = (state = initialState, action) => {
       })
       return updatedArray
     }
-    case ADD_GOAL: {
+    case ADD_HABIT: {
       return [...state, action.payload.goal]
     }
     case UPDATE_GOAL: {
