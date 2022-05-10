@@ -26,10 +26,12 @@ function App() {
     }
   }, [user.token, isRegistered])
 
-
-  
   cacheUser(useAuth0, user)
 
+   useEffect(() => {
+     dispatch(fetchProfile(user.token))
+   }, [user.token])
+   
   return (
     <ChakraProvider>
       <IfAuthenticated>

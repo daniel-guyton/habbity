@@ -57,6 +57,7 @@ router.patch('/badges', authCheck, (req, res) => {
 router.patch('/', authCheck, async (req, res) => {
   const auth0Id = req.auth.sub
   const updatedProfile = req.body
+  console.log(updatedProfile)
   const userId = auth0Id?.split('|')[1]
 
   if (!updatedProfile) {
@@ -77,6 +78,5 @@ router.patch('/', authCheck, async (req, res) => {
       res.status(500).send({ message: 'Failed to add habit DX' })
     })
 })
-
 
 module.exports = router
