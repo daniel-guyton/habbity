@@ -7,6 +7,7 @@ import { CheckIcon, RepeatIcon } from '@chakra-ui/icons'
 
 const Badges = () => {
 
+  const token = useSelector(state => state.user.token)
   const user = useSelector(state => state.user)
   const [userInfo, setUserInfo] = useState(null)
   const [badges, setBadges] = useState([])
@@ -16,15 +17,16 @@ const Badges = () => {
   const [isConfirmed, setIsConfirmed] = useState(false)
 
   useEffect(() => {
-    if (user.auth0Id !== '') {
-      getUserByAuth0Id(user)
+    if (token) {
+      getUserByAuth0Id(token)
         .then((res) => {
+          console.log(res)
           setUserInfo(res)
         })
         .catch(err => console.log('getUserByAuth0Id', err.message))
       }
       setIsConfirmed(false)
-    }, [user, isConfirmed])
+    }, [token, isConfirmed])
     
     useEffect(() => {
     userInfo !== null && setBadges(userInfo['badges'].split(','))
@@ -70,12 +72,6 @@ const Badges = () => {
   }
 
   const confirmBadge = (badge) => {
-    // e.preventDefault()
-    // const confirmIndex = e.target.id
-    // if (e.target.id) console.log(e.target.id);
-    // else console.log(e.target);
-    // console.log(typeof e.target.id);
-    console.log(badge);
     const updatedBadges = [...badges, badge]
     const data = {auth0Id: user.auth0Id, token: user.token, badges: updatedBadges.join(',')}
     updateUserBadges(data)
@@ -141,7 +137,7 @@ const Badges = () => {
         <Divider orientation='vertical' />
       </Center>
       <Flex style={{flexWrap: 'wrap'}}>
-        {badges.length !== null &&
+        {badges && badges.length !== 0 &&
           badges.map((badge, index) => {
             return (
               <Box key={index}>
