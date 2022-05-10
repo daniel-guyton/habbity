@@ -16,7 +16,7 @@ const Badges = () => {
   const [isConfirmed, setIsConfirmed] = useState(false)
 
   useEffect(() => {
-    if (user) {
+    if (user.token) {
       getUserByAuth0Id(user.token)
         .then((res) => {
           setUserInfo(res)
