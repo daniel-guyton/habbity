@@ -207,7 +207,7 @@ const IndividualHabit = (props) => {
       borderRadius="6"
     >
       <Box
-        height='100%'
+        height="100%"
         display="flex"
         alignItems="center"
         justifyContent="flex-start"
@@ -233,7 +233,7 @@ const IndividualHabit = (props) => {
         {status == 'failed' && (
           <Button onClick={handleButtonClick}>Reset</Button>
         )}
-        <Text  pl="3">{goal}</Text>
+        <Text pl="3">{goal}</Text>
       </Box>
       <Text p="3" whiteSpace="nowrap">
         {status == 'progress' && daysCompleted + '/28 Days'}

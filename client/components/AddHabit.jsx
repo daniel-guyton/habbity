@@ -13,7 +13,7 @@ import {
   Box,
   FormLabel,
   FormControl,
-  Textarea
+  Textarea,
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import { useDispatch, useSelector } from 'react-redux'
@@ -93,7 +93,7 @@ const AddHabit = () => {
                 id="habit-task"
                 onChange={handleChange}
                 ref={initialRef}
-                maxH='500px'
+                maxH="500px"
                 placeholder="Enter text here..."
               />
             </FormControl>

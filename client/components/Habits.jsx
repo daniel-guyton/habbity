@@ -67,12 +67,12 @@ const Habits = () => {
         )}
       </HabitBox>
       <HabitBox name="Completed" length={completedArray.length}>
-        {completedArray.map(({ goal, timestamp}, idx) => {
+        {completedArray.map(({ goal, timestamp }, idx) => {
           return <IndividualHabit key={idx} timestamp={timestamp} goal={goal} />
         })}
       </HabitBox>
       <HabitBox name="To Continue" length={failedArray.length}>
-        {failedArray.map(({ goal, timestamp, id}, idx) => {
+        {failedArray.map(({ goal, timestamp, id }, idx) => {
           return (
             <IndividualHabit
               key={idx}
