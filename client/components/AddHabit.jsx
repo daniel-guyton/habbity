@@ -11,9 +11,9 @@ import {
   ModalBody,
   ModalFooter,
   Box,
-  Input,
   FormLabel,
   FormControl,
+  Textarea
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import { useDispatch, useSelector } from 'react-redux'
@@ -89,10 +89,11 @@ const AddHabit = () => {
           <ModalBody pb={6}>
             <FormControl>
               <FormLabel htmlFor="habit-task">Habit Task</FormLabel>
-              <Input
+              <Textarea
                 id="habit-task"
                 onChange={handleChange}
                 ref={initialRef}
+                maxH='500px'
                 placeholder="Enter text here..."
               />
             </FormControl>

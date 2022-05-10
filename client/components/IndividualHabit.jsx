@@ -204,16 +204,17 @@ const IndividualHabit = (props) => {
       mt="4"
       mb="4"
       bg={primaryBgColor}
-      borderRadius="2"
+      borderRadius="6"
     >
       <Box
-        height="var(--chakra-sizes-10)"
+        height='100%'
         display="flex"
         alignItems="center"
         justifyContent="flex-start"
         width="100%"
         p="3"
         fontSize="16"
+        overflowWrap={'break-word'}
       >
         {/* showing checkbox for the habit only if it is in progress */}
         {status == 'progress' && (
@@ -232,10 +233,10 @@ const IndividualHabit = (props) => {
         {status == 'failed' && (
           <Button onClick={handleButtonClick}>Reset</Button>
         )}
-        <Text pl="3">{goal}</Text>
+        <Text  pl="3">{goal}</Text>
       </Box>
       <Text p="3" whiteSpace="nowrap">
-        {daysCompleted}/28 Days
+        {status == 'progress' && daysCompleted + '/28 Days'}
       </Text>
     </Flex>
   )

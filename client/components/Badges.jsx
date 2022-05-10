@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Box, Heading, Text, Badge, Divider, Center, Flex, Spacer, Button, IconButton } from '@chakra-ui/react'
+import { Box, Heading, Text, Badge, Divider, Center, Flex, Spacer, Button, IconButton, useColorModeValue } from '@chakra-ui/react'
 import { getBadge, getUserByAuth0Id, updateBadgeByUser } from '../apis/apiClient'
 import { CheckIcon, RepeatIcon } from '@chakra-ui/icons'
 
 const Badges = () => {
+  const primaryShadowColor = useColorModeValue('1px 1px 15px 8px white', '0px 3px 15px rgba(0,0,0,0.2)')
   const profile = useSelector(state => state.profile)
   const user = useSelector(state => state.user)
   const [userInfo, setUserInfo] = useState(null)
@@ -99,7 +100,7 @@ const Badges = () => {
     justifyContent: 'center',
     display: 'flex',
     margin: '10px',
-    boxShadow: '1px 1px 15px 8px white'
+    boxShadow: primaryShadowColor
   }
 
   const iframeStyle = {
@@ -109,9 +110,7 @@ const Badges = () => {
 
   const iconButtonStyle = {
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    padding: '10% 0 10% 0'
+    flexDirection: 'row',
   }
 
   return (
@@ -161,9 +160,10 @@ const Badges = () => {
                 {
                   badge !== 'reveal' ?
                   (
-                    <Center style={iconButtonStyle}>
-                      <IconButton colorScheme='teal' aria-label='Change Gif' icon={<RepeatIcon />} onClick={shuffleBadge} id={index} />
-                      <IconButton colorScheme='teal' aria-label='Change Gif' icon={<CheckIcon />} onClick={() => confirmBadge(badge)} id={index} type='button' />
+                    
+                    <Center display='flex' style={iconButtonStyle}>
+                      <IconButton m='1' colorScheme='teal' aria-label='Change Gif' icon={<RepeatIcon />} onClick={shuffleBadge} id={index} />
+                      <IconButton m='1' colorScheme='teal' aria-label='Change Gif' icon={<CheckIcon />} onClick={() => confirmBadge(badge)} id={index} type='button' />
                     </Center>
                   ) : null
                 }
