@@ -42,8 +42,8 @@ function updateHabit(habit, db = connection) {
     .where({ userID: habit.userID, id: habit.id })
 }
 
-function updateProfile(profile, db = connection) {
-  return db('users').update(profile).where({ id: profile.id })
+function updateProfile({ id, ...restProfile }, db = connection) {
+  return db('users').update(restProfile).where({ auth0: id })
 }
 //*   USERS
 //* =========

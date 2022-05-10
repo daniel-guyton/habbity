@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { updateGoal, updateProfile } from '../actions'
+import {updateHabit, updateProfile } from '../actions'
 import { patchHabit, patchProfile } from '../apis/apiClient'
 
 const IndividualHabit = (props) => {
@@ -58,7 +58,7 @@ const IndividualHabit = (props) => {
       if (initialTimeCheck || timeAfterCheck) {
         patchHabit({ id: id, status: 'failed' }, user.token)
           .then(() => {
-            dispatch(updateGoal({ id: id, status: 'failed' }))
+            dispatch(updateHabit({ id: id, status: 'failed' }))
           })
           .catch((err) => {
             console.error('failed to update status failed', err)
@@ -104,7 +104,7 @@ const IndividualHabit = (props) => {
     //updating all the changes
     patchHabit(changes, user.token)
       .then(() => {
-        dispatch(updateGoal(changes))
+        dispatch(updateHabit(changes))
       })
       .catch((err) => {
         console.error('unable to update changes', err)
@@ -142,7 +142,7 @@ const IndividualHabit = (props) => {
   const handleButtonClick = () => {
     patchHabit({ id: id, status: 'progress' }, user.token)
       .then(() => {
-        dispatch(updateGoal({ id: id, status: 'progress' }))
+        dispatch(updateHabit({ id: id, status: 'progress' }))
       })
       .catch((err) => {
         console.error('failed to update status progress', err)

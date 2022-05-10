@@ -20,8 +20,8 @@ import {
 import { CheckIcon, RepeatIcon } from '@chakra-ui/icons'
 
 const Badges = () => {
-  const token = useSelector((state) => state.user.token)
-  const user = useSelector((state) => state.user)
+  const profile = useSelector(state => state.profile)
+  const user = useSelector(state => state.user)
   const [userInfo, setUserInfo] = useState(null)
   const [badges, setBadges] = useState([])
   const [getBadgeSuccess, setGetBadgeSuccess] = useState(0)
@@ -30,17 +30,16 @@ const Badges = () => {
   const [isConfirmed, setIsConfirmed] = useState(false)
 
   useEffect(() => {
-    if (token) {
-      getUserByAuth0Id(token)
+    if (user.token) {
+      getUserByAuth0Id(user.token)
         .then((res) => {
-          console.log(res)
           setUserInfo(res)
         })
-        .catch((err) => console.log('getUserByAuth0Id', err.message))
-    }
-    setIsConfirmed(false)
-  }, [token, isConfirmed])
-
+        .catch(err => console.log('getUserByAuth0Id', err.message))
+      }
+      setIsConfirmed(false)
+    }, [user, isConfirmed])
+    
   useEffect(() => {
     userInfo !== null && setBadges(userInfo['badges'].split(','))
   }, [userInfo, isConfirmed])
@@ -141,9 +140,10 @@ const Badges = () => {
     <Box w="100%" p={4} color="teal.500">
       <Heading as="h3" size="lg">
         Welcome {user.name}!
-        {userInfo !== null ? (
-          <Badge ml="1" fontSize="0.5em" colorScheme="teal" style={badgeStyle}>
-            {userInfo.points} xp
+        { userInfo !== null ? 
+          (
+          <Badge ml='1' fontSize='0.5em' colorScheme='teal' style={badgeStyle}>
+           {profile.points} xp
           </Badge>
         ) : null}
       </Heading>

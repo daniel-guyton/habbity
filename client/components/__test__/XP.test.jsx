@@ -1,15 +1,12 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import SidebarWithHeader from '../SidebarWithHeader'
+import XP from '../XP'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
-describe('<SidebarWithHeader />', () => {
+describe('<XP />', () => {
   const state = {
-    user: {
-      token: '',
-    },
     profile: {
       points: 1,
     },
@@ -22,14 +19,14 @@ describe('<SidebarWithHeader />', () => {
     render(
       <Provider store={store}>
         <Router>
-          <SidebarWithHeader />
+          <XP />
         </Router>
       </Provider>
     )
-    const navItems = screen.getAllByRole('group')
+    // screen.debug()
 
-    expect(navItems[0].textContent).toBe('Habits')
-    expect(navItems[1].textContent).toBe('Stats')
-    expect(navItems[2].textContent).toBe('Badges')
+    const XPSpan = screen.getAllByText(/XP/i)
+
+    expect(XPSpan[0].textContent).toBe('XP: 1')
   })
 })

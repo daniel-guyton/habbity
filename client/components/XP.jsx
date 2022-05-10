@@ -4,15 +4,9 @@ import { useSelector } from 'react-redux'
 const XP = () => {
   const xp = useSelector((state) => state.profile.points)
   return (
-    <Tag
-      fontSize="11px"
-      size="sm"
-      key="sm"
-      colorScheme="green"
-      variant="subtle"
-    >
-      Points: {xp}
-    </Tag>
+      <Tag fontSize='11px'size="sm" key="sm" colorScheme="green" variant="subtle">
+        XP: {xp}
+      </Tag>
   )
 }
 
