@@ -46,7 +46,9 @@ function updateHabit(habit, db = connection) {
 //* =========
 
 function getUser(auth0, db = connection) {
-  return db('users').select().where('auth0', auth0).first()
+  return db('users').select().where({
+    'auth0': auth0
+  }).first()
 }
 
 function addUser(user, db = connection) {
@@ -74,8 +76,5 @@ function updateUserById(data, db = connection) {
     .update({
       'badges': badges
     })
-    .returning('id')
-    .then(id => {
-      return db('users').select().where('id', id).first()
-    })
+
 }

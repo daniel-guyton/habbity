@@ -16,18 +16,19 @@ const Badges = () => {
   const [isConfirmed, setIsConfirmed] = useState(false)
 
   useEffect(() => {
-    if (user.auth0Id !== '' && userInfo === null) {
+    if (user.auth0Id !== '') {
       getUserByAuth0Id(user)
         .then((res) => {
           setUserInfo(res)
         })
         .catch(err => console.log('getUserByAuth0Id', err.message))
       }
+      setIsConfirmed(false)
     }, [user, isConfirmed])
     
-  useEffect(() => {
+    useEffect(() => {
+    userInfo !== null && console.log(userInfo.badges)
     userInfo !== null && setBadges(userInfo['badges'].split(','))
-    setIsConfirmed(false)
   }, [userInfo, isConfirmed])
   
   useEffect(() => {
@@ -41,7 +42,7 @@ const Badges = () => {
         setGetBadgeSuccess(getBadgeSuccess + 1)
       }
     }
-  }, [newBadgeToGet, getBadgeSuccess])
+  }, [newBadgeToGet, getBadgeSuccess, isConfirmed])
   
   const calculatePoints = (num) => {
     const badgeToBeAwarded = Math.round(Math.floor(num/2))
@@ -79,10 +80,12 @@ const Badges = () => {
 
   const updateUserBadges = async(data) => {
     updateBadgeByUser(data)
-      .then((user) => {
-        setBadges([...user.badges])
+      .then(() => {
         setIsConfirmed(true)
-      })
+        setNewBadges([])
+        setGetBadgeSuccess(0)
+      }
+      )
       .catch(err => console.log('updateBadges', err.message))
   }
   
@@ -159,10 +162,15 @@ const Badges = () => {
                     </>)
                   }
                 </Box>
-                <Center style={iconButtonStyle}>
-                  <IconButton colorScheme='teal' aria-label='Change Gif' icon={<RepeatIcon />} onClick={shuffleBadge} id={index} />
-                  <IconButton colorScheme='teal' aria-label='Change Gif' icon={<CheckIcon />} onClick={confirmBadge} id={index} />
-                </Center>
+                {
+                  badge !== 'reveal' ?
+                  (
+                    <Center style={iconButtonStyle}>
+                      <IconButton colorScheme='teal' aria-label='Change Gif' icon={<RepeatIcon />} onClick={shuffleBadge} id={index} />
+                      <IconButton colorScheme='teal' aria-label='Change Gif' icon={<CheckIcon />} onClick={confirmBadge} id={index} />
+                    </Center>
+                  ) : null
+                }
                 <Spacer />
               </>
             )
