@@ -1,9 +1,7 @@
 import * as api from '../apis/apiClient'
 
 export const FETCH_ALL = 'habits/fetch/all'
-
-export const UPDATE_HABIT_STATUS = 'habit/status/update'
-export const UPDATE_GOAL = 'habit/update'
+export const UPDATE_HABIT = 'habit/update'
 export const ADD_GOAL = 'habit/add/new'
 export const SET_USER = 'set/user'
 export const FETCH_USER = 'users/fetch'
@@ -48,19 +46,14 @@ export const createFetchPayload = (input) => {
   }
 }
 
-export const updateStatus = (goalStr, statusStr) => ({
-  type: UPDATE_HABIT_STATUS,
-  payload: { goal: goalStr, status: statusStr },
-})
-
 export const addGoal = (habitObj) => ({
   type: ADD_GOAL,
   payload: { goal: habitObj },
 })
 
-export const updateGoal = (updatedGoal) => ({
-  type: UPDATE_GOAL,
-  payload: { updatedGoal },
+export const updateHabit = (updatedHabit) => ({
+  type: UPDATE_HABIT,
+  payload: { updatedHabit },
 })
 
 //* USERS

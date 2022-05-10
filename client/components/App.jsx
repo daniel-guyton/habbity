@@ -6,6 +6,7 @@ import SidebarWithHeader from './SidebarWithHeader'
 import Habits from './Habits'
 import Home from './Home'
 import Badges from './Badges'
+import Statspage from './Statspage'
 import Register from './Register'
 
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
@@ -42,6 +43,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Habits />} />
             <Route path="/badges" element={<Badges />} />
+            <Route path="/stats" element={<Statspage />} />
+
             <Route
               path="/register"
               element={
