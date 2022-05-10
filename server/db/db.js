@@ -9,6 +9,7 @@ module.exports = {
   getOneHabit,
   updateHabit,
   addUser,
+  updateUserById,
   isInDb,
   updateProfile,
 }
@@ -48,7 +49,9 @@ function updateProfile(profile, db = connection) {
 //* =========
 
 function getUser(auth0, db = connection) {
-  return db('users').select().where('auth0', auth0).first()
+  return db('users').select().where({
+    'auth0': auth0
+  }).first()
 }
 
 function addUser(user, db = connection) {
@@ -63,6 +66,20 @@ function addUser(user, db = connection) {
       points: 0,
     })
     .returning('id')
+}
+
+function updateUserById(data, db = connection) {
+  const { badges, auth0Id } = data
+  const auth0 = auth0Id.split('|')[1]
+  return db('users')
+    .select()
+    .where({
+      'auth0': auth0
+    })
+    .update({
+      'badges': badges
+    })
+
 }
 
 function isInDb(auth0, db = connection) {
