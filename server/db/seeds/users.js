@@ -23,9 +23,8 @@ exports.seed = function (knex) {
       username: 'bobina',
       email: 'green@gmail.com',
       auth0: '627876170b600f00693e7225',
-      points: 11,
-      badges:
-        'https://giphy.com/embed/S6flijUIK7PdtRMF6N,https://giphy.com/embed/S6flijUIK7PdtRMF6N,https://giphy.com/embed/S6flijUIK7PdtRMF6N',
+      points: 300,
+      badges: 'https://giphy.com/embed/S6flijUIK7PdtRMF6N',
     },
     {
       username: 'bobtina',

@@ -134,7 +134,7 @@ const IndividualHabit = (props) => {
   }
 
   const handleCheckBoxClick = (e) => {
-    const newDayCount = daysCompleted + 1
+    const newDayCount = daysCompleted + 27
     const newPointCount = profile.points + 2
     // base update for clicking the checkbox
     let changes = { id: id, daysCompleted: newDayCount }

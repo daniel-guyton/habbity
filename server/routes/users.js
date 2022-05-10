@@ -42,9 +42,22 @@ router.post('/', authCheck, async (req, res) => {
   }
 })
 
+router.patch('/badges', authCheck, (req, res) => {
+  const user = req.body.user
+  db.updateUserById(user)
+    .then((user) => {
+      return res.json(user)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.status(500).send({ message: 'Failed to update users ╰(•́ ꞈ •̀)╯' })
+    })
+})
+
 router.patch('/', authCheck, async (req, res) => {
   const auth0Id = req.auth.sub
   const updatedProfile = req.body
+  console.log(updatedProfile)
   const userId = auth0Id?.split('|')[1]
 
   if (!updatedProfile) {
@@ -65,4 +78,5 @@ router.patch('/', authCheck, async (req, res) => {
       res.status(500).send({ message: 'Failed to add habit DX' })
     })
 })
+
 module.exports = router
