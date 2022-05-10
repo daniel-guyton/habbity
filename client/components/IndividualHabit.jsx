@@ -6,7 +6,7 @@ import {
   Text,
   Checkbox,
   useColorModeValue,
-  Button
+  Button,
 } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -22,7 +22,7 @@ const IndividualHabit = (props) => {
   const [isChecked, setIsChecked] = useState(false)
   const primaryBgColor = useColorModeValue('gray.200', 'gray.700')
 
-  const {id, goalCompletedAt, timestamp, status, daysCompleted, goal} = props  
+  const { id, goalCompletedAt, timestamp, status, daysCompleted, goal } = props
   //checks wether the checkbox should be ticked based no the timestamps / date.
   useEffect(() => {
     const shouldCheckboxBeTicked = isMoreThan24HoursAgo(goalCompletedAt)
@@ -88,8 +88,10 @@ const IndividualHabit = (props) => {
 
     setIsChecked(true)
     //if goal is completed change status property
-    if (newDayCount > 27) {
+    if (newDayCount > 1) {
+      const currentDate = Math.floor(new Date().getTime() / 1000)
       changes.status = 'completed'
+      changes.goalCompletedAt = currentDate
     }
 
     e.target.disabled = true
@@ -108,13 +110,13 @@ const IndividualHabit = (props) => {
         console.error('unable to update changes', err)
       })
 
-    patchProfile({id: user.id, points: newPointCount}, user.token)
-    .then(() => {
-      dispatch(updateProfile({ id: user.id, points: newPointCount }))
-    }).catch((err) => {
-      console.error('unable to update changes', err)
-    })
-    
+    patchProfile({ id: user.id, points: newPointCount }, user.token)
+      .then(() => {
+        dispatch(updateProfile({ id: user.id, points: newPointCount }))
+      })
+      .catch((err) => {
+        console.error('unable to update changes', err)
+      })
   }
 
   function isMoreThan24HoursAgo(dateTimeStamp) {
@@ -179,7 +181,11 @@ const IndividualHabit = (props) => {
           />
         )}
         {/* replace the {dayCount} with the useSelector called from the top */}
-        {status == 'failed' && (<Button onClick={handleButtonClick}>Reset</Button>)}
+        {status == 'failed' && (
+          <Button onClick={handleButtonClick} colorScheme="green" size="xs">
+            Try Again!
+          </Button>
+        )}
         <Text pl="3">{goal}</Text>
       </Box>
       <Text p="3" whiteSpace="nowrap">

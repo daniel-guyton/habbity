@@ -25,12 +25,14 @@ import { GiPartyPopper } from 'react-icons/gi'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useSelector } from 'react-redux'
 
+
+
 import XP from './XP'
 const LinkItems = [
   { name: 'Habits', icon: FiHome, path: '/' },
   { name: 'Stats', icon: FiTrendingUp, path: '/stats' },
   { name: 'Badges', icon: GiPartyPopper, path: '/badges' },
-  // { name: 'Settings', icon: FiSettings },
+ 
 ]
 
 // NAV parent ==>
@@ -57,7 +59,7 @@ export default function SidebarWithHeader({ children }) {
           <SidebarContent onClose={onClose} />
         </DrawerContent>
       </Drawer>
-      {/* mobilenav */}
+     
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
@@ -80,10 +82,8 @@ const SidebarContent = ({ onClose, ...rest }) => {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        {/* <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-            Habbit
-          </Text> */}
-        <Image src="/client/public/designs/Habbity.png" alt="Habbit" />
+     
+        <Image src='/client/public/designs/Habbity.png' alt="Habbit" />
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
@@ -163,19 +163,13 @@ const MobileNav = ({ onOpen, ...rest }) => {
         icon={<FiMenu />}
       />
 
-      {/* <Text
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold"
-        >
-        Logo
-      </Text> */}
       <Image
         width="90px"
-        src="../server/public/designs/Habbity.png"
+        src='/client/public/designs/Habbity.png'
         alt="Habbity"
         display={{ md: 'none' }}
       />
+
       <HStack spacing={{ base: '0', md: '6' }}>
         <Flex alignItems={'center'}>
           <Menu>
@@ -185,12 +179,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
               _focus={{ boxShadow: 'none' }}
             >
               <HStack>
-                {/* <Avatar
-                    size={'sm'}
-                    src={
-                      'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-                    }
-                  /> */}
+              
                 <XP />
                 <VStack
                   display={{ base: 'none', md: 'flex' }}
@@ -199,9 +188,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   ml="2"
                 >
                   <Text fontSize="sm">Hi! {currentUser.name}</Text>
-                  {/* <Text fontSize="xs" color="gray.600">
-                      Admin
-                    </Text> */}
+                
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>
                   <FiChevronDown />
@@ -212,9 +199,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}
             >
-              {/* <MenuItem>Profile</MenuItem>
-                <MenuItem>Settings</MenuItem>
-                <MenuDivider /> */}
+            
               <MenuItem onClick={logoutHandler}>Sign out</MenuItem>
             </MenuList>
           </Menu>
