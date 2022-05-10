@@ -27,7 +27,6 @@ const Badges = () => {
     }, [user, isConfirmed])
     
     useEffect(() => {
-    userInfo !== null && console.log(userInfo.badges)
     userInfo !== null && setBadges(userInfo['badges'].split(','))
   }, [userInfo, isConfirmed])
   
@@ -45,7 +44,7 @@ const Badges = () => {
   }, [newBadgeToGet, getBadgeSuccess, isConfirmed])
   
   const calculatePoints = (num) => {
-    const badgeToBeAwarded = Math.round(Math.floor(num/2))
+    const badgeToBeAwarded = Math.round(Math.floor(num/56))
     const badgeAwarded = badges.length
     setNewBadgeToGet(badgeToBeAwarded - badgeAwarded)
   }
@@ -70,10 +69,14 @@ const Badges = () => {
     getNewGiphy(shuffleIndex)
   }
 
-  const confirmBadge = (e) => {
-    e.preventDefault()
-    const confirmIndex = e.target.id
-    const updatedBadges = [...badges, newBadges[confirmIndex]]
+  const confirmBadge = (badge) => {
+    // e.preventDefault()
+    // const confirmIndex = e.target.id
+    // if (e.target.id) console.log(e.target.id);
+    // else console.log(e.target);
+    // console.log(typeof e.target.id);
+    console.log(badge);
+    const updatedBadges = [...badges, badge]
     const data = {auth0Id: user.auth0Id, token: user.token, badges: updatedBadges.join(',')}
     updateUserBadges(data)
   }
@@ -141,19 +144,19 @@ const Badges = () => {
         {badges.length !== null &&
           badges.map((badge, index) => {
             return (
-              <>
-                <Box key={index} maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' style={giphyStyle}>
+              <Box key={index}>
+                <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' style={giphyStyle}>
                   <iframe src={badge} alt='badge GIF' style={iframeStyle} />
                 </Box>
                 <Spacer />
-              </>
+              </Box>
             )
         })}
         {newBadges.length !== 0 &&
           newBadges.map((badge, index) => {
             return (
-              <>
-                <Box key={index} maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' style={giphyStyle}>
+              <Box key={'new' + index}>
+                <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' style={giphyStyle}>
                   {
                     badge === 'reveal' ?
                     <Center color='teal.400' align='center' style={{iframeStyle}}><Button align='center' colorScheme='teal' size='md' onClick={revealBadge} id={index}>Reveal New Badge!</Button></Center> :
@@ -167,12 +170,12 @@ const Badges = () => {
                   (
                     <Center style={iconButtonStyle}>
                       <IconButton colorScheme='teal' aria-label='Change Gif' icon={<RepeatIcon />} onClick={shuffleBadge} id={index} />
-                      <IconButton colorScheme='teal' aria-label='Change Gif' icon={<CheckIcon />} onClick={confirmBadge} id={index} />
+                      <IconButton colorScheme='teal' aria-label='Change Gif' icon={<CheckIcon />} onClick={() => confirmBadge(badge)} id={index} type='button' />
                     </Center>
                   ) : null
                 }
                 <Spacer />
-              </>
+              </Box>
             )
           })
         }
