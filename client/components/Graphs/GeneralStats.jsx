@@ -57,9 +57,9 @@ const day = highestCurrStreakObj?.daysCompleted < 2
       <Box w='200px' h='120' bg="gray.100" boxShadow='dark-lg' rounded='md' pos="relative" top="10" left="0">
       <Text  pb="1" color="green.900" fontWeight={700} fontSize="14px"  padding = '2px' sx= {{ textAlign: 'center'}} >TOP CURRENT DAY RUN</Text>
        
-        <Text  pb="1" color="green.900" fontWeight={500} fontSize="14px"  padding = '0px' sx= {{ textAlign: 'center'}} >You&apos;ve been keeping up <span style={{fontWeight:700}}>{highestCurrStreakObj?.goal}</span></Text>
+        <Text  pb="1" color="green.900" fontWeight={500} fontSize="14px"  padding = '0px' sx= {{ textAlign: 'center'}} >You&apos;ve been keeping up <span style={{fontWeight:700}}>{highestCurrStreakObj?.goal}</span> for </Text>
  
-        <Text  pb="1"  color="green.700" fontWeight={500} fontSize="30px" padding = '0px' sx ={{  textAlign: 'center', position: 'relative', bottom: '10px'}}> for <span style={ {fontWeight:700, fontSize:35}}>{highestCurrStreakObj?.daysCompleted}</span> {day}</Text>    
+        <Text  pb="1"  color="green.700" fontWeight={500} fontSize="30px" padding = '0px' sx ={{  textAlign: 'center', position: 'relative', bottom: '10px'}}> <span style={ {fontWeight:700, fontSize:35}}>{highestCurrStreakObj?.daysCompleted}</span> {day}</Text>    
       
       </Box>
       <Spacer />
@@ -67,9 +67,9 @@ const day = highestCurrStreakObj?.daysCompleted < 2
       <Box w='200px' h='120' bg="gray.100" boxShadow='dark-lg' rounded='md' pos="relative" top="10" left="0">
       <Text  pb="1" color="green.900" fontWeight={700} fontSize="14px"  padding = '2px' sx= {{ textAlign: 'center'}} >TOP PREV DAY RUN</Text>
        
-        <Text  pb="1" color="green.900" fontWeight={500} fontSize="14px"  padding = '0px' sx= {{ textAlign: 'center'}} >You nearly completed <span style={{fontWeight:700}}>{highestPrevStreakObj?.goal}</span></Text>
+        <Text  pb="1" color="green.900" fontWeight={500} fontSize="14px"  padding = '0px' sx= {{ textAlign: 'center'}} >You nearly completed <span style={{fontWeight:700}}>{highestPrevStreakObj?.goal}</span> for </Text>
  
-        <Text  pb="1"  color="green.700" fontWeight={500} fontSize="30px" padding = '0px' sx ={{  textAlign: 'center', position: 'relative', bottom: '10px'}}> for <span style={{fontWeight:700, fontSize:35}}>{highestPrevStreakObj?.daysCompleted}</span> {day}</Text>    
+        <Text  pb="1"  color="green.700" fontWeight={500} fontSize="30px" padding = '0px' sx ={{  textAlign: 'center', position: 'relative', bottom: '10px'}}> <span style={{fontWeight:700, fontSize:35}}>{highestPrevStreakObj?.daysCompleted}</span> {day}</Text>    
       
       </Box>
 

@@ -8,7 +8,7 @@ function displayStats() {
   
   return (
     <>
-      <Text pb="1" as="span" fontWeight={600} color= '#3D2645'fontSize="30px" fontStyle={ "Georgia, serif"} padding='20px' position='relative'top='10px'>
+      <Text pb="1" as="span" fontWeight={700} color= '#3D2645'fontSize="30px" fontStyle={''} padding='20px' position='relative'top='10px'>
         Here&apos;s Your Journey so Far!
       </Text>
       <GeneralStats />
