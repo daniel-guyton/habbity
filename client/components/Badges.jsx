@@ -122,7 +122,7 @@ const Badges = () => {
         { userInfo !== null ? 
           (
           <Badge ml='1' fontSize='0.5em' colorScheme='teal' style={badgeStyle}>
-           userInfo.o.points} xp
+           {userInfo.points} xp
           </Badge>
           ) : null
         }
