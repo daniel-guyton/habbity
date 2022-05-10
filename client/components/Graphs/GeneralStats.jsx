@@ -63,11 +63,11 @@ const navigate = useNavigate()
   
 
   
-  const currdays = highestCurrStreakObj?.daysCompleted < 2 > 1 ? `day` : `days`
+  const currdays = highestCurrStreakObj?.daysCompleted == 1 ? `day` : `days`
 
   const currday = highestCurrStreakObj == null ? 'NEW HABIT' : currdays
 
-  const prevdays = highestPrevStreakObj?.daysCompleted < 2 > 1 ? `day` : `days`
+  const prevdays = highestPrevStreakObj?.daysCompleted == 1 ? `day` : `days`
 
   const prevday = highestPrevStreakObj == null ? '(:' : prevdays
 
@@ -80,7 +80,7 @@ const navigate = useNavigate()
   const secPrevMess =  highestPrevStreakObj == null ?  '' : `for `
 
   const button = highestPrevStreakObj == null ?  `Habits`  : `try again `
-
+ console.log(highestPrevStreakObj)
   return (
     <Flex>
       <Spacer />
