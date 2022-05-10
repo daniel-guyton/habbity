@@ -67,7 +67,6 @@ const IndividualHabit = (props) => {
 
   function toastHelper(arrMessages, statusStr = 'success') {
     const toastMsg = arrMessages[Math.floor(Math.random() * arrMessages.length)]
-    console.log(`toastMsg:`, toastMsg) // TODO confirm if string is fetched
     toast({
       description: toastMsg,
       status: statusStr,
@@ -134,7 +133,7 @@ const IndividualHabit = (props) => {
   }
 
   const handleCheckBoxClick = (e) => {
-    const newDayCount = daysCompleted + 27
+    const newDayCount = daysCompleted + 1
     const newPointCount = profile.points + 2
     // base update for clicking the checkbox
     let changes = { id: id, daysCompleted: newDayCount }

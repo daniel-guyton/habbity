@@ -30,7 +30,6 @@ export const createState = (token) => {
 }
 
 export const fetchProfile = (token) => {
-  console.log(token)
   return (dispatch) => {
     return api
       .getUserByAuth0Id(token)
