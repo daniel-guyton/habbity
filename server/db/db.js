@@ -1,3 +1,5 @@
+const { user } = require('pg/lib/defaults')
+
 const environment = process.env.NODE_ENV || 'development'
 const config = require('./knexfile')[environment]
 const connection = require('knex')(config)
@@ -9,6 +11,7 @@ module.exports = {
   getOneHabit,
   updateHabit,
   addUser,
+  updateUserById,
 }
 
 //*   HABITS
@@ -58,4 +61,21 @@ function addUser(user, db = connection) {
       points: 0,
     })
     .returning('id')
+}
+
+function updateUserById(data, db = connection) {
+  const { badges, auth0Id } = data
+  const auth0 = auth0Id.split('|')[1]
+  return db('users')
+    .select()
+    .where({
+      'auth0': auth0
+    })
+    .update({
+      'badges': badges
+    })
+    .returning('id')
+    .then(id => {
+      return db('users').select().where('id', id).first()
+    })
 }

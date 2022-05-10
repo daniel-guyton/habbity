@@ -60,6 +60,16 @@ export function getUserByAuth0Id(user) {
     })
 }
 
+export function updateBadgeByUser(user) {
+  return request
+    .patch(rootUrl + '/users')
+    .send({user})
+    .auth(user.token, { type: 'bearer' })
+    .then((res) => {
+      return res.body
+    })
+}
+
 //*   BADGES
 //* ==========
 
