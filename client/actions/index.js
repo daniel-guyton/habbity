@@ -1,8 +1,6 @@
 import * as api from '../apis/apiClient'
 
 export const FETCH_ALL = 'habits/fetch/all'
-
-export const UPDATE_HABIT_STATUS = 'habit/status/update'
 export const UPDATE_HABIT = 'habit/update'
 export const ADD_GOAL = 'habit/add/new'
 export const SET_USER = 'set/user'
