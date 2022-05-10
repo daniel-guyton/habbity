@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { createFetchPayload, updateGoal } from '../../actions/index'
 import { Flex, Spacer, Box, Text, Button } from '@chakra-ui/react'
 import { patchHabit } from '../../apis/apiClient'
+import { useNavigate,} from "react-router-dom";
 
 export default function getStats() {
   const [update, setUpdate] = useState(true)
@@ -34,6 +35,7 @@ export default function getStats() {
   
   let highestCurrStreakObj
   let currentHabits = habits?.filter((habit) => habit.status == 'progress')
+  console.log(currentHabits)
   if (currentHabits.length > 0) {
     highestCurrStreakObj = currentHabits?.reduce(function (max, obj) {
       return obj.daysCompleted > max.daysCompleted ? obj : max
@@ -41,7 +43,7 @@ export default function getStats() {
   } else {
     highestCurrStreakObj = null
   }
-
+const navigate = useNavigate()
   function handleButtonClick(evt) {
     const id = evt.target.value
     patchHabit({ id: id, status: 'progress' }, user.token)
@@ -51,17 +53,33 @@ export default function getStats() {
       .catch((err) => {
         console.error('failed to update status progress', err)
       })
-    setUpdate(true)
+      navigate('/')
   }
 
  
     failedHabits = habits?.filter((habit) => habit.status == 'failed')
 
  
-
-  const currday = highestCurrStreakObj?.daysCompleted < 2 ? `day` : `days`
-  const prevday = highestPrevStreakObj?.daysCompleted < 2 ? `day` : `days`
   
+
+  
+  const currdays = highestCurrStreakObj?.daysCompleted < 2 > 1 ? `day` : `days`
+
+  const currday = highestCurrStreakObj == null ? 'NEW HABIT' : currdays
+
+  const prevdays = highestPrevStreakObj?.daysCompleted < 2 > 1 ? `day` : `days`
+
+  const prevday = highestPrevStreakObj == null ? '(:' : prevdays
+
+
+  const firstCurrMess =  highestCurrStreakObj == null ?  'Time to try a ' : `You've been keeping up `
+  const secCurrMess =  highestCurrStreakObj == null ?  '' : `for `
+
+  
+  const firstPrevMess =  highestPrevStreakObj == null ?  `You're on track for all your goals `  : `You've been keeping up `
+  const secPrevMess =  highestPrevStreakObj == null ?  '' : `for `
+
+  const button = highestPrevStreakObj == null ?  `Habits`  : `try again `
 
   return (
     <Flex>
@@ -95,9 +113,9 @@ export default function getStats() {
           padding="0px"
           sx={{ textAlign: 'center' }}
         >
-          You&apos;ve been keeping up{' '}
+         {firstCurrMess}
           <span style={{ fontWeight: 700 }}>{highestCurrStreakObj?.goal}</span>{' '}
-          for{' '}
+          {secCurrMess}
         </Text>
 
         <Text
@@ -113,6 +131,7 @@ export default function getStats() {
             {highestCurrStreakObj?.daysCompleted}
           </span>{' '}
           {currday}
+         
         </Text>
       </Box>
       <Spacer />
@@ -147,11 +166,12 @@ export default function getStats() {
                   padding="0px"
                   sx={{ textAlign: 'center' }}
                 >
-                  You nearly completed{' '}
+                 {firstPrevMess}
                   <span style={{ fontWeight: 700 }}>
                     {highestPrevStreakObj?.goal}
-                  </span>{' '}
-                  for{' '}
+                    {' '}
+                  </span>
+                  {secPrevMess}
                 </Text>
                 <Text
                   pb="1"
@@ -165,10 +185,11 @@ export default function getStats() {
                     bottom: '10px',
                   }}
                 >
-                  {' '}
+                  
                   <span style={{ fontWeight: 700, fontSize: 35 }}>
                     {highestPrevStreakObj?.daysCompleted}
-                  </span>{' '}
+                  </span>
+                  {' '}
                   {prevday}
                 </Text>
               </>
@@ -181,8 +202,7 @@ export default function getStats() {
           colorScheme="green"
           sx={{ position: 'relative', bottom: '-30px', left: '120px' }}
         >
-          {' '}
-          Try again!{' '}
+          {button}
         </Button>
       </div>
       <Spacer />

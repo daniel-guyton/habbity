@@ -19,7 +19,6 @@ export default function getGraph() {
   let UNIXdates = completedHabits?.map((habit) => {return habit.goalCompletedAt})
   
 
-
   //converting UNIX date to yyyy-mm-dd (thats the way calendar from nivo accepts it)
   let dates = UNIXdates?.map((UNIXdate) => new Date(UNIXdate * 1000))
 
@@ -61,7 +60,7 @@ export default function getGraph() {
 
     let dateData = [
       {
-        value: currentDate[0].length,
+        value: currentDate[0].length +1,
         day: currentDate,
       },
     ]
