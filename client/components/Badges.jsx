@@ -11,6 +11,7 @@ import {
   Spacer,
   Button,
   IconButton,
+  useColorModeValue,
 } from '@chakra-ui/react'
 import {
   getBadge,
@@ -20,8 +21,12 @@ import {
 import { CheckIcon, RepeatIcon } from '@chakra-ui/icons'
 
 const Badges = () => {
-  const profile = useSelector(state => state.profile)
-  const user = useSelector(state => state.user)
+  const primaryShadowColor = useColorModeValue(
+    '1px 1px 15px 8px white',
+    '0px 3px 15px rgba(0,0,0,0.2)'
+  )
+  const profile = useSelector((state) => state.profile)
+  const user = useSelector((state) => state.user)
   const [userInfo, setUserInfo] = useState(null)
   const [badges, setBadges] = useState([])
   const [getBadgeSuccess, setGetBadgeSuccess] = useState(0)
@@ -35,11 +40,11 @@ const Badges = () => {
         .then((res) => {
           setUserInfo(res)
         })
-        .catch(err => console.log('getUserByAuth0Id', err.message))
-      }
-      setIsConfirmed(false)
-    }, [user, isConfirmed])
-    
+        .catch((err) => console.log('getUserByAuth0Id', err.message))
+    }
+    setIsConfirmed(false)
+  }, [user, isConfirmed])
+
   useEffect(() => {
     userInfo !== null && setBadges(userInfo['badges'].split(','))
   }, [userInfo, isConfirmed])
@@ -121,7 +126,7 @@ const Badges = () => {
     justifyContent: 'center',
     display: 'flex',
     margin: '10px',
-    boxShadow: '1px 1px 15px 8px white',
+    boxShadow: primaryShadowColor,
   }
 
   const iframeStyle = {
@@ -131,19 +136,16 @@ const Badges = () => {
 
   const iconButtonStyle = {
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    padding: '10% 0 10% 0',
+    flexDirection: 'row',
   }
 
   return (
     <Box w="100%" p={4} color="teal.500">
       <Heading as="h3" size="lg">
         Welcome {user.name}!
-        { userInfo !== null ? 
-          (
-          <Badge ml='1' fontSize='0.5em' colorScheme='teal' style={badgeStyle}>
-           {profile.points} xp
+        {userInfo !== null ? (
+          <Badge ml="1" fontSize="0.5em" colorScheme="teal" style={badgeStyle}>
+            {profile.points} xp
           </Badge>
         ) : null}
       </Heading>
@@ -210,8 +212,9 @@ const Badges = () => {
                   )}
                 </Box>
                 {badge !== 'reveal' ? (
-                  <Center style={iconButtonStyle}>
+                  <Center display="flex" style={iconButtonStyle}>
                     <IconButton
+                      m="1"
                       colorScheme="teal"
                       aria-label="Change Gif"
                       icon={<RepeatIcon />}
@@ -219,6 +222,7 @@ const Badges = () => {
                       id={index}
                     />
                     <IconButton
+                      m="1"
                       colorScheme="teal"
                       aria-label="Change Gif"
                       icon={<CheckIcon />}

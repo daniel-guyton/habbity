@@ -2,13 +2,12 @@ import React from 'react'
 import { Box, Flex, Button, Stack, useColorModeValue } from '@chakra-ui/react'
 import { useAuth0 } from '@auth0/auth0-react'
 
-
 const Home = () => {
   return (
     <Box>
       <WithSubnavigation />
       <img
-        src='/client/public/designs/Habbity.png'
+        src="/client/public/designs/Habbity.png"
         alt="Habbity"
         style={{
           margin: '20vh auto 0 auto',

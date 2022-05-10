@@ -31,7 +31,6 @@ router.post('/', authCheck, async (req, res) => {
 
   try {
     const isInDb = await db.isInDb(auth0)
-    console.log(isInDb)
     if (isInDb) return res.sendStatus(200)
 
     const newUser = await db.addUser(userToSave)
@@ -57,7 +56,6 @@ router.patch('/badges', authCheck, (req, res) => {
 router.patch('/', authCheck, async (req, res) => {
   const auth0Id = req.auth.sub
   const updatedProfile = req.body
-  console.log(updatedProfile)
   const userId = auth0Id?.split('|')[1]
 
   if (!updatedProfile) {
@@ -68,7 +66,6 @@ router.patch('/', authCheck, async (req, res) => {
     return res.status(401).send({ message: 'Unauthorised' })
   }
 
-  console.log(updatedProfile, userId)
   db.updateProfile({ ...updatedProfile, id: userId })
     .then(() => {
       return res.json(1)

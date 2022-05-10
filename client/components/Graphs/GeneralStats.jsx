@@ -4,11 +4,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { createFetchPayload, updateHabit } from '../../actions/index'
 import { Flex, Spacer, Box, Text, Button } from '@chakra-ui/react'
 import { patchHabit } from '../../apis/apiClient'
-import { useNavigate,} from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 
 export default function getStats() {
- 
-
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -21,18 +19,16 @@ export default function getStats() {
 
   let failedHabits = habits?.filter((habit) => habit.status == 'failed')
   const user = useSelector((state) => state.user)
-  let highestPrevStreakObj 
-  
-    if (failedHabits.length > 0) {
-      
-      highestPrevStreakObj = failedHabits?.reduce(function (max, obj) {
-        return obj.daysCompleted > max.daysCompleted ? obj : max
-      })
-   
-    } else {
-      highestPrevStreakObj = null
-    }
-  
+  let highestPrevStreakObj
+
+  if (failedHabits.length > 0) {
+    highestPrevStreakObj = failedHabits?.reduce(function (max, obj) {
+      return obj.daysCompleted > max.daysCompleted ? obj : max
+    })
+  } else {
+    highestPrevStreakObj = null
+  }
+
   let highestCurrStreakObj
   let currentHabits = habits?.filter((habit) => habit.status == 'progress')
   console.log(currentHabits)
@@ -43,7 +39,7 @@ export default function getStats() {
   } else {
     highestCurrStreakObj = null
   }
-const navigate = useNavigate()
+  const navigate = useNavigate()
   function handleButtonClick(evt) {
     const id = evt.target.value
     patchHabit({ id: id, status: 'progress' }, user.token)
@@ -53,16 +49,11 @@ const navigate = useNavigate()
       .catch((err) => {
         console.error('failed to update status progress', err)
       })
-      navigate('/')
+    navigate('/')
   }
 
- 
-    failedHabits = habits?.filter((habit) => habit.status == 'failed')
+  failedHabits = habits?.filter((habit) => habit.status == 'failed')
 
- 
-  
-
-  
   const currdays = highestCurrStreakObj?.daysCompleted == 1 ? `day` : `days`
 
   const currday = highestCurrStreakObj == null ? 'NEW HABIT' : currdays
@@ -71,16 +62,18 @@ const navigate = useNavigate()
 
   const prevday = highestPrevStreakObj == null ? '(:' : prevdays
 
+  const firstCurrMess =
+    highestCurrStreakObj == null ? 'Time to try a ' : `You've been keeping up `
+  const secCurrMess = highestCurrStreakObj == null ? '' : `for `
 
-  const firstCurrMess =  highestCurrStreakObj == null ?  'Time to try a ' : `You've been keeping up `
-  const secCurrMess =  highestCurrStreakObj == null ?  '' : `for `
+  const firstPrevMess =
+    highestPrevStreakObj == null
+      ? `You're on track for all your goals `
+      : `You've been keeping up `
+  const secPrevMess = highestPrevStreakObj == null ? '' : `for `
 
-  
-  const firstPrevMess =  highestPrevStreakObj == null ?  `You're on track for all your goals `  : `You've been keeping up `
-  const secPrevMess =  highestPrevStreakObj == null ?  '' : `for `
-
-  const button = highestPrevStreakObj == null ?  `Habits`  : `try again `
- console.log(highestPrevStreakObj)
+  const button = highestPrevStreakObj == null ? `Habits` : `try again `
+  console.log(highestPrevStreakObj)
   return (
     <Flex>
       <Spacer />
@@ -113,8 +106,10 @@ const navigate = useNavigate()
           padding="0px"
           sx={{ textAlign: 'center' }}
         >
-         {firstCurrMess}
-          <span style={{ fontWeight: 700 }}>{highestCurrStreakObj?.goal}</span>{' '}
+          {firstCurrMess}
+          <span style={{ fontWeight: 700 }}>
+            {highestCurrStreakObj?.goal}
+          </span>{' '}
           {secCurrMess}
         </Text>
 
@@ -131,7 +126,6 @@ const navigate = useNavigate()
             {highestCurrStreakObj?.daysCompleted}
           </span>{' '}
           {currday}
-         
         </Text>
       </Box>
       <Spacer />
@@ -157,44 +151,38 @@ const navigate = useNavigate()
             TOP PREV DAY RUN
           </Text>
           <>
-                
-                <Text
-                  pb="1"
-                  color="green.900"
-                  fontWeight={500}
-                  fontSize="14px"
-                  padding="0px"
-                  sx={{ textAlign: 'center' }}
-                >
-                 {firstPrevMess}
-                  <span style={{ fontWeight: 700 }}>
-                    {highestPrevStreakObj?.goal}
-                    {' '}
-                  </span>
-                  {secPrevMess}
-                </Text>
-                <Text
-                  pb="1"
-                  color="green.700"
-                  fontWeight={500}
-                  fontSize="30px"
-                  padding="0px"
-                  sx={{
-                    textAlign: 'center',
-                    position: 'relative',
-                    bottom: '10px',
-                  }}
-                >
-                  
-                  <span style={{ fontWeight: 700, fontSize: 35 }}>
-                    {highestPrevStreakObj?.daysCompleted}
-                  </span>
-                  {' '}
-                  {prevday}
-                </Text>
-              </>
-            
-        
+            <Text
+              pb="1"
+              color="green.900"
+              fontWeight={500}
+              fontSize="14px"
+              padding="0px"
+              sx={{ textAlign: 'center' }}
+            >
+              {firstPrevMess}
+              <span style={{ fontWeight: 700 }}>
+                {highestPrevStreakObj?.goal}{' '}
+              </span>
+              {secPrevMess}
+            </Text>
+            <Text
+              pb="1"
+              color="green.700"
+              fontWeight={500}
+              fontSize="30px"
+              padding="0px"
+              sx={{
+                textAlign: 'center',
+                position: 'relative',
+                bottom: '10px',
+              }}
+            >
+              <span style={{ fontWeight: 700, fontSize: 35 }}>
+                {highestPrevStreakObj?.daysCompleted}
+              </span>{' '}
+              {prevday}
+            </Text>
+          </>
         </Box>
         <Button
           onClick={handleButtonClick}
@@ -252,6 +240,5 @@ const navigate = useNavigate()
       </Box>
       <Spacer />
     </Flex>
-
   )
 }

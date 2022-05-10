@@ -16,8 +16,9 @@ export default function getGraph() {
   let completedHabits = habits.filter((habit) => habit.status == 'completed')
 
   // key on filtered habits -recieving timestamp (in UNIX form)
-  let UNIXdates = completedHabits?.map((habit) => {return habit.goalCompletedAt})
-  
+  let UNIXdates = completedHabits?.map((habit) => {
+    return habit.goalCompletedAt
+  })
 
   //converting UNIX date to yyyy-mm-dd (thats the way calendar from nivo accepts it)
   let dates = UNIXdates?.map((UNIXdate) => new Date(UNIXdate * 1000))
@@ -29,15 +30,12 @@ export default function getGraph() {
         : `${date?.getMonth() + 1}`
 
     let day =
-      date?.getDate() < 9
-        ? `0${date?.getDate() + 1}`
-        : `${date?.getDate() + 1}`
+      date?.getDate() < 9 ? `0${date?.getDate() + 1}` : `${date?.getDate() + 1}`
 
     let calendarDate = date?.getFullYear() + '-' + month + '-' + day
 
     return calendarDate
   })
- 
 
   //sorting into a complex arr according to date (ie all habits completed on 9/5/2022 will be sorted in one group/array)
   const allDatesArr = []
@@ -60,13 +58,13 @@ export default function getGraph() {
 
     let dateData = [
       {
-        value: currentDate[0].length +1,
+        value: currentDate[0].length + 1,
         day: currentDate,
       },
     ]
     return dateData[0]
   })
- 
+
   return (
     <>
       <Box width="700px" height="300px">

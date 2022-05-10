@@ -25,14 +25,11 @@ import { GiPartyPopper } from 'react-icons/gi'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useSelector } from 'react-redux'
 
-
-
 import XP from './XP'
 const LinkItems = [
   { name: 'Habits', icon: FiHome, path: '/' },
   { name: 'Stats', icon: FiTrendingUp, path: '/stats' },
   { name: 'Badges', icon: GiPartyPopper, path: '/badges' },
- 
 ]
 
 // NAV parent ==>
@@ -59,7 +56,7 @@ export default function SidebarWithHeader({ children }) {
           <SidebarContent onClose={onClose} />
         </DrawerContent>
       </Drawer>
-     
+
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
@@ -82,8 +79,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-     
-        <Image src='/client/public/designs/Habbity.png' alt="Habbit" />
+        <Image src="/client/public/designs/Habbity.png" alt="Habbit" />
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
@@ -165,7 +161,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
 
       <Image
         width="90px"
-        src='/client/public/designs/Habbity.png'
+        src="/client/public/designs/Habbity.png"
         alt="Habbity"
         display={{ md: 'none' }}
       />
@@ -179,7 +175,6 @@ const MobileNav = ({ onOpen, ...rest }) => {
               _focus={{ boxShadow: 'none' }}
             >
               <HStack>
-              
                 <XP />
                 <VStack
                   display={{ base: 'none', md: 'flex' }}
@@ -188,7 +183,6 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   ml="2"
                 >
                   <Text fontSize="sm">Hi! {currentUser.name}</Text>
-                
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>
                   <FiChevronDown />
@@ -199,7 +193,6 @@ const MobileNav = ({ onOpen, ...rest }) => {
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}
             >
-            
               <MenuItem onClick={logoutHandler}>Sign out</MenuItem>
             </MenuList>
           </Menu>
