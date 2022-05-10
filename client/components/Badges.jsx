@@ -6,8 +6,7 @@ import { CheckIcon, RepeatIcon } from '@chakra-ui/icons'
 
 
 const Badges = () => {
-
-  const token = useSelector(state => state.user.token)
+  const profile = useSelector(state => state.profile)
   const user = useSelector(state => state.user)
   const [userInfo, setUserInfo] = useState(null)
   const [badges, setBadges] = useState([])
@@ -17,18 +16,17 @@ const Badges = () => {
   const [isConfirmed, setIsConfirmed] = useState(false)
 
   useEffect(() => {
-    if (token) {
-      getUserByAuth0Id(token)
+    if (user.token) {
+      getUserByAuth0Id(user.token)
         .then((res) => {
-          console.log(res)
           setUserInfo(res)
         })
         .catch(err => console.log('getUserByAuth0Id', err.message))
       }
       setIsConfirmed(false)
-    }, [token, isConfirmed])
+    }, [user, isConfirmed])
     
-    useEffect(() => {
+  useEffect(() => {
     userInfo !== null && setBadges(userInfo['badges'].split(','))
   }, [userInfo, isConfirmed])
   
@@ -124,7 +122,7 @@ const Badges = () => {
         { userInfo !== null ? 
           (
           <Badge ml='1' fontSize='0.5em' colorScheme='teal' style={badgeStyle}>
-            {userInfo.points} xp
+           {profile.points} xp
           </Badge>
           ) : null
         }

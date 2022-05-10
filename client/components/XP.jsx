@@ -6,7 +6,7 @@ const XP = () => {
   const xp = useSelector(state => state.profile.points) 
   return (
       <Tag fontSize='11px'size="sm" key="sm" colorScheme="green" variant="subtle">
-        Points: {xp}
+        XP: {xp}
       </Tag>
   )
 }
