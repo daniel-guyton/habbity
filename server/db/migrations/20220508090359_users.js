@@ -9,6 +9,7 @@ exports.up = function (knex) {
     table.string('email')
     table.string('auth0')
     table.integer('points')
+    table.string('badges')
   })
 }
 

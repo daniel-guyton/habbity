@@ -1,7 +1,8 @@
 import React from 'react'
+import { Link as ReactLink } from 'react-router-dom'
 import {
   IconButton,
-  Avatar,
+  Image,
   Box,
   CloseButton,
   Flex,
@@ -16,30 +17,27 @@ import {
   useDisclosure,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
 } from '@chakra-ui/react'
-import {
-  FiHome,
-  FiTrendingUp,
-  FiSettings,
-  FiMenu,
-  FiChevronDown,
-} from 'react-icons/fi'
+import { FiHome, FiTrendingUp, FiMenu, FiChevronDown } from 'react-icons/fi'
 import { GiPartyPopper } from 'react-icons/gi'
+import { useAuth0 } from '@auth0/auth0-react'
+import { useSelector } from 'react-redux'
 
+import XP from './XP'
 const LinkItems = [
-  { name: 'Habits', icon: FiHome },
-  { name: 'Stats', icon: FiTrendingUp },
-  { name: 'Rewards', icon: GiPartyPopper },
-  { name: 'Settings', icon: FiSettings },
+  { name: 'Habits', icon: FiHome, path: '/' },
+  { name: 'Stats', icon: FiTrendingUp, path: '/stats' },
+  { name: 'Badges', icon: GiPartyPopper, path: '/badges' },
+  // { name: 'Settings', icon: FiSettings },
 ]
 
-export default function SidebarWithHeader({
-  children,
-}) {
+// NAV parent ==>
+export default function SidebarWithHeader({ children }) {
+  // Chakra functions
   const { isOpen, onOpen, onClose } = useDisclosure()
+
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent
@@ -68,6 +66,7 @@ export default function SidebarWithHeader({
   )
 }
 
+// NAV sidebar child => for page links
 const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box
@@ -81,13 +80,14 @@ const SidebarContent = ({ onClose, ...rest }) => {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
+        {/* <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+            Habbit
+          </Text> */}
+        <Image src="/client/public/designs/Habbity.png" alt="Habbit" />
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} path={link.path}>
           {link.name}
         </NavItem>
       ))}
@@ -95,11 +95,12 @@ const SidebarContent = ({ onClose, ...rest }) => {
   )
 }
 
-
-const NavItem = ({ icon, children, ...rest }) => {
+// NAV top bar child => for user sign in activities
+const NavItem = ({ icon, path, children, ...rest }) => {
   return (
     <Link
-      href="#"
+      as={ReactLink}
+      to={`${path}`}
       style={{ textDecoration: 'none' }}
       _focus={{ boxShadow: 'none' }}
     >
@@ -132,7 +133,16 @@ const NavItem = ({ icon, children, ...rest }) => {
   )
 }
 
+// NAV dropdown menus for user activity =>
 const MobileNav = ({ onOpen, ...rest }) => {
+  const { logout } = useAuth0()
+  const currentUser = useSelector((state) => state.user)
+
+  const logoutHandler = (e) => {
+    e.preventDefault()
+    logout({ returnTo: window.location.origin })
+  }
+
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -153,15 +163,19 @@ const MobileNav = ({ onOpen, ...rest }) => {
         icon={<FiMenu />}
       />
 
-      <Text
-        display={{ base: 'flex', md: 'none' }}
+      {/* <Text
         fontSize="2xl"
         fontFamily="monospace"
         fontWeight="bold"
-      >
+        >
         Logo
-      </Text>
-
+      </Text> */}
+      <Image
+        width="90px"
+        src="../server/public/designs/Habbity.png"
+        alt="Habbity"
+        display={{ md: 'none' }}
+      />
       <HStack spacing={{ base: '0', md: '6' }}>
         <Flex alignItems={'center'}>
           <Menu>
@@ -171,22 +185,23 @@ const MobileNav = ({ onOpen, ...rest }) => {
               _focus={{ boxShadow: 'none' }}
             >
               <HStack>
-                <Avatar
-                  size={'sm'}
-                  src={
-                    'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-                  }
-                />
+                {/* <Avatar
+                    size={'sm'}
+                    src={
+                      'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
+                    }
+                  /> */}
+                <XP />
                 <VStack
                   display={{ base: 'none', md: 'flex' }}
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">Justina Clark</Text>
-                  <Text fontSize="xs" color="gray.600">
-                    Admin
-                  </Text>
+                  <Text fontSize="sm">Hi! {currentUser.name}</Text>
+                  {/* <Text fontSize="xs" color="gray.600">
+                      Admin
+                    </Text> */}
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>
                   <FiChevronDown />
@@ -197,10 +212,10 @@ const MobileNav = ({ onOpen, ...rest }) => {
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}
             >
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              {/* <MenuItem>Profile</MenuItem>
+                <MenuItem>Settings</MenuItem>
+                <MenuDivider /> */}
+              <MenuItem onClick={logoutHandler}>Sign out</MenuItem>
             </MenuList>
           </Menu>
         </Flex>
