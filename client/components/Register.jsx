@@ -1,36 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { Spinner } from '@chakra-ui/react'
 import { addUser } from '../apis/apiClient'
 
-const Register = () => {
+const Register = (props) => {
+  console.log(props)
   const user = useSelector((state) => state.user)
   const navigate = useNavigate()
-  const [isRegistered, setIsRegistered] = useState(false)
 
   useEffect(() => {
-    if (isRegistered) {
-      RegisterUser()
-    }
-    if (user.auth0Id !== '' && !isRegistered) {
+    if (user.token && !props.isRegistered) {
       addUser(user)
-        .then(setIsRegistered(true))
-        .then(() => null)
+        .then(() => handleRegister(true))
         .catch((err) => console.error(err.message))
     }
-  }, [isRegistered, user])
+  }, [props.isRegistered, user.token])
 
-  function RegisterUser() {
-    if (isRegistered) {
-      navigate('/', { replace: true })
-    }
+  function handleRegister() {
+    console.log('hello')
+    props.onRegister(true)
+    navigate('/', { replace: true })
   }
 
   return (
     <div>
-      <h3>creating Habbity profile for you...</h3>
+      <h3>Signing in...</h3>
       <Spinner
         thickness="4px"
         speed="0.65s"

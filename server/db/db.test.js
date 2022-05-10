@@ -35,11 +35,11 @@ describe('getOneHabit', () => {
 })
 
 describe('getUsers', () => {
+  const fakeAuth0 = '627876170b600f00693e7225'
   it('returns users', () => {
-    return db.getUsers(testDb).then((users) => {
-      expect(users).toHaveLength(4)
-      expect(users[0].id).toBe(1)
-      expect(users[1].id).toBe(2)
+    return db.getUser(fakeAuth0, testDb).then((user) => {
+      expect(user.username).toBe('bobina')
+      expect(user.email).toBe('green@gmail.com')
       return null
     })
   })

@@ -51,4 +51,52 @@ export function addUser(user) {
     })
 }
 
-// Note: don't need user table, only auth0Id is recorded with every habit saved in the database
+export function getUserByAuth0Id(token) {
+  return request
+    .get(rootUrl + '/users')
+    .auth(token, { type: 'bearer' })
+    .then((res) => {
+      return res.body
+    })
+}
+
+export function updateBadgeByUser(user) {
+  return request
+    .patch(rootUrl + '/users')
+    .send({user})
+    .auth(user.token, { type: 'bearer' })
+    .then((res) => {
+      return res.body
+    })
+}
+
+//*   BADGES
+//* ==========
+export function getProfile(token) {
+  return request
+    .get(rootUrl + '/users')
+    .auth(token, { type: 'bearer' })
+    .then((res) => {
+      return res.body
+    })
+}
+
+export function patchProfile(profileToUpdate, token) {
+  return request
+    .patch(rootUrl + '/users')
+    .send({ ...profileToUpdate })
+    .set('Accept', 'application/json')
+    .auth(token, { type: 'bearer' })
+    .then((res) => {
+      return res.body
+    })
+}
+
+export function getBadge(user) {
+  return request
+    .get(rootUrl + '/badges')
+    .auth(user.token, { type: 'bearer' })
+    .then((res) => {
+      return res.body
+    })
+}
