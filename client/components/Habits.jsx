@@ -13,7 +13,7 @@ const Habits = () => {
   const user = useSelector((state) => state.user) // signed in user info
   const primaryFontColor = useColorModeValue('#333', 'white') // Chakra css setting
   const goals = useSelector((state) => state.goals) // habits array from db
-  
+
   useEffect(() => {
     // dispatch user information when exist in state
     if (user.token !== '') {
@@ -73,7 +73,15 @@ const Habits = () => {
       </HabitBox>
       <HabitBox name="To Continue" length={failedArray.length}>
         {failedArray.map(({ goal, timestamp, id }, idx) => {
-          return <IndividualHabit key={idx} timestamp={timestamp} goal={goal} status='failed' id={id} />
+          return (
+            <IndividualHabit
+              key={idx}
+              timestamp={timestamp}
+              goal={goal}
+              status="failed"
+              id={id}
+            />
+          )
         })}
       </HabitBox>
     </Flex>

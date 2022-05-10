@@ -16,19 +16,21 @@ export default function getGraph() {
   let completedHabits = habits.filter((habit) => habit.status == 'completed')
 
   // key on filtered habits -recieving timestamp (in UNIX form)
-  let UNIXdates = completedHabits?.map((habit) => habit.goalCompletedAt)
+  let UNIXdates = completedHabits?.map((habit) => {return habit.goalCompletedAt})
+  
+
 
   //converting UNIX date to yyyy-mm-dd (thats the way calendar from nivo accepts it)
   let dates = UNIXdates?.map((UNIXdate) => new Date(UNIXdate * 1000))
 
   let dateArr = dates.map((date) => {
     let month =
-      date?.getMonth() < 10
+      date?.getMonth() < 9
         ? `0${date?.getMonth() + 1}`
         : `${date?.getMonth() + 1}`
 
     let day =
-      date?.getDate() < 10
+      date?.getDate() < 9
         ? `0${date?.getDate() + 1}`
         : `${date?.getDate() + 1}`
 
@@ -36,6 +38,7 @@ export default function getGraph() {
 
     return calendarDate
   })
+ 
 
   //sorting into a complex arr according to date (ie all habits completed on 9/5/2022 will be sorted in one group/array)
   const allDatesArr = []
@@ -53,23 +56,29 @@ export default function getGraph() {
   //structure of allDatesArr [[{2022-03-05:[]}], [{2022-02-06:[]}]] #pain
 
   //creating an array with correct data from sorted stuff above to go through the calendar component
-  let data = allDatesArr.map((date, i) => {
+  let data = allDatesArr.map((date) => {
     let currentDate = Object.keys(date)[0]
 
     let dateData = [
       {
-        value: i + 1,
+        value: currentDate[0].length,
         day: currentDate,
       },
     ]
     return dateData[0]
   })
-
+ 
   return (
     <>
-     
       <Box width="700px" height="300px">
-      <Text  color="green.700" fontWeight={600} fontSize="20px" paddingLeft = '20px' >Your Completed Tasks!</Text>
+        <Text
+          color="green.700"
+          fontWeight={600}
+          fontSize="20px"
+          paddingLeft="20px"
+        >
+          Your Completed Habits!
+        </Text>
         <ResponsiveCalendar
           data={data}
           from="2022-01-01"

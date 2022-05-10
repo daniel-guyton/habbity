@@ -49,9 +49,12 @@ function updateProfile(profile, db = connection) {
 //* =========
 
 function getUser(auth0, db = connection) {
-  return db('users').select().where({
-    'auth0': auth0
-  }).first()
+  return db('users')
+    .select()
+    .where({
+      auth0: auth0,
+    })
+    .first()
 }
 
 function addUser(user, db = connection) {
@@ -74,12 +77,11 @@ function updateUserById(data, db = connection) {
   return db('users')
     .select()
     .where({
-      'auth0': auth0
+      auth0: auth0,
     })
     .update({
-      'badges': badges
+      badges: badges,
     })
-
 }
 
 function isInDb(auth0, db = connection) {

@@ -63,7 +63,7 @@ export function getUserByAuth0Id(token) {
 export function updateBadgeByUser(user) {
   return request
     .patch(rootUrl + '/users')
-    .send({user})
+    .send({ user })
     .auth(user.token, { type: 'bearer' })
     .then((res) => {
       return res.body
