@@ -1,14 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Box, Heading, Text, Badge, Divider, Center, Flex, Spacer, Button, IconButton } from '@chakra-ui/react'
-import { getBadge, getUserByAuth0Id, updateBadgeByUser } from '../apis/apiClient'
+import {
+  Box,
+  Heading,
+  Text,
+  Badge,
+  Divider,
+  Center,
+  Flex,
+  Spacer,
+  Button,
+  IconButton,
+  useColorModeValue,
+} from '@chakra-ui/react'
+import {
+  getBadge,
+  getUserByAuth0Id,
+  updateBadgeByUser,
+} from '../apis/apiClient'
 import { CheckIcon, RepeatIcon } from '@chakra-ui/icons'
 
-
 const Badges = () => {
-
-  const token = useSelector(state => state.user.token)
-  const user = useSelector(state => state.user)
+  const primaryShadowColor = useColorModeValue(
+    '1px 1px 15px 8px white',
+    '0px 3px 15px rgba(0,0,0,0.2)'
+  )
+  const profile = useSelector((state) => state.profile)
+  const user = useSelector((state) => state.user)
   const [userInfo, setUserInfo] = useState(null)
   const [badges, setBadges] = useState([])
   const [getBadgeSuccess, setGetBadgeSuccess] = useState(0)
@@ -17,52 +35,55 @@ const Badges = () => {
   const [isConfirmed, setIsConfirmed] = useState(false)
 
   useEffect(() => {
-    if (token) {
-      getUserByAuth0Id(token)
+    if (user.token) {
+      getUserByAuth0Id(user.token)
         .then((res) => {
-          console.log(res)
           setUserInfo(res)
         })
-        .catch(err => console.log('getUserByAuth0Id', err.message))
-      }
-      setIsConfirmed(false)
-    }, [token, isConfirmed])
-    
-    useEffect(() => {
+        .catch((err) => console.log('getUserByAuth0Id', err.message))
+    }
+    setIsConfirmed(false)
+  }, [user, isConfirmed])
+
+  useEffect(() => {
     userInfo !== null && setBadges(userInfo['badges'].split(','))
   }, [userInfo, isConfirmed])
-  
+
   useEffect(() => {
     userInfo !== null && calculatePoints(userInfo.points)
   }, [badges, isConfirmed])
 
   useEffect(() => {
-    if(newBadgeToGet > 0) {
+    if (newBadgeToGet > 0) {
       if (getBadgeSuccess < newBadgeToGet) {
         setNewBadges([...newBadges, 'reveal'])
         setGetBadgeSuccess(getBadgeSuccess + 1)
       }
     }
   }, [newBadgeToGet, getBadgeSuccess, isConfirmed])
-  
+
   const calculatePoints = (num) => {
-    const badgeToBeAwarded = Math.round(Math.floor(num/56))
+    const badgeToBeAwarded = Math.round(Math.floor(num / 56))
     const badgeAwarded = badges.length
     setNewBadgeToGet(badgeToBeAwarded - badgeAwarded)
   }
-  
+
   const revealBadge = (e) => {
     e.preventDefault()
     const newBadgesIndex = e.target.id
     getNewGiphy(newBadgesIndex)
   }
-  
-  const getNewGiphy = async(newBadgesIndex) => {
+
+  const getNewGiphy = async (newBadgesIndex) => {
     getBadge(user)
       .then((giphyUrl) => {
-        setNewBadges(newBadges.map((element, index) => index == newBadgesIndex ? giphyUrl.embed_url : element))
+        setNewBadges(
+          newBadges.map((element, index) =>
+            index == newBadgesIndex ? giphyUrl.embed_url : element
+          )
+        )
       })
-      .catch(err => console.log('getBadge', err.message))
+      .catch((err) => console.log('getBadge', err.message))
   }
 
   const shuffleBadge = (e) => {
@@ -73,26 +94,29 @@ const Badges = () => {
 
   const confirmBadge = (badge) => {
     const updatedBadges = [...badges, badge]
-    const data = {auth0Id: user.auth0Id, token: user.token, badges: updatedBadges.join(',')}
+    const data = {
+      auth0Id: user.auth0Id,
+      token: user.token,
+      badges: updatedBadges.join(','),
+    }
     updateUserBadges(data)
   }
 
-  const updateUserBadges = async(data) => {
+  const updateUserBadges = async (data) => {
     updateBadgeByUser(data)
       .then(() => {
         setIsConfirmed(true)
         setNewBadges([])
         setGetBadgeSuccess(0)
-      }
-      )
-      .catch(err => console.log('updateBadges', err.message))
+      })
+      .catch((err) => console.log('updateBadges', err.message))
   }
-  
+
   const badgeStyle = {
     borderRadius: '5px',
     padding: '5px 10px 5px 10px',
     marginLeft: '20px',
-    textAlign: 'center'
+    textAlign: 'center',
   }
   const giphyStyle = {
     width: '300px',
@@ -102,79 +126,116 @@ const Badges = () => {
     justifyContent: 'center',
     display: 'flex',
     margin: '10px',
-    boxShadow: '1px 1px 15px 8px white'
+    boxShadow: primaryShadowColor,
   }
 
   const iframeStyle = {
     height: '100%',
-    width: '100%'
+    width: '100%',
   }
 
   const iconButtonStyle = {
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    padding: '10% 0 10% 0'
+    flexDirection: 'row',
   }
 
   return (
-    <Box w='100%' p={4} color='teal.500'>
-      <Heading as='h3' size='lg'>
+    <Box w="100%" p={4} color="teal.500">
+      <Heading as="h3" size="lg">
         Welcome {user.name}!
-        { userInfo !== null ? 
-          (
-          <Badge ml='1' fontSize='0.5em' colorScheme='teal' style={badgeStyle}>
-            {userInfo.points} xp
+        {userInfo !== null ? (
+          <Badge ml="1" fontSize="0.5em" colorScheme="teal" style={badgeStyle}>
+            {profile.points} xp
           </Badge>
-          ) : null
-        }
+        ) : null}
       </Heading>
-      <Center height='50px'>
-        <Divider orientation='vertical' />
+      <Center height="50px">
+        <Divider orientation="vertical" />
       </Center>
-      <Text fontSize='3xl'>As you progress towards your goals, we celebrate your growth here by filling up the page with a new gif. Ever onwards!</Text>
-      <Center height='50px'>
-        <Divider orientation='vertical' />
+      <Text fontSize="3xl">
+        As you progress towards your goals, we celebrate your growth here by
+        filling up the page with a new gif. Ever onwards!
+      </Text>
+      <Center height="50px">
+        <Divider orientation="vertical" />
       </Center>
-      <Flex style={{flexWrap: 'wrap'}}>
-        {badges && badges.length !== 0 &&
+      <Flex style={{ flexWrap: 'wrap' }}>
+        {badges &&
+          badges.length !== 0 &&
           badges.map((badge, index) => {
             return (
               <Box key={index}>
-                <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' style={giphyStyle}>
-                  <iframe src={badge} alt='badge GIF' style={iframeStyle} />
+                <Box
+                  maxW="sm"
+                  borderWidth="1px"
+                  borderRadius="lg"
+                  overflow="hidden"
+                  style={giphyStyle}
+                >
+                  <iframe src={badge} alt="badge GIF" style={iframeStyle} />
                 </Box>
                 <Spacer />
               </Box>
             )
-        })}
+          })}
         {newBadges.length !== 0 &&
           newBadges.map((badge, index) => {
             return (
               <Box key={'new' + index}>
-                <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' style={giphyStyle}>
-                  {
-                    badge === 'reveal' ?
-                    <Center color='teal.400' align='center' style={{iframeStyle}}><Button align='center' colorScheme='teal' size='md' onClick={revealBadge} id={index}>Reveal New Badge!</Button></Center> :
-                    (<>
-                      <iframe src={badge} alt='badge GIF' style={iframeStyle} />
-                    </>)
-                  }
-                </Box>
-                {
-                  badge !== 'reveal' ?
-                  (
-                    <Center style={iconButtonStyle}>
-                      <IconButton colorScheme='teal' aria-label='Change Gif' icon={<RepeatIcon />} onClick={shuffleBadge} id={index} />
-                      <IconButton colorScheme='teal' aria-label='Change Gif' icon={<CheckIcon />} onClick={() => confirmBadge(badge)} id={index} type='button' />
+                <Box
+                  maxW="sm"
+                  borderWidth="1px"
+                  borderRadius="lg"
+                  overflow="hidden"
+                  style={giphyStyle}
+                >
+                  {badge === 'reveal' ? (
+                    <Center
+                      color="teal.400"
+                      align="center"
+                      style={{ iframeStyle }}
+                    >
+                      <Button
+                        align="center"
+                        colorScheme="teal"
+                        size="md"
+                        onClick={revealBadge}
+                        id={index}
+                      >
+                        Reveal New Badge!
+                      </Button>
                     </Center>
-                  ) : null
-                }
+                  ) : (
+                    <>
+                      <iframe src={badge} alt="badge GIF" style={iframeStyle} />
+                    </>
+                  )}
+                </Box>
+                {badge !== 'reveal' ? (
+                  <Center display="flex" style={iconButtonStyle}>
+                    <IconButton
+                      m="1"
+                      colorScheme="teal"
+                      aria-label="Change Gif"
+                      icon={<RepeatIcon />}
+                      onClick={shuffleBadge}
+                      id={index}
+                    />
+                    <IconButton
+                      m="1"
+                      colorScheme="teal"
+                      aria-label="Change Gif"
+                      icon={<CheckIcon />}
+                      onClick={() => confirmBadge(badge)}
+                      id={index}
+                      type="button"
+                    />
+                  </Center>
+                ) : null}
                 <Spacer />
               </Box>
             )
-          })
-        }
+          })}
       </Flex>
     </Box>
   )

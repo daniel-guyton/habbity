@@ -31,7 +31,6 @@ router.post('/', authCheck, async (req, res) => {
 
   try {
     const isInDb = await db.isInDb(auth0)
-    console.log(isInDb)
     if (isInDb) return res.sendStatus(200)
 
     const newUser = await db.addUser(userToSave)
@@ -40,6 +39,18 @@ router.post('/', authCheck, async (req, res) => {
     console.error(err)
     res.status(500).send({ message: 'Failed to sign in/sign up (ಠ︹ಠ)' })
   }
+})
+
+router.patch('/badges', authCheck, (req, res) => {
+  const user = req.body.user
+  db.updateUserById(user)
+    .then((user) => {
+      return res.json(user)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.status(500).send({ message: 'Failed to update users ╰(•́ ꞈ •̀)╯' })
+    })
 })
 
 router.patch('/', authCheck, async (req, res) => {
@@ -55,7 +66,6 @@ router.patch('/', authCheck, async (req, res) => {
     return res.status(401).send({ message: 'Unauthorised' })
   }
 
-  console.log(updatedProfile, userId)
   db.updateProfile({ ...updatedProfile, id: userId })
     .then(() => {
       return res.json(1)
@@ -63,18 +73,6 @@ router.patch('/', authCheck, async (req, res) => {
     .catch((err) => {
       console.log(err)
       res.status(500).send({ message: 'Failed to add habit DX' })
-    })
-})
-
-router.patch('/', authCheck, (req, res) => {
-  const user = req.body.user
-  db.updateUserById(user)
-    .then((user) => {
-      return res.json(user)
-    })
-    .catch((err) => {
-      console.log(err)
-      res.status(500).send({ message: 'Failed to update users ╰(•́ ꞈ •̀)╯' })
     })
 })
 

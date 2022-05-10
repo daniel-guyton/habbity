@@ -12,7 +12,7 @@ import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 import { useAuth0 } from '@auth0/auth0-react'
 import { cacheUser } from '../auth0-utils'
 import { fetchProfile } from '../actions'
-import {useSelector, useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 function App() {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
@@ -20,15 +20,20 @@ function App() {
 
   function register() {
     setIsRegistered(true)
-  }  useEffect(() => {
+  }
+  useEffect(() => {
     if (user.token && isRegistered) {
       dispatch(fetchProfile(user.token))
     }
   }, [user.token, isRegistered])
 
-
-  
   cacheUser(useAuth0, user)
+
+  useEffect(() => {
+    if (user.token) {
+      dispatch(fetchProfile(user.token))
+    }
+  }, [user.token])
 
   return (
     <ChakraProvider>

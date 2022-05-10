@@ -1,5 +1,5 @@
 import React from 'react'
-import {render, screen} from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import SidebarWithHeader from '../SidebarWithHeader'
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -8,15 +8,15 @@ import { Provider } from 'react-redux'
 describe('<SidebarWithHeader', () => {
   const state = {
     user: {
-      token: ''
+      token: '',
     },
     profile: {
-      points: 1
-    }
+      points: 1,
+    },
   }
   const store = {
     getState: () => state,
-    subscribe: jest.fn()
+    subscribe: jest.fn(),
   }
   it('checks if the sidebar links are being rendered', () => {
     render(
