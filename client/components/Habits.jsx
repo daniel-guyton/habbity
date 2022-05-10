@@ -13,7 +13,7 @@ const Habits = () => {
   const user = useSelector((state) => state.user) // signed in user info
   const primaryFontColor = useColorModeValue('#333', 'white') // Chakra css setting
   const goals = useSelector((state) => state.goals) // habits array from db
-
+  
   useEffect(() => {
     // dispatch user information when exist in state
     if (user.token !== '') {

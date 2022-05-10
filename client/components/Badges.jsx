@@ -6,6 +6,7 @@ import { getBadge, getUserByAuth0Id } from '../apis/apiClient'
 
 const Badges = () => {
 
+  const token = useSelector(state => state.user.token)
   const user = useSelector(state => state.user)
   const [userInfo, setUserInfo] = useState(null)
   const [badges, setBadges] = useState([])
@@ -13,18 +14,20 @@ const Badges = () => {
   const [newBadgeToGet, setNewBadgeToGet] = useState(0)
 
   useEffect(() => {
-    if (user.auth0Id !== '' && userInfo === null) {
-      getUserByAuth0Id(user)
+    if (token) {
+      getUserByAuth0Id(token)
         .then((res) => {
+          console.log(res)
           setUserInfo(res)
         })
         .catch(err => console.log('getUserByAuth0Id', err.message))
       }
-    }, [user])
+    }, [token])
 
   useEffect(() => {
-    userInfo !== null && setBadges(userInfo['badges'].split(','))
-  }, [userInfo])
+    console.log(userInfo)
+    userInfo?.badges.length > 0 && setBadges(userInfo.badges.split(','))
+  }, [userInfo?.badges])
   
   useEffect(() => {
     userInfo !== null && calculatePoints(userInfo.points)
@@ -88,7 +91,7 @@ const Badges = () => {
         <Divider orientation='vertical' />
       </Center>
       <Flex style={{flexWrap: 'wrap'}}>
-        {badges.length !== null &&
+        {badges && badges.length !== 0 &&
           badges.map((badge, index) => {
               return (
                 <>

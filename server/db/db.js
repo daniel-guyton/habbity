@@ -9,6 +9,7 @@ module.exports = {
   getOneHabit,
   updateHabit,
   addUser,
+  isInDb,
 }
 
 //*   HABITS
@@ -58,4 +59,13 @@ function addUser(user, db = connection) {
       points: 0,
     })
     .returning('id')
+}
+
+function isInDb(auth0, db = connection) {
+  return db('users')
+    .count('auth0 as n')
+    .where({ auth0 })
+    .then((count) => {
+      return count[0].n > 0
+    })
 }

@@ -10,7 +10,11 @@ router.get('/', authCheck, (req, res) => {
   const auth0 = auth0Id.split('|')[1]
   db.getUser(auth0)
     .then((user) => {
-      return res.json(user)
+      const userToSend = {
+        ...user,
+        badges: user.badges ?? [],
+      }
+      return res.json(userToSend)
     })
     .catch((err) => {
       console.log(err)
@@ -18,16 +22,24 @@ router.get('/', authCheck, (req, res) => {
     })
 })
 
-router.post('/', authCheck, (req, res) => {
-  const user = req.body.user
-  db.addUser(user)
-    .then((user) => {
-      return res.json(user)
-    })   
-    .catch((err) => {
-      console.log(err)
-      res.status(500).send({ message: 'Failed to add users ╰(•́ ꞈ •̀)╯' })
-    })
+router.post('/', authCheck, async (req, res) => {
+  const auth0 = req.auth.sub.split('|')[1]
+  const userToSave = {
+    ...req.body.user,
+    auth0,
+  }
+
+  try {
+    const isInDb = await db.isInDb(auth0)
+    console.log(isInDb)
+    if (isInDb) return res.sendStatus(200)
+
+    const newUser = await db.addUser(userToSave)
+    return res.status(201).json(newUser)
+  } catch (err) {
+    console.error(err)
+    res.status(500).send({ message: 'Failed to sign in/sign up (ಠ︹ಠ)' })
+  }
 })
 
 module.exports = router

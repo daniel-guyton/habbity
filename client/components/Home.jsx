@@ -21,11 +21,6 @@ const Home = () => {
 const WithSubnavigation = () => {
   const { loginWithRedirect } = useAuth0()
 
-  const signInHandler = (e) => {
-    e.preventDefault()
-    loginWithRedirect()
-  }
-
   const signUpHandler = (e) => {
     e.preventDefault()
     loginWithRedirect({ redirectUri: `${window.location.origin}/register` })
@@ -52,16 +47,6 @@ const WithSubnavigation = () => {
           direction={'row'}
           spacing={6}
         >
-          <Button
-            onClick={signInHandler}
-            as={'a'}
-            fontSize={'sm'}
-            fontWeight={400}
-            variant={'link'}
-            href={'#'}
-          >
-            Sign In
-          </Button>
           <Button
             onClick={signUpHandler}
             display={{ base: 'none', md: 'inline-flex' }}

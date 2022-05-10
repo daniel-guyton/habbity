@@ -51,10 +51,10 @@ export function addUser(user) {
     })
 }
 
-export function getUserByAuth0Id(user) {
+export function getUserByAuth0Id(token) {
   return request
     .get(rootUrl + '/users')
-    .auth(user.token, { type: 'bearer' })
+    .auth(token, { type: 'bearer' })
     .then((res) => {
       return res.body
     })
@@ -62,6 +62,14 @@ export function getUserByAuth0Id(user) {
 
 //*   BADGES
 //* ==========
+export function getProfile(token) {
+  return request
+    .get(rootUrl + '/users')
+    .auth(token, { type: 'bearer' })
+    .then((res) => {
+      return res.body
+    })
+}
 
 export function getBadge(user) {
   return request
