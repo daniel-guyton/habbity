@@ -11,6 +11,7 @@ const server = express()
 
 const habitRoute = require('./routes/habits')
 const userRoute = require('./routes/users')
+const badgesRouter = require('./routes/badges')
 
 server.use(express.json())
 server.use(express.static(path.join(__dirname, '../dist')))
@@ -21,6 +22,7 @@ server.use(express.static(path.join(__dirname, '../dist')))
 
 server.use('/api/v1/habits', habitRoute)
 server.use('/api/v1/users', userRoute)
+server.use('/api/v1/badges', badgesRouter)
 
 // this loads React and resulting routes
 server.get('*', (req, res) => {
