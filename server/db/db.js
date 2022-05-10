@@ -9,6 +9,8 @@ module.exports = {
   getOneHabit,
   updateHabit,
   addUser,
+  isInDb,
+  updateProfile,
 }
 
 //*   HABITS
@@ -39,6 +41,9 @@ function updateHabit(habit, db = connection) {
     .where({ userID: habit.userID, id: habit.id })
 }
 
+function updateProfile(profile, db = connection) {
+  return db('users').update(profile).where({ id: profile.id })
+}
 //*   USERS
 //* =========
 
@@ -58,4 +63,13 @@ function addUser(user, db = connection) {
       points: 0,
     })
     .returning('id')
+}
+
+function isInDb(auth0, db = connection) {
+  return db('users')
+    .count('auth0 as n')
+    .where({ auth0 })
+    .then((count) => {
+      return count[0].n > 0
+    })
 }
