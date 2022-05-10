@@ -42,4 +42,27 @@ router.post('/', authCheck, async (req, res) => {
   }
 })
 
+router.patch('/', authCheck, async (req, res) => {
+  const auth0Id = req.auth.sub
+  const updatedProfile = req.body
+  const userId = auth0Id?.split('|')[1]
+
+  if (!updatedProfile) {
+    return res.status(400).send({ message: 'No profile provided' })
+  }
+
+  if (!userId) {
+    return res.status(401).send({ message: 'Unauthorised' })
+  }
+
+  console.log(updatedProfile, userId)
+  db.updateProfile({ ...updatedProfile, id: userId })
+    .then(() => {
+      return res.json(1)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.status(500).send({ message: 'Failed to add habit DX' })
+    })
+})
 module.exports = router

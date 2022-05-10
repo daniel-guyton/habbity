@@ -10,11 +10,12 @@ import {
 } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { updateGoal } from '../actions'
-import { patchHabit } from '../apis/apiClient'
+import { updateGoal, updateProfile } from '../actions'
+import { patchHabit, patchProfile } from '../apis/apiClient'
 
 const IndividualHabit = (props) => {
   const user = useSelector((state) => state.user)
+  const profile = useSelector((state) => state.profile)
   const dispatch = useDispatch()
   const checkbox = useRef(null)
   const [isEnabled, setIsEnabled] = useState(false)
@@ -81,7 +82,7 @@ const IndividualHabit = (props) => {
 
   const handleCheckBoxClick = (e) => {
     const newDayCount = daysCompleted + 1
-
+    const newPointCount = profile.points + 2
     // base update for clicking the checkbox
     let changes = { id: id, daysCompleted: newDayCount }
 
@@ -106,6 +107,13 @@ const IndividualHabit = (props) => {
       .catch((err) => {
         console.error('unable to update changes', err)
       })
+
+    patchProfile({id: user.id, points: newPointCount}, user.token)
+    .then(() => {
+      dispatch(updateProfile({ id: user.id, points: newPointCount }))
+    }).catch((err) => {
+      console.error('unable to update changes', err)
+    })
     
   }
 

@@ -71,6 +71,17 @@ export function getProfile(token) {
     })
 }
 
+export function patchProfile(profileToUpdate, token) {
+  return request
+    .patch(rootUrl + '/users')
+    .send({ ...profileToUpdate })
+    .set('Accept', 'application/json')
+    .auth(token, { type: 'bearer' })
+    .then((res) => {
+      return res.body
+    })
+}
+
 export function getBadge(user) {
   return request
     .get(rootUrl + '/badges')

@@ -59,7 +59,7 @@ const WithSubnavigation = () => {
               bg: 'teal.400',
             }}
           >
-            Sign Up
+            Sign In
           </Button>
         </Stack>
       </Flex>

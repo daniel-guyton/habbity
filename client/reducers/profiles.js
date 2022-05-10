@@ -1,4 +1,4 @@
-import { SET_PROFILE } from '../actions'
+import { SET_PROFILE, UPDATE_PROFILE } from '../actions'
 
 const emptyUser = {
   auth0Id: '',
@@ -15,5 +15,13 @@ export default function profilesReducer(state = emptyUser, action) {
       return action.payload.profile
     default:
       return state
+
+    case UPDATE_PROFILE: {
+      const profile = state
+      return {
+        ...profile,
+        points: action.payload.updatedProfile.points,
+      }
+    }
   }
 }

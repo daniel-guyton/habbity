@@ -8,6 +8,7 @@ export const ADD_GOAL = 'habit/add/new'
 export const SET_USER = 'set/user'
 export const FETCH_USER = 'users/fetch'
 export const SET_PROFILE = 'profile/set'
+export const UPDATE_PROFILE = 'profile/update'
 export const SET_ERROR = 'status/error'
 
 //* HABITS
@@ -76,6 +77,11 @@ export const setUser = (user) => {
 export const setProfile = (profile) => ({
   type: SET_PROFILE,
   payload: { profile },
+})
+
+export const updateProfile = (updatedProfile) => ({
+  type: UPDATE_PROFILE,
+  payload: { updatedProfile },
 })
 
 //* error handler
