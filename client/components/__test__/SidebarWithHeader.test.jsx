@@ -9,6 +9,9 @@ describe('<SidebarWithHeader', () => {
   const state = {
     user: {
       token: ''
+    },
+    profile: {
+      points: 1
     }
   }
   const store = {
