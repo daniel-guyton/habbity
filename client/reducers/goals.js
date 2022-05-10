@@ -1,9 +1,4 @@
-import {
-  FETCH_ALL,
-  UPDATE_HABIT_STATUS,
-  UPDATE_GOAL,
-  ADD_GOAL,
-} from '../actions'
+import { FETCH_ALL, UPDATE_HABIT, ADD_GOAL } from '../actions'
 
 const initialState = []
 
@@ -14,26 +9,14 @@ const goalsReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_ALL:
       return action.payload
-    case UPDATE_HABIT_STATUS: {
-      const goals = [...state]
-      const updatedArray = goals.map((element) => {
-        if (element.goal === action.payload.goal) {
-          return {
-            ...element,
-            status: action.payload.status,
-          }
-        } else return element
-      })
-      return updatedArray
-    }
     case ADD_GOAL: {
       return [...state, action.payload.goal]
     }
-    case UPDATE_GOAL: {
+    case UPDATE_HABIT: {
       const goals = [...state]
 
       const goalIndex = goals.findIndex(
-        (habit) => habit.id === action.payload.updatedGoal.id
+        (habit) => habit.id === action.payload.updatedHabit.id
       )
 
       if (goalIndex < 0) {
@@ -42,7 +25,7 @@ const goalsReducer = (state = initialState, action) => {
 
       goals.splice(goalIndex, 1, {
         ...goals[goalIndex],
-        ...action.payload.updatedGoal,
+        ...action.payload.updatedHabit,
       })
       return goals
     }

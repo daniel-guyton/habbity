@@ -5,7 +5,7 @@ import SidebarWithHeader from '../SidebarWithHeader'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
-describe('<SidebarWithHeader', () => {
+describe('<SidebarWithHeader />', () => {
   const state = {
     user: {
       token: ''
