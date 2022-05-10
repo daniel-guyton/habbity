@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { createFetchPayload, updateGoal } from '../../actions/index'
+import { createFetchPayload, updateHabit } from '../../actions/index'
 import { Flex, Spacer, Box, Text, Button } from '@chakra-ui/react'
 import { patchHabit } from '../../apis/apiClient'
 import { useNavigate,} from "react-router-dom";
 
 export default function getStats() {
-  const [update, setUpdate] = useState(true)
+ 
 
   const dispatch = useDispatch()
 
@@ -48,7 +48,7 @@ const navigate = useNavigate()
     const id = evt.target.value
     patchHabit({ id: id, status: 'progress' }, user.token)
       .then(() => {
-        dispatch(updateGoal({ id: id, status: 'progress' }))
+        dispatch(updateHabit({ id: id, status: 'progress' }))
       })
       .catch((err) => {
         console.error('failed to update status progress', err)
@@ -253,41 +253,5 @@ const navigate = useNavigate()
       <Spacer />
     </Flex>
 
-    // <TableContainer>
-    //   <Table variant="simple" colorScheme={'blackAlpha'}>
-
-    //     <Thead>
-    //       <Tr>
-    //         <Th>Stats</Th>
-    //         <Th>Habits</Th>
-    //         <Th isNumeric>Number of Days</Th>
-    //       </Tr>
-    //     </Thead>
-    //     <Tbody>
-    //       <Tr>
-    //         <Td>Habits Completed</Td>
-    //         <Td>{completedHabits?.map(habit => {return (<p>{habit.goal}</p>)}) }</Td>
-    //         <Td isNumeric>{completedHabits?.length}</Td>
-    //       </Tr>
-    //       <Tr>
-    //         <Td>Highest Prev Streak</Td>
-    //         <Td>{highestPrevStreakObj?.goal}</Td>
-    //         <Td isNumeric>{highestPrevStreakObj?.daysCompleted}</Td>
-    //       </Tr>
-    //       <Tr>
-    //         <Td>Highest Current Streak</Td>
-    //         <Td>{highestCurrStreakObj?.goal}</Td>
-    //         <Td isNumeric>{highestCurrStreakObj?.daysCompleted}</Td>
-    //       </Tr>
-    //     </Tbody>
-    //     {/* <Tfoot>
-    //       <Tr>
-    //         <Th>To convert</Th>
-    //         <Th>into</Th>
-    //         <Th isNumeric>Days</Th>
-    //       </Tr>
-    //     </Tfoot> */}
-    //   </Table>
-    // </TableContainer>
   )
 }
