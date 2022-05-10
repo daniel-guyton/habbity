@@ -1,7 +1,7 @@
 import {
   FETCH_ALL,
   UPDATE_HABIT_STATUS,
-  UPDATE_GOAL,
+  UPDATE_HABIT,
   ADD_GOAL,
 } from '../actions'
 
@@ -29,11 +29,11 @@ const goalsReducer = (state = initialState, action) => {
     case ADD_GOAL: {
       return [...state, action.payload.goal]
     }
-    case UPDATE_GOAL: {
+    case UPDATE_HABIT: {
       const goals = [...state]
 
       const goalIndex = goals.findIndex(
-        (habit) => habit.id === action.payload.updatedGoal.id
+        (habit) => habit.id === action.payload.updatedHabit.id
       )
 
       if (goalIndex < 0) {
@@ -42,7 +42,7 @@ const goalsReducer = (state = initialState, action) => {
 
       goals.splice(goalIndex, 1, {
         ...goals[goalIndex],
-        ...action.payload.updatedGoal,
+        ...action.payload.updatedHabit,
       })
       return goals
     }

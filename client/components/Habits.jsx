@@ -5,7 +5,7 @@ import { Flex, useColorModeValue } from '@chakra-ui/react'
 import HabitBox from './HabitBox'
 import IndividualHabit from './IndividualHabit'
 
-import { createState, updateGoal } from '../actions'
+import { createState, updateHabit } from '../actions'
 
 const Habits = () => {
   const dispatch = useDispatch()
@@ -31,7 +31,7 @@ const Habits = () => {
     const daysPast = (currentDate - lastUpdated) / (60 * 60 * 24 * 1000)
 
     if (daysPast > 2 && goal.status == 'progress') {
-      dispatch(updateGoal({ id: goal.id, status: 'failed' })) // dispatch the updated status back to db
+      dispatch(updateHabit({ id: goal.id, status: 'failed' })) // dispatch the updated status back to db
     }
   }
 
