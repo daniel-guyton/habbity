@@ -177,7 +177,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
         alt="Habbity"
         display={{ md: 'none' }}
       />
+     
       <HStack spacing={{ base: '0', md: '6' }}>
+     
         <Flex alignItems={'center'}>
           <Menu>
             <MenuButton
@@ -185,6 +187,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
               transition="all 0.3s"
               _focus={{ boxShadow: 'none' }}
             >
+              
               <HStack>
                 {/* <Avatar
                     size={'sm'}
@@ -198,6 +201,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   spacing="1px"
                   ml="2"
                 >
+                  
                   <Text fontSize="sm">Hi! {currentUser.name}</Text>
                   {/* <Text fontSize="xs" color="gray.600">
                       Admin

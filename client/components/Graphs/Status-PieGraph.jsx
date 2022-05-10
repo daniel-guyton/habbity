@@ -52,7 +52,7 @@ const data = [
     
     <ResponsivePie
         data={data} 
-        margin={{ top: 40, right: 200, bottom: 40, left: 80 }}
+        margin={{ top: 40, right: 200, bottom: 40, left: 100 }}
         innerRadius={0.5}
         padAngle={0.7}
         cornerRadius={3}

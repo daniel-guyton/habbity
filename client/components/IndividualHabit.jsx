@@ -78,7 +78,7 @@ const IndividualHabit = (props) => {
 
     setIsChecked(true)
     //if goal is completed change status property
-    if (newDayCount > 0) {
+    if (newDayCount > 27) {
       changes.status = 'completed'
     }
 

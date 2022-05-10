@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Flex, Button, Stack, useColorModeValue } from '@chakra-ui/react'
+import { Box, Flex, Button, Stack, useColorModeValue, Text } from '@chakra-ui/react'
 import { useAuth0 } from '@auth0/auth0-react'
 import habbityImage from '../public/designs/Habbity.png'
 
@@ -33,6 +33,7 @@ const WithSubnavigation = () => {
 
   return (
     <Box>
+     
       <Flex
         bg={'green.50'}
         color={useColorModeValue('gray.600', 'white')}
@@ -44,6 +45,7 @@ const WithSubnavigation = () => {
         borderColor={useColorModeValue('gray.200', 'gray.900')}
         align={'center'}
       >
+          
         <Stack
           style={{ margin: '0 auto 0 auto' }}
           flex={{ base: 1, md: 0 }}
@@ -52,6 +54,7 @@ const WithSubnavigation = () => {
           direction={'row'}
           spacing={6}
         >
+           
           <Button
             onClick={signInHandler}
             as={'a'}

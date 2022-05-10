@@ -68,15 +68,15 @@ export default function getGraph() {
   return (
     <>
      
-      <Box width="1000px" height="500px">
-      <Text>Your Completed Tasks!</Text>
+      <Box width="700px" height="300px">
+      <Text  color="green.700" fontWeight={600} fontSize="20px" paddingLeft = '20px' >Your Completed Tasks!</Text>
         <ResponsiveCalendar
           data={data}
           from="2022-01-01"
           to="2022-05-09"
           emptyColor="#eeeeee"
           colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
-          margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+          margin={{ top: 0, right: 40, bottom: 100, left: 40 }}
           yearSpacing={40}
           monthBorderColor="#ffffff"
           dayBorderWidth={2}
