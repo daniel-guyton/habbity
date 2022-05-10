@@ -42,6 +42,18 @@ router.post('/', authCheck, async (req, res) => {
   }
 })
 
+router.patch('/badges', authCheck, (req, res) => {
+  const user = req.body.user
+  db.updateUserById(user)
+    .then((user) => {
+      return res.json(user)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.status(500).send({ message: 'Failed to update users ╰(•́ ꞈ •̀)╯' })
+    })
+})
+
 router.patch('/', authCheck, async (req, res) => {
   const auth0Id = req.auth.sub
   const updatedProfile = req.body
@@ -66,16 +78,5 @@ router.patch('/', authCheck, async (req, res) => {
     })
 })
 
-router.patch('/', authCheck, (req, res) => {
-  const user = req.body.user
-  db.updateUserById(user)
-    .then((user) => {
-      return res.json(user)
-    })
-    .catch((err) => {
-      console.log(err)
-      res.status(500).send({ message: 'Failed to update users ╰(•́ ꞈ •̀)╯' })
-    })
-})
 
 module.exports = router
