@@ -6,7 +6,6 @@ import { CheckIcon, RepeatIcon } from '@chakra-ui/icons'
 
 
 const Badges = () => {
-  const points = useSelector(state => state.profiles.points)
 
   const user = useSelector(state => state.user)
   const [userInfo, setUserInfo] = useState(null)
@@ -123,7 +122,7 @@ const Badges = () => {
         { userInfo !== null ? 
           (
           <Badge ml='1' fontSize='0.5em' colorScheme='teal' style={badgeStyle}>
-           o.points} xp
+           userInfo.o.points} xp
           </Badge>
           ) : null
         }
