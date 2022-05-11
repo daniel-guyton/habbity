@@ -15,6 +15,7 @@ export default function getStats() {
 
   const habits = useSelector((state) => state?.goals)
 
+  console.log(habits)
   let completedHabits = habits?.filter((habit) => habit.status == 'completed')
 
   let failedHabits = habits?.filter((habit) => habit.status == 'failed')
@@ -31,7 +32,7 @@ export default function getStats() {
 
   let highestCurrStreakObj
   let currentHabits = habits?.filter((habit) => habit.status == 'progress')
-  console.log(currentHabits)
+  
   if (currentHabits.length > 0) {
     highestCurrStreakObj = currentHabits?.reduce(function (max, obj) {
       return obj.daysCompleted > max.daysCompleted ? obj : max
@@ -68,12 +69,12 @@ export default function getStats() {
 
   const firstPrevMess =
     highestPrevStreakObj == null
-      ? `You're on track for all your goals `
-      : `You've been keeping up `
+      ? `You're on track with all your goals `
+      : `You nearly completed `
   const secPrevMess = highestPrevStreakObj == null ? '' : `for `
 
-  const button = highestPrevStreakObj == null ? `Habits` : `try again `
-  console.log(highestPrevStreakObj)
+  const button = highestPrevStreakObj == null ? 'Habit page' : `try again `
+
   return (
     <Flex>
       <Spacer />
