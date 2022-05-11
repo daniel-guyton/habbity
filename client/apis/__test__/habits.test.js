@@ -32,7 +32,7 @@ describe('patchHabit', () => {
   it('returns updated habit from PATCH /api/v1/habits', async () => {
     expect.assertions(1)
     const updatedHabit = { id: 1, status: 'completed', daysCompleted: 1 }
-    nock('http://localhost').patch('/api/v1/habits').reply(200, 1)
+    nock('http://localhost').patch('/api/v1/habits').reply(204, 1)
 
     const hasUpdatedHabit = await patchHabit(updatedHabit)
 
