@@ -73,7 +73,7 @@ export default function getStats() {
       : `You nearly completed `
   const secPrevMess = highestPrevStreakObj == null ? '' : `for `
 
-  const button = highestPrevStreakObj == null ? '' : `try again `
+  const button = highestPrevStreakObj == null ? 'Habit page' : `try again `
 
   return (
     <Flex>
