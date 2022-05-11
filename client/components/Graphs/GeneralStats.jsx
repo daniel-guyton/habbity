@@ -31,7 +31,6 @@ export default function getStats() {
 
   let highestCurrStreakObj
   let currentHabits = habits?.filter((habit) => habit.status == 'progress')
-  console.log(currentHabits)
   if (currentHabits.length > 0) {
     highestCurrStreakObj = currentHabits?.reduce(function (max, obj) {
       return obj.daysCompleted > max.daysCompleted ? obj : max
@@ -73,7 +72,7 @@ export default function getStats() {
   const secPrevMess = highestPrevStreakObj == null ? '' : `for `
 
   const button = highestPrevStreakObj == null ? `Habits` : `try again `
-  console.log(highestPrevStreakObj)
+
   return (
     <Flex>
       <Spacer />
