@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { fireEvent, screen, render, act } from '@testing-library/react'
+import { fireEvent, screen, render, act, getByTestId, getAllByLabelText, getAllByRole } from '@testing-library/react'
 // import { useAuth0 } from '@auth0/auth0-react'
 import Badges from '../Badges'
 import '@testing-library/jest-dom'
@@ -31,7 +31,7 @@ const fakeProfile = {
   email: 'eunice@test.com',
   name: 'Eunice',
   token: 'fakeToken',
-  points: 100
+  points: 200
 }
 const fakeBadgeUrl = { embed_url: 'fake_test_url'}
 const fakeUserInfo = {
@@ -39,39 +39,82 @@ const fakeUserInfo = {
   auth0Id: 'testAuth0|eunice123',
   email: 'eunice@test.com',
   name: 'Eunice',
-  points: 100,
+  points: 200,
   badges: 'url1,url2'
 }
 
 fakeUserData.user.mockReturnValue(fakeUser)
 fakeUserData.profile.mockReturnValue(fakeProfile)
 
-getBadge.mockReturnValue(fakeBadgeUrl)
 const userInfoPromise = new Promise((resolve) => {
   act(() => resolve(fakeUserInfo))
 })
+const badgeUrlPromise = new Promise((resolve) => {
+  act(() => resolve(fakeBadgeUrl))
+})
+const updateBadgePromise = new Promise((resolve) => {
+  act(() => resolve(''))
+})
 getUserByAuth0Id.mockReturnValue(userInfoPromise)
-updateBadgeByUser.mockReturnValue('')
+getBadge.mockReturnValue(badgeUrlPromise)
+updateBadgeByUser.mockReturnValue(updateBadgePromise)
+
+redux.useSelector.mockImplementation((f) => {
+  return f({
+    user: fakeUser,
+    profile: fakeProfile
+  })
+})
 
 describe('<Badges />', () => {
   it('calculate the number of new badges to be awarded to user', async () => {
-    redux.useSelector.mockImplementation((f) => {
-      return f({
-        user: fakeUser,
-        profile: fakeProfile
-      })
-    })
+    expect.assertions(3)
+    await act( async() => render(<Router><Badges /></Router>))
 
-    expect.assertions(1)
-
-    await render(<Router><Badges /></Router>)
-
-    const pointsDisplay = screen.getByText('100 xp')
-    return expect(pointsDisplay).toBeTruthy()
+    const pointsDisplay = screen.getByText(`${fakeProfile.points} xp`)
+    const actualBadges = screen.getAllByTestId('badge')
+    const expectedBadges = Math.round(Math.floor(fakeUserInfo.points / 56))
+    
+    expect(pointsDisplay).toBeTruthy()
+    expect(actualBadges).toHaveLength(expectedBadges)
+    expect(actualBadges[0].outerHTML).toContain('url1')
   })
-  it.todo('reveal the badge when user click reveal button')
-  it.todo('fetch new giphy url')
-  it.todo('return a new giphy url when shuffle button clicked')
-  it.todo('calls the updateUserBadges function when confirm button clicked')
-  it.todo('send user badge urls to db')
+
+  it('reveal the badge when user click reveal button and fetch new giphy url', async () => {
+    expect.assertions(2)
+    await act( async() => render(<Router><Badges /></Router>))
+
+    const firstRevealButton = screen.getByText('Reveal New Badge!')
+    await act( async() => fireEvent.click(firstRevealButton))
+
+    expect(getBadge).toHaveBeenCalledTimes(1)
+    const revealedBadge = screen.getAllByTestId('badge')
+    expect(revealedBadge[2].outerHTML).toContain(fakeBadgeUrl.embed_url)
+  })
+
+  it('return a new giphy url when shuffle button clicked', async () => {
+    expect.assertions(1)
+    await act( async() => render(<Router><Badges /></Router>))
+
+    const firstRevealButton = screen.getByText('Reveal New Badge!')
+    await act( async() => fireEvent.click(firstRevealButton))
+    const iconButtons = screen.getAllByLabelText('Change Gif')
+    await act( async() => fireEvent.click(iconButtons[0]))
+
+    expect(getBadge).toHaveBeenCalledTimes(3)
+  })
+
+  it('calls the updateUserBadges function when confirm button clicked and reset the badges', async () => {
+    expect.assertions(2)
+    await act( async() => render(<Router><Badges /></Router>))
+
+    const firstRevealButton = screen.getByText('Reveal New Badge!')
+    await act( async() => fireEvent.click(firstRevealButton))
+    const iconButtons = screen.getAllByLabelText('Change Gif')
+    await act( async() => fireEvent.click(iconButtons[1]))
+
+    expect(updateBadgeByUser).toHaveBeenCalledTimes(1)
+    expect(getUserByAuth0Id).toHaveBeenCalledTimes(6) //called 4 times as rendering <Badges /> + 2 times as isConfirmed state changes
+  })
+
 })
