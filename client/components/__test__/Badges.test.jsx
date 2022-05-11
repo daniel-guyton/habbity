@@ -54,7 +54,7 @@ getUserByAuth0Id.mockReturnValue(userInfoPromise)
 updateBadgeByUser.mockReturnValue('')
 
 describe('<Badges />', () => {
-  it('calculate the number of new badges to be awarded to user', () => {
+  it('calculate the number of new badges to be awarded to user', async () => {
     redux.useSelector.mockImplementation((f) => {
       return f({
         user: fakeUser,
@@ -64,10 +64,10 @@ describe('<Badges />', () => {
 
     expect.assertions(1)
 
-    render(<Router><Badges /></Router>)
+    await render(<Router><Badges /></Router>)
 
-    const pointsDisplay = screen.getByText('xp')
-    expect(pointsDisplay).toContain(100)
+    const pointsDisplay = screen.getByText('100 xp')
+    return expect(pointsDisplay).toBeTruthy()
   })
   it.todo('reveal the badge when user click reveal button')
   it.todo('fetch new giphy url')

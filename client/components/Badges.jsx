@@ -46,9 +46,6 @@ const Badges = () => {
   }, [user, isConfirmed])
 
   useEffect(() => {
-    console.log('userInfo', userInfo)
-    // console.log('userInfo["badges"]', userInfo['badges'])
-    // console.log('userInfo.badges', userInfo.badges)
     userInfo !== null && setBadges(userInfo['badges'].split(','))
   }, [userInfo, isConfirmed])
 
