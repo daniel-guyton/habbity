@@ -191,9 +191,20 @@ const IndividualHabit = (props) => {
   }
 
   const handleButtonClick = () => {
-    patchHabit({ id: id, status: 'progress' }, user.token)
+    const moveToInProgressItem= {
+      id: id,
+      status: 'progress',
+      daysCompleted: 0,
+      goalCompletedAt: 0,
+      timestamp: Math.floor(new Date().getTime() / 1000),
+    }
+    patchHabit(moveToInProgressItem,
+      user.token
+    )
       .then(() => {
-        dispatch(updateHabit({ id: id, status: 'progress' }))
+        dispatch(
+          updateHabit(moveToInProgressItem)
+        )
       })
       .catch((err) => {
         console.error('failed to update status progress', err)
