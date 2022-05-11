@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { fireEvent, screen, render, act, getByTestId, getAllByLabelText, getAllByRole } from '@testing-library/react'
+import { fireEvent, screen, render, act } from '@testing-library/react'
 // import { useAuth0 } from '@auth0/auth0-react'
 import Badges from '../Badges'
 import '@testing-library/jest-dom'
