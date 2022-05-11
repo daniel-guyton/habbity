@@ -6,7 +6,6 @@ import { Spinner } from '@chakra-ui/react'
 import { addUser } from '../apis/apiClient'
 
 const Register = (props) => {
-  console.log(props)
   const user = useSelector((state) => state.user)
   const navigate = useNavigate()
 
@@ -19,7 +18,6 @@ const Register = (props) => {
   }, [props.isRegistered, user.token])
 
   function handleRegister() {
-    console.log('hello')
     props.onRegister(true)
     navigate('/', { replace: true })
   }

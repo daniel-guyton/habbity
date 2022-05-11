@@ -5,7 +5,7 @@ import { Flex, useColorModeValue } from '@chakra-ui/react'
 import HabitBox from './HabitBox'
 import IndividualHabit from './IndividualHabit'
 
-import { createState, updateGoal } from '../actions'
+import { createState, updateHabit } from '../actions'
 
 const Habits = () => {
   const dispatch = useDispatch()
@@ -13,7 +13,7 @@ const Habits = () => {
   const user = useSelector((state) => state.user) // signed in user info
   const primaryFontColor = useColorModeValue('#333', 'white') // Chakra css setting
   const goals = useSelector((state) => state.goals) // habits array from db
-  
+
   useEffect(() => {
     // dispatch user information when exist in state
     if (user.token !== '') {
@@ -31,7 +31,7 @@ const Habits = () => {
     const daysPast = (currentDate - lastUpdated) / (60 * 60 * 24 * 1000)
 
     if (daysPast > 2 && goal.status == 'progress') {
-      dispatch(updateGoal({ id: goal.id, status: 'failed' })) // dispatch the updated status back to db
+      dispatch(updateHabit({ id: goal.id, status: 'failed' })) // dispatch the updated status back to db
     }
   }
 
@@ -73,7 +73,15 @@ const Habits = () => {
       </HabitBox>
       <HabitBox name="To Continue" length={failedArray.length}>
         {failedArray.map(({ goal, timestamp, id }, idx) => {
-          return <IndividualHabit key={idx} timestamp={timestamp} goal={goal} status='failed' id={id} />
+          return (
+            <IndividualHabit
+              key={idx}
+              timestamp={timestamp}
+              goal={goal}
+              status="failed"
+              id={id}
+            />
+          )
         })}
       </HabitBox>
     </Flex>

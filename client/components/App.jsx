@@ -6,13 +6,14 @@ import SidebarWithHeader from './SidebarWithHeader'
 import Habits from './Habits'
 import Home from './Home'
 import Badges from './Badges'
+import Statspage from './Statspage'
 import Register from './Register'
 
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 import { useAuth0 } from '@auth0/auth0-react'
 import { cacheUser } from '../auth0-utils'
 import { fetchProfile } from '../actions'
-import {useSelector, useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 function App() {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
@@ -20,15 +21,20 @@ function App() {
 
   function register() {
     setIsRegistered(true)
-  }  useEffect(() => {
+  }
+  useEffect(() => {
     if (user.token && isRegistered) {
       dispatch(fetchProfile(user.token))
     }
   }, [user.token, isRegistered])
 
-
-  
   cacheUser(useAuth0, user)
+
+  useEffect(() => {
+    if (user.token) {
+      dispatch(fetchProfile(user.token))
+    }
+  }, [user.token])
 
   return (
     <ChakraProvider>
@@ -37,6 +43,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Habits />} />
             <Route path="/badges" element={<Badges />} />
+            <Route path="/stats" element={<Statspage />} />
+
             <Route
               path="/register"
               element={

@@ -14,7 +14,7 @@ router.get('/', authCheck, (req, res) => {
     .then((giphy) => {
       return res.json(giphy.body.data)
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send(err.message)
     })
 })
