@@ -141,7 +141,7 @@ const IndividualHabit = (props) => {
     setIsChecked(true)
     //if goal is completed change status property
     const currentDate = Math.floor(new Date().getTime() / 1000)
-    if (newDayCount > 1) {
+    if (newDayCount > 27) {
       changes.status = 'completed'
       toastHelper(toastSucceed)
     } else {
