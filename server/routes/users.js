@@ -14,6 +14,7 @@ router.get('/', authCheck, (req, res) => {
         ...user,
         badges: user.badges ?? [],
       }
+      console.log('userToSend', userToSend)
       return res.json(userToSend)
     })
     .catch((err) => {
