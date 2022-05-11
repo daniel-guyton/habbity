@@ -181,7 +181,7 @@ const Badges = () => {
         {newBadges.length !== 0 &&
           newBadges.map((badge, index) => {
             return (
-              <Box key={'new' + index} data-testid="badge" aria-label='reveal'>
+              <Box key={'new' + index} data-testid="badge">
                 <Box
                   maxW="sm"
                   borderWidth="1px"
