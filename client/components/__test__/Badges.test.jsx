@@ -48,7 +48,7 @@ fakeUserData.profile.mockReturnValue(fakeProfile)
 
 getBadge.mockReturnValue(fakeBadgeUrl)
 const userInfoPromise = new Promise((resolve) => {
-  act(() => resolve({ fakeUserInfo }))
+  act(() => resolve(fakeUserInfo))
 })
 getUserByAuth0Id.mockReturnValue(userInfoPromise)
 updateBadgeByUser.mockReturnValue('')
