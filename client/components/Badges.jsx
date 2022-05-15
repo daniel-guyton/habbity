@@ -46,7 +46,7 @@ const Badges = () => {
   }, [user, isConfirmed])
 
   useEffect(() => {
-    userInfo !== null && setBadges(userInfo['badges'].split(','))
+    userInfo !== null && setBadges(userInfo['badges']?.split(','))
   }, [userInfo, isConfirmed])
 
   useEffect(() => {

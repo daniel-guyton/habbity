@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.get('/', authCheck, async (req, res) => {
   const auth0Id = req.auth.sub
-  const userId = auth0Id.split('|')[1]
+  const userId = auth0Id?.split('|')[1]
   db.getHabits(userId)
     .then((habits) => {
       return res.json({ habits: habits })

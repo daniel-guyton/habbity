@@ -59,7 +59,7 @@ function getUser(auth0, db = connection) {
 
 function addUser(user, db = connection) {
   const { name, email, auth0Id } = user
-  const auth0 = auth0Id.split('|')[1]
+  const auth0 = auth0Id?.split('|')[1]
   return db('users')
     .select()
     .insert({
@@ -73,7 +73,7 @@ function addUser(user, db = connection) {
 
 function updateUserById(data, db = connection) {
   const { badges, auth0Id } = data
-  const auth0 = auth0Id.split('|')[1]
+  const auth0 = auth0Id?.split('|')[1]
   return db('users')
     .select()
     .where({

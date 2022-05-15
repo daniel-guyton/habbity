@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.get('/', authCheck, (req, res) => {
   const auth0Id = req.auth.sub
-  const auth0 = auth0Id.split('|')[1]
+  const auth0 = auth0Id?.split('|')[1]
   db.getUser(auth0)
     .then((user) => {
       const userToSend = {
@@ -23,7 +23,7 @@ router.get('/', authCheck, (req, res) => {
 })
 
 router.post('/', authCheck, async (req, res) => {
-  const auth0 = req.auth.sub.split('|')[1]
+  const auth0 = req.auth.sub?.split('|')[1]
 
   const userToSave = {
     ...req.body.user,
