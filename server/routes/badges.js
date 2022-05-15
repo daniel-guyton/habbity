@@ -4,6 +4,7 @@ const request = require('superagent')
 const { authCheck } = require('../authCheck')
 
 const apiKey = process.env.API_KEY
+
 const router = express.Router()
 
 router.get('/', authCheck, (req, res) => {
@@ -14,6 +15,7 @@ router.get('/', authCheck, (req, res) => {
     .then((giphy) => {
     
       return res.json(giphy.body.data)
+    
     })
     .catch((err) => {
       res.status(500).send(err.message)

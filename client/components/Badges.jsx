@@ -79,7 +79,7 @@ const Badges = () => {
     getBadge(user)
       .then((giphyUrl) => {
         setNewBadges(
-          newBadges.map((element, index) =>
+          newBadges?.map((element, index) =>
             index == newBadgesIndex ? giphyUrl.embed_url : element
           )
         )
