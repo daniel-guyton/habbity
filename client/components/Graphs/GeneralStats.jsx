@@ -15,7 +15,6 @@ export default function getStats() {
 
   const habits = useSelector((state) => state?.goals)
 
-  console.log(habits)
   let completedHabits = habits?.filter((habit) => habit.status == 'completed')
 
   let failedHabits = habits?.filter((habit) => habit.status == 'failed')
@@ -32,7 +31,7 @@ export default function getStats() {
 
   let highestCurrStreakObj
   let currentHabits = habits?.filter((habit) => habit.status == 'progress')
-  
+
   if (currentHabits.length > 0) {
     highestCurrStreakObj = currentHabits?.reduce(function (max, obj) {
       return obj.daysCompleted > max.daysCompleted ? obj : max

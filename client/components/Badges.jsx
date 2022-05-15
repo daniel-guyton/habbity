@@ -138,7 +138,7 @@ const Badges = () => {
     display: 'flex',
     flexDirection: 'row',
   }
-
+  
   return (
     <Box w="100%" p={4} color="teal.500">
       <Heading as="h3" size="lg">
@@ -164,7 +164,7 @@ const Badges = () => {
           badges.length !== 0 &&
           badges.map((badge, index) => {
             return (
-              <Box key={index}>
+              <Box key={index} data-testid="badge">
                 <Box
                   maxW="sm"
                   borderWidth="1px"
@@ -181,7 +181,7 @@ const Badges = () => {
         {newBadges.length !== 0 &&
           newBadges.map((badge, index) => {
             return (
-              <Box key={'new' + index}>
+              <Box key={'new' + index} data-testid="badge">
                 <Box
                   maxW="sm"
                   borderWidth="1px"
