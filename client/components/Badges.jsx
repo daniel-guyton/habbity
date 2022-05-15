@@ -66,6 +66,7 @@ const Badges = () => {
     const badgeToBeAwarded = Math.round(Math.floor(num / 56))
     const badgeAwarded = badges.length
     setNewBadgeToGet(badgeToBeAwarded - badgeAwarded)
+   
   }
 
   const revealBadge = (e) => {

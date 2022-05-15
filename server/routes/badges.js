@@ -12,6 +12,7 @@ router.get('/', authCheck, (req, res) => {
       `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=motivational&rating=g`
     )
     .then((giphy) => {
+    
       return res.json(giphy.body.data)
     })
     .catch((err) => {
