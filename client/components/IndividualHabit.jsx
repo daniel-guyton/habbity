@@ -93,14 +93,17 @@ const IndividualHabit = (props) => {
       // converted into a Date object for handling
       const current_date_object = new Date()
       // adds seconds to the previous completed date
-      const initial_unix_with_seconds = timestamp + 20
-      const initial_date_object = new Date(initial_unix_with_seconds * 1000)
-      // adds seconds to the updated completed date
-      const completed_unix_with_seconds = goalCompletedAt + 40
-      const completed_date_object = new Date(completed_unix_with_seconds * 1000)
+      const initial_unix_with_seconds = timestamp + 129600
 
+      const initial_date_object = new Date(initial_unix_with_seconds * 1000)
+   
+      // adds seconds to the updated completed date
+      const completed_unix_with_seconds = goalCompletedAt + 129600
+      const completed_date_object = new Date(completed_unix_with_seconds * 1000)
+      
       const isFirstDay = goalCompletedAt === 0
       const isNotFirstDay = goalCompletedAt !== 0
+      
       const initialTimeCheck =
         isFirstDay && initial_date_object < current_date_object
       const timeAfterCheck =
